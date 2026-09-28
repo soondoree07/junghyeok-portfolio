@@ -3,6 +3,9 @@ import { t } from '../helpers/t';
 import { href, type Route } from '../study/routes';
 import type { Lang, UIStrings } from '../types';
 
+/** 언어 전환(KO/EN)은 아직 쓰지 않아 숨겨 둔다. 다시 쓰려면 true 로 바꾼다 (2026-09-28 사용자 요청) */
+const SHOW_LANG_TOGGLE = false;
+
 interface Props {
   lang: Lang;
   setLang: (lang: Lang) => void;
@@ -43,7 +46,7 @@ export function Topbar({ lang, setLang, ui, scrolled, route }: Props) {
           <span className="tb-tick-dot" />
           {t(ui.booking, lang)}
         </span>
-        <LangToggle lang={lang} setLang={setLang} ui={ui} />
+        {SHOW_LANG_TOGGLE && <LangToggle lang={lang} setLang={setLang} ui={ui} />}
       </div>
     </header>
   );
