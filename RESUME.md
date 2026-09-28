@@ -16,10 +16,16 @@ editorial 에 **"게임 기획자 준비 & 툴 학습" 섹션** 추가 완료 (�
 - 마무리 문제 채점, 틀린 문제는 복습 페이지 "틀린 레슨 문제"로
 - **사용자가 1일차로 공부하며 검수 중** → 의견 받아 4~15일차 작성 → "다음 툴 진행"이면 파워포인트 레슨
 
+## 배포 (2026-09-28 완료)
+- GitHub 레포 보관 해제 → push. Vercel 프로젝트 `junghyeok-portfolio` (Root Directory `portfolio-editorial`, GitHub 연결 → push 하면 자동 배포)
+- 주소: https://junghyeok-portfolio.vercel.app (학습: `#/study/today`)
+- Upstash Redis 무료 요금제 `junghyeok-study` 연결, `STUDY_SESSION_SECRET` 등록
+- **`STUDY_PASSWORD` 는 사용자가 Vercel 대시보드에서 직접 등록** (값을 대화에 남기지 않기 위해) → 등록 후 재배포
+
 ## 다음 할 일
-1. Vercel 프로젝트 만들기 (Root Directory = `portfolio-editorial`) → Upstash Redis 연결 → `STUDY_PASSWORD`, `STUDY_SESSION_SECRET` 등록
-2. 배포 후 폰에서 `#/study/today` 로그인·체크·메모 저장 확인
-3. 로컬 개발 모드에서 쓴 기록이 있으면 JSON 내보내기 → 배포본에서 가져오기
+1. 비밀번호 등록·재배포 후 폰에서 로그인·체크·메모 저장 확인
+2. 배포 사이트에서 엑셀 1~3일차 레슨 검수 → 4~15일차 작성
+3. 개인 도메인(junghyeok.com) 연결 여부 결정
 4. (보류) neon 무드 C 단계
 
 ---
