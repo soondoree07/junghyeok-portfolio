@@ -60,6 +60,8 @@ export interface DayRecord {
   links: string[];
   completed: boolean;
   completedAt?: string;
+  /** 그날 레슨(공부 자료)을 끝까지 봤는지 */
+  lessonDone?: boolean;
 }
 
 export type ReviewResult = 'known' | 'unsure' | 'unknown';
@@ -70,7 +72,18 @@ export interface ReviewAnswer {
   answeredOn: string;
 }
 
+/** 레슨 마무리 문제 답. 키는 `${date}|${questionId}` */
+export interface QuizAnswer {
+  correct: boolean;
+  answeredOn: string;
+  /** 객관식이면 고른 보기 번호, 계산형이면 입력한 값 */
+  value?: number;
+  /** 체크리스트형이면 체크한 항목 번호 */
+  checked?: number[];
+}
+
 export interface StudyRecords {
   days: Record<string, DayRecord>;
   reviews: Record<string, ReviewAnswer>;
+  quiz: Record<string, QuizAnswer>;
 }

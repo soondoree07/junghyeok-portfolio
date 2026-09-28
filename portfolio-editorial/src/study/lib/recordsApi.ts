@@ -8,6 +8,7 @@ export class UnauthorizedError extends Error {}
 export interface RecordsPatch {
   days?: StudyRecords['days'];
   reviews?: StudyRecords['reviews'];
+  quiz?: StudyRecords['quiz'];
 }
 
 async function request(path: string, init?: RequestInit): Promise<unknown> {

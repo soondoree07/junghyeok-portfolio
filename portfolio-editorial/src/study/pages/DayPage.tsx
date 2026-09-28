@@ -10,6 +10,7 @@ import { BlockChecklist } from '../components/BlockChecklist';
 import { DayNotice } from '../components/DayNotice';
 import { DayRecordForm } from '../components/DayRecordForm';
 import { PageHeader } from '../components/PageHeader';
+import { LessonLink } from '../lessons/components/LessonLink';
 
 export function DayPage({ date }: { date?: string }) {
   const { records, today } = useStudy();
@@ -45,6 +46,7 @@ export function DayPage({ date }: { date?: string }) {
               {tool.name} {day.dayIndex}일차
             </a>
             예상 {day.estimatedHours}시간
+            <LessonLink day={day} />
           </>
         }
       />

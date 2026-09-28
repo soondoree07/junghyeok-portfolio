@@ -22,6 +22,7 @@ vercel dev       # api/ 까지 함께 띄울 때 (Vercel CLI, 환경변수 필�
 | `#/study/tool/:tool` | 툴별 상세 (`excel` `ppt` `word` `figma` `photoshop` `illustrator` `integration`) |
 | `#/study/today` | 오늘 공부 (서울 기준 오늘 날짜) |
 | `#/study/day/YYYY-MM-DD` | 특정 날짜 공부 |
+| `#/study/lesson/:tool/:day` | 날짜별 레슨(공부 자료): 개념·따라 하기·마무리 문제 |
 | `#/study/review` | 간격 반복 복습 (1·3·7일 전, 몰랐음은 다음 날 다시) |
 | `#/study/log` | 달력, 누적 시간, 툴별 통계, 이전 메모 |
 
@@ -38,6 +39,8 @@ src/
     components/  체크리스트, 기록 입력, 달력, 로그인 등
     pages/       페이지 6종
     StudyContext.tsx   기록 상태·저장·인증
+    lessons/     레슨 페이지·문제 채점·마크다운 표시, content/<툴>/day-NN.md + .quiz.json
+scripts/excel/   엑셀 실습 파일(.xlsx) 생성 스크립트 → public/lessons/excel/
 api/
   records.ts   GET 공개(메모·링크 제외) / PUT 로그인 후 날짜 단위 저장
   import.ts    POST 로그인 후 JSON 가져오기(전체 교체)
@@ -48,13 +51,28 @@ api/
 커리큘럼을 고칠 때는 `src/study/data/<툴>.ts` 만 수정한다. 화면 코드는 건드리지 않는다.
 데이터 파일은 순수 내용이라 200줄을 넘어도 툴 하나당 파일 하나로 둔다 (엑셀만 15일이라 두 개로 나눔).
 
+## 레슨(공부 자료) 고치기
+
+- 본문: `src/study/lessons/content/<툴>/day-NN.md`
+  - 맨 위 frontmatter: `status`(미검수 / 검수 완료), `version`(기준 버전), `startFile`, `answerFile`, `exampleImage`, `updated`
+  - `status: 미검수`면 페이지 상단에 미검수 표시가 떠요. 검수한 뒤 `검수 완료`로 바꿔요
+  - 인용 블록 첫 줄을 `**체크포인트**`, `**버전 차이 주의**`, `**팁**`으로 쓰면 강조 상자가 돼요
+  - `<!-- 문제 -->` 자리에 마무리 문제가 들어가요
+- 문제: 같은 이름의 `.quiz.json`
+  - `choice`(객관식), `numeric`(계산해서 입력, 자동 채점), `checklist`(완성 기준 자가 채점)
+  - 틀린 문제는 복습 페이지의 "틀린 레슨 문제"에 모이고, 맞힐 때까지 다시 나와요
+- 엑셀 실습 파일: `npm run lessons:excel`
+  - 날짜별 시작·정답 파일을 `public/lessons/excel/`에 다시 만들어요
+  - 문제의 계산형 정답이 스크립트 계산값과 다르면 실패해요 (데이터는 `scripts/excel/data.mjs`)
+  - 새 함수(IFS, XLOOKUP 등)는 수식 문자열에 `_xlfn.` 접두사를 붙여야 엑셀에서 `#NAME?`이 나지 않아요
+
 ## 저장과 권한
 
 - 누구나: 로드맵·계획·진행률·완료 여부·공부 시간·복습 결과를 읽을 수 있다
-- 로그인한 사람만: 체크, 시간, 메모, 산출물 링크, 완료, 복습 답, JSON 가져오기
+- 로그인한 사람만: 체크, 시간, 메모, 산출물 링크, 완료, 복습 답, 레슨 완료·문제 답, JSON 가져오기
 - 메모와 산출물 링크는 로그인한 사람에게만 내려간다 (서버에서 뺀다)
 - 로그인: 서버가 `STUDY_PASSWORD` 와 비교 → 30일짜리 HttpOnly 서명 쿠키. 15분 안에 10번 틀리면 15분 잠금 (IP 구분 없음)
-- 기록은 Redis 해시 두 개(`study:days`, `study:reviews`)에 날짜·질문 단위로 저장 → 폰과 PC에서 다른 날짜를 고쳐도 서로 덮어쓰지 않는다
+- 기록은 Redis 해시 세 개(`study:days`, `study:reviews`, `study:quiz`)에 날짜·질문 단위로 저장 → 폰과 PC에서 다른 날짜를 고쳐도 서로 덮어쓰지 않는다
 - 브라우저에도 사본을 두고, 서버에 닿지 못하면 마지막 사본을 읽기 전용으로 보여준다
 - 날짜 계산은 모두 Asia/Seoul. 휴식 기간(10-11~10-20)에 걸린 복습은 10-21로 미룬다
 

@@ -26,6 +26,7 @@ export function hasActivity(record: DayRecord | undefined): boolean {
     record.minutes > 0 ||
     record.memo.trim() !== '' ||
     record.links.length > 0 ||
+    !!record.lessonDone ||
     Object.values(record.checks).some(Boolean)
   );
 }

@@ -8,6 +8,7 @@ import { useStudy } from '../StudyContext';
 import type { ToolId } from '../types';
 import { DayContent } from '../components/DayContent';
 import { PageHeader } from '../components/PageHeader';
+import { LessonLink } from '../lessons/components/LessonLink';
 import { ProgressBar } from '../components/ProgressBar';
 
 export function ToolPage({ toolId }: { toolId: ToolId }) {
@@ -49,9 +50,12 @@ export function ToolPage({ toolId }: { toolId: ToolId }) {
               </summary>
               <div className="st-acc-body">
                 <DayContent day={day} />
-                <a className="st-btn ghost" href={href({ name: 'day', date: day.date })}>
-                  이날 체크리스트 열기 →
-                </a>
+                <div className="st-notice-actions">
+                  <LessonLink day={day} />
+                  <a className="st-btn ghost" href={href({ name: 'day', date: day.date })}>
+                    이날 체크리스트 열기 →
+                  </a>
+                </div>
               </div>
             </details>
           );

@@ -9,7 +9,7 @@ const LINKS: { route: Route; label: string }[] = [
 ];
 
 function isActive(link: Route, current: Route): boolean {
-  if (link.name === 'overview') return current.name === 'overview' || current.name === 'tool';
+  if (link.name === 'overview') return ['overview', 'tool', 'lesson'].includes(current.name);
   if (link.name === 'today') return current.name === 'today' || current.name === 'day';
   return link.name === current.name;
 }

@@ -8,6 +8,7 @@ import { OverviewPage } from './pages/OverviewPage';
 import { ReviewPage } from './pages/ReviewPage';
 import { RoadmapPage } from './pages/RoadmapPage';
 import { ToolPage } from './pages/ToolPage';
+import { LessonPage } from './lessons/LessonPage';
 import './study.css';
 import './study-widgets.css';
 
@@ -21,6 +22,8 @@ function StudyPage({ route }: { route: Route }) {
       return <DayPage date={route.date} />;
     case 'tool':
       return <ToolPage toolId={route.tool} />;
+    case 'lesson':
+      return <LessonPage key={`${route.tool}-${route.day}`} tool={route.tool} dayIndex={route.day} />;
     case 'review':
       return <ReviewPage />;
     case 'log':

@@ -6,7 +6,7 @@
 // - offline: 배포 환경인데 서버에 닿지 못했을 때. 마지막 사본을 읽기 전용으로 보여준다
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { DayRecord, ReviewResult, StudyRecords } from './types';
+import type { DayRecord, QuizAnswer, ReviewResult, StudyRecords } from './types';
 import * as api from './lib/recordsApi';
 import { emptyRecords, readCache, writeCache } from './lib/localCache';
 import { emptyDayRecord } from './lib/progress';
@@ -23,6 +23,8 @@ interface StudyStore {
   today: string;
   updateDay: (date: string, change: (record: DayRecord) => DayRecord) => void;
   answerReview: (keys: string[], result: ReviewResult) => void;
+  /** 레슨 문제 답 저장. key 는 `${date}|${questionId}` */
+  answerQuiz: (key: string, answer: Omit<QuizAnswer, 'answeredOn'>) => void;
   importRecords: (records: StudyRecords) => Promise<boolean>;
   login: (password: string) => Promise<boolean>;
   logout: () => Promise<void>;
@@ -87,6 +89,17 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
     [applyRecords, canEdit, enqueue, mode, today],
   );
 
+  const answerQuiz = useCallback(
+    (key: string, answer: Omit<QuizAnswer, 'answeredOn'>) => {
+      if (!canEdit) return;
+      const entry: QuizAnswer = { ...answer, answeredOn: today };
+      const current = recordsRef.current;
+      applyRecords({ ...current, quiz: { ...current.quiz, [key]: entry } });
+      if (mode === 'server') enqueue({ quiz: { [key]: entry } });
+    },
+    [applyRecords, canEdit, enqueue, mode, today],
+  );
+
   const importRecords = useCallback(
     async (next: StudyRecords) => {
       if (!canEdit) return false;
@@ -123,8 +136,10 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
   }, [load]);
 
   const store = useMemo<StudyStore>(
-    () => ({ records, mode, authed, canEdit, today, updateDay, answerReview, importRecords, login, logout, notify }),
-    [records, mode, authed, canEdit, today, updateDay, answerReview, importRecords, login, logout, notify],
+    () => ({
+      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, login, logout, notify,
+    }),
+    [records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, login, logout, notify],
   );
 
   return <StudyContext.Provider value={store}>{children}</StudyContext.Provider>;

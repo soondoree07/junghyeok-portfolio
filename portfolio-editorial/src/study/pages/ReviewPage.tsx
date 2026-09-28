@@ -5,6 +5,7 @@ import { formatShort } from '../lib/seoulDate';
 import { useStudy } from '../StudyContext';
 import { PageHeader } from '../components/PageHeader';
 import { ReviewGroup } from '../components/ReviewGroup';
+import { WrongQuizList } from '../lessons/components/WrongQuizList';
 
 export function ReviewPage() {
   const { records, today, canEdit } = useStudy();
@@ -50,6 +51,9 @@ export function ReviewPage() {
           <ReviewGroup key={group.day.date} day={group.day} items={group.items} />
         ))
       )}
+
+      <h2 className="st-section-title">틀린 레슨 문제</h2>
+      <WrongQuizList />
 
       <h2 className="st-section-title">밀린 복습</h2>
       {queues.overdue.length === 0 ? (
