@@ -23,3 +23,10 @@ export async function readJson(request: Request): Promise<unknown | null> {
     return null;
   }
 }
+
+/** 다른 주소로 보낸다. 쿠키가 여러 개면 Set-Cookie 를 여러 줄로 붙인다 */
+export function redirect(location: string, cookies: string[] = []): Response {
+  const headers = new Headers({ Location: location, 'Cache-Control': 'no-store' });
+  cookies.forEach((cookie) => headers.append('Set-Cookie', cookie));
+  return new Response(null, { status: 302, headers });
+}

@@ -1,8 +1,8 @@
 // 저장 상태·로그인·JSON 내보내기/가져오기. 학습 섹션 모든 페이지 아래에 붙는다.
-import { useRef, useState, type ChangeEvent } from 'react';
+import { useRef, type ChangeEvent } from 'react';
 import { useStudy } from '../StudyContext';
 import { downloadRecords, readRecordsFile } from '../lib/exportImport';
-import { LoginDialog } from './LoginDialog';
+import { googleLoginUrl } from '../lib/recordsApi';
 
 const MODE_TEXT = {
   loading: '기록을 불러오는 중..',
@@ -13,7 +13,6 @@ const MODE_TEXT = {
 
 export function AccessBar() {
   const { mode, authed, canEdit, records, importRecords, logout, notify } = useStudy();
-  const [loginOpen, setLoginOpen] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const onImport = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,12 +57,11 @@ export function AccessBar() {
               로그아웃
             </button>
           ) : (
-            <button type="button" className="st-link" onClick={() => setLoginOpen(true)}>
-              로그인
-            </button>
+            <a className="st-link" href={googleLoginUrl(window.location.hash || '#/study/today')}>
+              구글로 로그인
+            </a>
           ))}
       </div>
-      <LoginDialog open={loginOpen} onClose={() => setLoginOpen(false)} />
     </div>
   );
 }

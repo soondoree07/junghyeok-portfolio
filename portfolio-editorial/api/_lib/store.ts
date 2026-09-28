@@ -8,9 +8,6 @@ import type { DayRecord, QuizAnswer, ReviewAnswer, StudyRecords } from '../../sr
 const DAYS_KEY = 'study:days';
 const REVIEWS_KEY = 'study:reviews';
 const QUIZ_KEY = 'study:quiz';
-const LOGIN_FAIL_KEY = 'study:login-fail';
-const LOGIN_FAIL_LIMIT = 10;
-const LOGIN_LOCK_SECONDS = 15 * 60;
 
 let client: Redis | null = null;
 
@@ -55,18 +52,4 @@ export function toPublicRecords(records: StudyRecords): StudyRecords {
     Object.entries(records.days).map(([date, record]) => [date, { ...record, memo: '', links: [] }]),
   );
   return { days, reviews: records.reviews, quiz: records.quiz };
-}
-
-export async function isLoginLocked(): Promise<boolean> {
-  const failures = await redis().get<number>(LOGIN_FAIL_KEY);
-  return (failures ?? 0) >= LOGIN_FAIL_LIMIT;
-}
-
-export async function recordLoginFailure(): Promise<void> {
-  const failures = await redis().incr(LOGIN_FAIL_KEY);
-  if (failures === 1) await redis().expire(LOGIN_FAIL_KEY, LOGIN_LOCK_SECONDS);
-}
-
-export async function clearLoginFailures(): Promise<void> {
-  await redis().del(LOGIN_FAIL_KEY);
 }

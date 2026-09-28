@@ -26,7 +26,6 @@ interface StudyStore {
   /** 레슨 문제 답 저장. key 는 `${date}|${questionId}` */
   answerQuiz: (key: string, answer: Omit<QuizAnswer, 'answeredOn'>) => void;
   importRecords: (records: StudyRecords) => Promise<boolean>;
-  login: (password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   notify: (message: string) => void;
 }
@@ -34,6 +33,23 @@ interface StudyStore {
 const StudyContext = createContext<StudyStore | null>(null);
 
 const SAVE_FAILED = '저장하지 못했어요. 인터넷 연결을 확인하면 다음 입력 때 다시 저장할게요.';
+
+/** 구글 로그인에서 돌아왔을 때 주소의 ?login= 결과를 안내 문구로 바꾼다 */
+const LOGIN_RESULT: Record<string, string> = {
+  editor: '로그인했어요. 이제 기록을 고칠 수 있어요.',
+  viewer: '보기 전용 계정이에요. 기록은 주인 계정만 고칠 수 있어요.',
+  error: '로그인하지 못했어요. 잠시 후 다시 시도해 주세요.',
+};
+
+function takeLoginResult(): string | undefined {
+  const params = new URLSearchParams(window.location.search);
+  const result = params.get('login');
+  if (!result) return undefined;
+  params.delete('login');
+  const search = params.toString();
+  window.history.replaceState(null, '', `${window.location.pathname}${search ? `?${search}` : ''}${window.location.hash}`);
+  return LOGIN_RESULT[result];
+}
 
 export function StudyProvider({ notify, children }: { notify: (message: string) => void; children: ReactNode }) {
   const today = useToday();
@@ -63,7 +79,9 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
 
   useEffect(() => {
     void load();
-  }, [load]);
+    const loginMessage = takeLoginResult();
+    if (loginMessage) notify(loginMessage);
+  }, [load, notify]);
 
   const canEdit = mode === 'local' || (mode === 'server' && authed);
 
@@ -114,19 +132,6 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
     [applyRecords, canEdit, mode],
   );
 
-  const login = useCallback(
-    async (password: string) => {
-      try {
-        await api.login(password);
-        await load();
-        return true;
-      } catch {
-        return false;
-      }
-    },
-    [load],
-  );
-
   const logout = useCallback(async () => {
     try {
       await api.logout();
@@ -137,9 +142,9 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
 
   const store = useMemo<StudyStore>(
     () => ({
-      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, login, logout, notify,
+      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, logout, notify,
     }),
-    [records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, login, logout, notify],
+    [records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, logout, notify],
   );
 
   return <StudyContext.Provider value={store}>{children}</StudyContext.Provider>;

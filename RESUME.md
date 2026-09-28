@@ -20,10 +20,11 @@ editorial 에 **"게임 기획자 준비 & 툴 학습" 섹션** 추가 완료 (�
 - GitHub 레포 보관 해제 → push. Vercel 프로젝트 `junghyeok-portfolio` (Root Directory `portfolio-editorial`, GitHub 연결 → push 하면 자동 배포)
 - 주소: https://junghyeok-portfolio.vercel.app (학습: `#/study/today`)
 - Upstash Redis 무료 요금제 `junghyeok-study` 연결, `STUDY_SESSION_SECRET` 등록
-- **`STUDY_PASSWORD` 는 사용자가 Vercel 대시보드에서 직접 등록** (값을 대화에 남기지 않기 위해) → 등록 후 재배포
+- 로그인은 **구글 계정**으로 변경 (비밀번호 방식 삭제). `STUDY_ALLOWED_EMAIL`=본인 계정만 편집, 다른 계정·방문자는 보기 전용
+- **사용자가 Google Cloud Console 에서 OAuth 클라이언트 만들고 `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` 등록 대기** → 등록되면 재배포
 
 ## 다음 할 일
-1. 비밀번호 등록·재배포 후 폰에서 로그인·체크·메모 저장 확인
+1. 구글 OAuth 등록·재배포 후 폰에서 구글 로그인·체크·메모 저장 확인
 2. 배포 사이트에서 엑셀 1~3일차 레슨 검수 → 4~15일차 작성
 3. 개인 도메인(junghyeok.com) 연결 여부 결정
 4. (보류) neon 무드 C 단계

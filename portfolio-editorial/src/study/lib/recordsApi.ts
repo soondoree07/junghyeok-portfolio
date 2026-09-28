@@ -45,8 +45,9 @@ export async function replaceRecords(records: StudyRecords): Promise<void> {
   await request('/api/import', { method: 'POST', body: JSON.stringify(records) });
 }
 
-export async function login(password: string): Promise<void> {
-  await request('/api/login', { method: 'POST', body: JSON.stringify({ password }) });
+/** 구글 로그인 시작 주소. 로그인 뒤 지금 보던 화면(해시)으로 돌아온다 */
+export function googleLoginUrl(returnTo: string): string {
+  return `/api/auth/google?return=${encodeURIComponent(returnTo)}`;
 }
 
 export async function logout(): Promise<void> {

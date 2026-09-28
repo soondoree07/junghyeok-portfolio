@@ -1,13 +1,14 @@
-// 비밀번호 확인과 세션 쿠키. 쿠키 값은 `만료시각.서명` 이고 서명은 STUDY_SESSION_SECRET 으로 만든다.
-// 필요한 환경변수: STUDY_PASSWORD, STUDY_SESSION_SECRET (32자 이상 임의 문자열)
+// 세션 쿠키. 구글 로그인(google.ts)으로 허용 계정이 확인되면 발급한다.
+// 쿠키 값은 `만료시각.서명` 이고 서명은 STUDY_SESSION_SECRET 으로 만든다.
+// 필요한 환경변수: STUDY_SESSION_SECRET (32자 이상 임의 문자열)
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
 const COOKIE_NAME = 'study_session';
 const SESSION_SECONDS = 60 * 60 * 24 * 30;
 
-function requireEnv(name: 'STUDY_PASSWORD' | 'STUDY_SESSION_SECRET'): string {
-  const value = process.env[name];
-  if (!value) throw new Error(`환경변수 ${name} 가 없습니다`);
+function sessionSecret(): string {
+  const value = process.env.STUDY_SESSION_SECRET;
+  if (!value) throw new Error('환경변수 STUDY_SESSION_SECRET 가 없습니다');
   return value;
 }
 
@@ -19,11 +20,7 @@ function sameText(a: string, b: string): boolean {
 }
 
 function sign(expiresAt: number): string {
-  return createHmac('sha256', requireEnv('STUDY_SESSION_SECRET')).update(String(expiresAt)).digest('base64url');
-}
-
-export function passwordMatches(input: string): boolean {
-  return sameText(input, requireEnv('STUDY_PASSWORD'));
+  return createHmac('sha256', sessionSecret()).update(String(expiresAt)).digest('base64url');
 }
 
 function cookieAttributes(maxAge: number): string {
