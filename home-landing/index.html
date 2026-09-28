@@ -1,0 +1,150 @@
+<!doctype html>
+<!-- junghyeok.com 임시 첫 페이지. 완전한 포트폴리오를 만들기 전까지 이름·소개·공부 기록 링크만 둔다.
+     디자인은 공부 사이트(study.junghyeok.com)의 글래스 테마와 맞췄다. -->
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>박정혁 · Park Junghyeok</title>
+    <meta name="description" content="게임 기획자를 준비하는 박정혁의 페이지예요. 매일의 공부 기록을 볼 수 있어요." />
+    <meta property="og:title" content="박정혁 · Park Junghyeok" />
+    <meta property="og:description" content="게임 기획자를 준비하며 매일 공부하고 있어요." />
+    <meta property="og:url" content="https://junghyeok.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #1e1b4b;
+        --ink-soft: #45406e;
+        --violet: #7c3aed;
+        --violet-text: #5b21b6;
+        --glass: rgba(255, 255, 255, 0.62);
+        --glass-line: rgba(255, 255, 255, 0.75);
+        --latin: 'Space Grotesk', 'Noto Sans KR', sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; }
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px 16px;
+        color: var(--ink);
+        font-family: 'Noto Sans KR', sans-serif;
+        word-break: keep-all;
+        background-color: #e9e4ff;
+        background-image:
+          radial-gradient(at 12% 18%, #c4b5fd 0, transparent 52%),
+          radial-gradient(at 88% 12%, #93c5fd 0, transparent 50%),
+          radial-gradient(at 78% 88%, #99f6e4 0, transparent 52%),
+          radial-gradient(at 18% 92%, #ddd6fe 0, transparent 50%);
+        background-attachment: fixed;
+      }
+      .card {
+        width: min(560px, 100%);
+        padding: 44px 40px 36px;
+        border-radius: 24px;
+        background: var(--glass);
+        border: 1px solid var(--glass-line);
+        -webkit-backdrop-filter: blur(16px) saturate(1.4);
+        backdrop-filter: blur(16px) saturate(1.4);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 24px 48px -20px rgba(76, 29, 149, 0.35),
+          0 4px 12px rgba(30, 27, 75, 0.08);
+        animation: rise 300ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+      }
+      @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+        .card { background: rgba(255, 255, 255, 0.94); }
+      }
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(8px); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .card { animation: none; }
+      }
+      .eyebrow {
+        margin: 0 0 14px;
+        font-family: var(--latin);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--violet-text);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(40px, 9vw, 56px);
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+      }
+      .latin {
+        margin: 6px 0 22px;
+        font-family: var(--latin);
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--ink-soft);
+      }
+      .intro { margin: 0 0 8px; font-size: 17px; line-height: 1.7; }
+      .note { margin: 0 0 28px; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+      .primary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 52px;
+        padding: 0 24px;
+        border-radius: 999px;
+        background: var(--violet);
+        color: #fff;
+        font-weight: 700;
+        font-size: 16px;
+        text-decoration: none;
+        box-shadow: 0 10px 24px -10px rgba(124, 58, 237, 0.7);
+        transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 160ms ease-out;
+      }
+      .primary:hover { background: #6d28d9; transform: translateY(-1px); }
+      .primary:active { transform: scale(0.98); }
+      .primary:focus-visible, .links a:focus-visible { outline: 3px solid #1e1b4b; outline-offset: 3px; }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 20px;
+        margin: 22px 0 0;
+        padding: 0;
+        list-style: none;
+        font-family: var(--latin);
+        font-size: 14px;
+      }
+      .links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        color: var(--ink-soft);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      .links a:hover { color: var(--violet-text); }
+      @media (max-width: 480px) {
+        .card { padding: 36px 24px 28px; border-radius: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <p class="eyebrow">GAME DESIGNER IN PROGRESS</p>
+      <h1>박정혁</h1>
+      <p class="latin">Park Junghyeok</p>
+      <p class="intro">게임 기획자를 준비하며 매일 공부하고 있어요.</p>
+      <p class="note">포트폴리오는 준비 중이에요. 그동안의 공부 기록을 먼저 볼 수 있어요.</p>
+      <a class="primary" href="https://study.junghyeok.com">공부 기록 보기 →</a>
+      <ul class="links">
+        <li><a href="https://github.com/soondoree07" target="_blank" rel="noreferrer">github.com/soondoree07</a></li>
+        <li><a href="mailto:soondoree07@gmail.com">soondoree07@gmail.com</a></li>
+      </ul>
+    </main>
+  </body>
+</html>
