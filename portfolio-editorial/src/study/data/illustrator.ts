@@ -1,9 +1,9 @@
-// 일러스트레이터 7일 커리큘럼 데이터 (2026-11-19 ~ 11-25, 메이플스토리 소재 실습)
+// 일러스트레이터 7일 커리큘럼 데이터 (2026-11-20 ~ 11-26, 메이플스토리 소재 실습)
 import type { StudyDay } from '../types';
 
 export const ILLUSTRATOR_DAYS: StudyDay[] = [
   {
-    date: '2026-11-19',
+    date: '2026-11-20',
     tool: 'illustrator',
     dayIndex: 1,
     title: '인터페이스, 도형, 패스파인더로 아이콘 3종 만들기',
@@ -43,7 +43,7 @@ export const ILLUSTRATOR_DAYS: StudyDay[] = [
     keywords: ['일러스트레이터', '아트보드', '패스파인더', '셰이프 빌더', '라이브 코너', '아이콘'],
   },
   {
-    date: '2026-11-20',
+    date: '2026-11-21',
     tool: 'illustrator',
     dayIndex: 2,
     title: '펜 툴과 베지어 곡선으로 캐릭터 실루엣, 리본 배너 그리기',
@@ -82,7 +82,7 @@ export const ILLUSTRATOR_DAYS: StudyDay[] = [
     keywords: ['펜 툴', '베지어', '기준점', '방향선', '곡률 도구', '반사 도구', '실루엣', '리본 배너'],
   },
   {
-    date: '2026-11-21',
+    date: '2026-11-22',
     tool: 'illustrator',
     dayIndex: 3,
     title: '문자 도구, 윤곽선 만들기, 레터링으로 이벤트 타이틀 만들기',
@@ -121,7 +121,7 @@ export const ILLUSTRATOR_DAYS: StudyDay[] = [
     keywords: ['문자 도구', '윤곽선 만들기', '레터링', '자간', '모양 패널', '오프셋 패스', '타이틀'],
   },
   {
-    date: '2026-11-22',
+    date: '2026-11-23',
     tool: 'illustrator',
     dayIndex: 4,
     title: '심볼, 반복, 패턴으로 창 테두리 문양 만들기',
@@ -159,7 +159,7 @@ export const ILLUSTRATOR_DAYS: StudyDay[] = [
     keywords: ['심볼', '반복', '방사형', '패턴 옵션', '패턴 브러시', '문양', '테두리'],
   },
   {
-    date: '2026-11-23',
+    date: '2026-11-24',
     tool: 'illustrator',
     dayIndex: 5,
     title: '24px/48px 그리드 기반 UI 아이콘 세트 만들기',
@@ -197,7 +197,7 @@ export const ILLUSTRATOR_DAYS: StudyDay[] = [
     keywords: ['아이콘 세트', '픽셀 그리드', '키라인', '24px', '48px', 'SVG', 'UI 아이콘'],
   },
   {
-    date: '2026-11-24',
+    date: '2026-11-25',
     tool: 'illustrator',
     dayIndex: 6,
     title: '타이틀 로고 제작 미니 프로젝트',
@@ -235,7 +235,7 @@ export const ILLUSTRATOR_DAYS: StudyDay[] = [
     keywords: ['타이틀 로고', '워드마크', '썸네일 스케치', '실루엣 테스트', '반전 버전', '미니 프로젝트'],
   },
   {
-    date: '2026-11-25',
+    date: '2026-11-26',
     tool: 'illustrator',
     dayIndex: 7,
     title: '포토샵으로 가져가 질감 합성하고 내보내기',

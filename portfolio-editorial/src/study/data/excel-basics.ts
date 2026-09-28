@@ -1,9 +1,9 @@
-// 엑셀 1주차(09-28~10-04) 기초 커리큘럼 데이터: 인터페이스부터 조건부 서식까지.
+// 엑셀 1주차(09-29~10-05) 기초 커리큘럼 데이터: 인터페이스부터 조건부 서식까지.
 import type { StudyDay } from '../types';
 
 export const EXCEL_BASICS: StudyDay[] = [
   {
-    date: '2026-09-28',
+    date: '2026-09-29',
     tool: 'excel',
     dayIndex: 1,
     title: '인터페이스, 필수 단축키, 셀 서식, 표 정리 기본',
@@ -42,7 +42,7 @@ export const EXCEL_BASICS: StudyDay[] = [
     keywords: ['단축키', '셀 서식', '사용자 지정 서식', 'Ctrl+1', '채우기 핸들', '표 정리'],
   },
   {
-    date: '2026-09-29',
+    date: '2026-09-30',
     tool: 'excel',
     dayIndex: 2,
     title: '정렬·필터, 표(Ctrl+T), 틀 고정, 기초 연산',
@@ -81,7 +81,7 @@ export const EXCEL_BASICS: StudyDay[] = [
     keywords: ['정렬', '필터', 'Ctrl+T', '구조적 참조', '틀 고정', '요약 행', 'SUM'],
   },
   {
-    date: '2026-09-30',
+    date: '2026-10-01',
     tool: 'excel',
     dayIndex: 3,
     title: 'IF/IFS/AND/OR, 상대·절대·혼합 참조',
@@ -120,7 +120,7 @@ export const EXCEL_BASICS: StudyDay[] = [
     keywords: ['IF', 'IFS', 'AND', 'OR', '절대참조', '혼합참조', 'F4'],
   },
   {
-    date: '2026-10-01',
+    date: '2026-10-02',
     tool: 'excel',
     dayIndex: 4,
     title: 'COUNTIF(S)/SUMIF(S)/AVERAGEIF(S)',
@@ -159,7 +159,7 @@ export const EXCEL_BASICS: StudyDay[] = [
     keywords: ['COUNTIF', 'COUNTIFS', 'SUMIFS', 'AVERAGEIFS', '와일드카드', '집계표'],
   },
   {
-    date: '2026-10-02',
+    date: '2026-10-03',
     tool: 'excel',
     dayIndex: 5,
     title: 'VLOOKUP, XLOOKUP, INDEX/MATCH',
@@ -198,7 +198,7 @@ export const EXCEL_BASICS: StudyDay[] = [
     keywords: ['VLOOKUP', 'XLOOKUP', 'INDEX', 'MATCH', '근사 일치', 'IFERROR', '#N/A'],
   },
   {
-    date: '2026-10-03',
+    date: '2026-10-04',
     tool: 'excel',
     dayIndex: 6,
     title: '텍스트·날짜 함수, ROUND/ROUNDUP/ROUNDDOWN',
@@ -237,7 +237,7 @@ export const EXCEL_BASICS: StudyDay[] = [
     keywords: ['TEXT', 'TEXTJOIN', 'LEFT', 'WEEKDAY', 'DATE', 'ROUNDUP', 'ROUNDDOWN'],
   },
   {
-    date: '2026-10-04',
+    date: '2026-10-05',
     tool: 'excel',
     dayIndex: 7,
     title: '데이터 유효성 검사(드롭다운), 조건부 서식',

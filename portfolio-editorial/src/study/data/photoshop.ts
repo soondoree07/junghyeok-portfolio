@@ -1,9 +1,9 @@
-// 포토샵 8일 커리큘럼 데이터 (2026-11-11 ~ 11-18)
+// 포토샵 8일 커리큘럼 데이터 (2026-11-12 ~ 11-19)
 import type { StudyDay } from '../types';
 
 export const PHOTOSHOP_DAYS: StudyDay[] = [
   {
-    date: '2026-11-11',
+    date: '2026-11-12',
     tool: 'photoshop',
     dayIndex: 1,
     title: '인터페이스, 레이어, 선택 도구',
@@ -31,7 +31,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     ],
     deliverable: 'ps_day01.psd에 이름이 정리된 레이어 그룹 window_event(창 바탕, 제목 바, 닫기, 슬롯 4칸)를 만든다.',
     reviewQuestions: [
-      '레이어 이름을 정리하지 않으면 11-16 내보내기 단계에서 어떤 문제가 생기는가?',
+      '레이어 이름을 정리하지 않으면 11-17 내보내기 단계에서 어떤 문제가 생기는가?',
       '선택 영역을 더하고 빼는 단축키는 무엇인가?',
       '비트맵 레이어를 여러 번 축소 확대하면 왜 흐려지는가?',
       '72ppi와 300ppi는 게임 UI 작업에서 어떤 차이가 있는가?',
@@ -40,7 +40,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     keywords: ['포토샵 기초', '레이어', '선택 도구', '레이어 그룹', '자유 변형', '안내선'],
   },
   {
-    date: '2026-11-12',
+    date: '2026-11-13',
     tool: 'photoshop',
     dayIndex: 2,
     title: '레이어 마스크, 조정 레이어',
@@ -76,7 +76,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     keywords: ['레이어 마스크', '클리핑 마스크', '조정 레이어', '비파괴 편집', '색조 채도', '곡선'],
   },
   {
-    date: '2026-11-13',
+    date: '2026-11-14',
     tool: 'photoshop',
     dayIndex: 3,
     title: '레이어 스타일로 게임 버튼 제작',
@@ -94,7 +94,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
       '스타일 복사(레이어 우클릭)와 스타일 패널 저장',
     ],
     practice: [
-      '새 문서 400x200, 투명 배경을 "btn_receive.psd"로 저장한다. 이 파일은 11-16, 11-18에서 계속 쓴다',
+      '새 문서 400x200, 투명 배경을 "btn_receive.psd"로 저장한다. 이 파일은 11-17, 11-18에서 계속 쓴다',
       '사각형 도구(U) 셰이프 모드로 120x36, 모서리 반경 6px 셰이프 "btn_shape"를 만든다',
       '획 안쪽 2px #6B3E0A, 그라데이션 오버레이 #FFD36B → #F29B1D(90도), 내부 그림자(거리 0, 크기 2) 레이어 스타일을 적용한다',
       '드롭 섀도(거리 2, 크기 2, 불투명도 50%)를 더하고 확대 200%에서 가장자리가 뭉개지지 않는지 확인한다',
@@ -113,7 +113,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     keywords: ['레이어 스타일', '게임 버튼', '획', '그라데이션 오버레이', '드롭 섀도', '셰이프 레이어'],
   },
   {
-    date: '2026-11-14',
+    date: '2026-11-15',
     tool: 'photoshop',
     dayIndex: 4,
     title: '픽셀 단위 작업과 도트 아이콘',
@@ -150,7 +150,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     keywords: ['도트', '픽셀 아트', '연필 도구', '픽셀 격자', '앤티앨리어싱', '최단입접', '32x32 아이콘'],
   },
   {
-    date: '2026-11-15',
+    date: '2026-11-16',
     tool: 'photoshop',
     dayIndex: 5,
     title: '텍스트 효과와 게임 타이틀 연출',
@@ -187,7 +187,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     keywords: ['텍스트 효과', '게임 타이틀', '다중 획', '텍스트 뒤틀기', '글꼴 라이선스', '앤티앨리어싱'],
   },
   {
-    date: '2026-11-16',
+    date: '2026-11-17',
     tool: 'photoshop',
     dayIndex: 6,
     title: '스마트 오브젝트, 아트보드, 슬라이스와 상태별 버튼 내보내기',
@@ -224,7 +224,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     keywords: ['스마트 오브젝트', '아트보드', '슬라이스', 'PNG 내보내기', '상태별 버튼', '파일명 규칙', '@2x'],
   },
   {
-    date: '2026-11-17',
+    date: '2026-11-18',
     tool: 'photoshop',
     dayIndex: 7,
     title: '9-슬라이스 창 프레임 제작',
@@ -261,7 +261,7 @@ export const PHOTOSHOP_DAYS: StudyDay[] = [
     keywords: ['9-슬라이스', '창 프레임', '경계값', 'UI 에셋', '늘림', '에셋 전달'],
   },
   {
-    date: '2026-11-18',
+    date: '2026-11-19',
     tool: 'photoshop',
     dayIndex: 8,
     title: '미니 과제: 이벤트 배너와 상태별 버튼 세트',

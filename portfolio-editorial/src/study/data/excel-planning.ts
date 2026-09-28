@@ -1,9 +1,9 @@
-// 엑셀 2주차 이후(10-05~10-22) 기획 실무 커리큘럼 데이터: 테이블 설계부터 미니 과제까지.
+// 엑셀 2주차 이후(10-06~10-23) 기획 실무 커리큘럼 데이터: 테이블 설계부터 미니 과제까지.
 import type { StudyDay } from '../types';
 
 export const EXCEL_PLANNING: StudyDay[] = [
   {
-    date: '2026-10-05',
+    date: '2026-10-06',
     tool: 'excel',
     dayIndex: 8,
     title: '이름 정의, 시트 간 참조, 기획 데이터 테이블 설계(ID/키 구조)',
@@ -43,7 +43,7 @@ export const EXCEL_PLANNING: StudyDay[] = [
     keywords: ['이름 정의', '이름 관리자', '시트 간 참조', '기본 키', '외래 키', '참조 무결성'],
   },
   {
-    date: '2026-10-06',
+    date: '2026-10-07',
     tool: 'excel',
     dayIndex: 9,
     title: '피벗 테이블',
@@ -82,7 +82,7 @@ export const EXCEL_PLANNING: StudyDay[] = [
     keywords: ['피벗 테이블', '슬라이서', '값 표시 형식', '날짜 그룹화', '새로 고침', 'GETPIVOTDATA'],
   },
   {
-    date: '2026-10-07',
+    date: '2026-10-08',
     tool: 'excel',
     dayIndex: 10,
     title: '차트(막대/선/분산), 성장 곡선 시각화',
@@ -121,7 +121,7 @@ export const EXCEL_PLANNING: StudyDay[] = [
     keywords: ['막대 차트', '선 차트', '분산형', '콤보 차트', '로그 축', '추세선', '성장 곡선'],
   },
   {
-    date: '2026-10-08',
+    date: '2026-10-09',
     tool: 'excel',
     dayIndex: 11,
     title: '확률·기대값, 누적확률 1-(1-p)^n, 천장 시스템 계산',
@@ -162,7 +162,7 @@ export const EXCEL_PLANNING: StudyDay[] = [
     keywords: ['기대값', 'SUMPRODUCT', '누적확률', '기하분포', '천장', 'LN', '확률표'],
   },
   {
-    date: '2026-10-09',
+    date: '2026-10-10',
     tool: 'excel',
     dayIndex: 12,
     title: 'RAND/RANDBETWEEN으로 1만 회 시뮬레이션, 분포 확인',
@@ -202,7 +202,7 @@ export const EXCEL_PLANNING: StudyDay[] = [
     keywords: ['RAND', 'RANDBETWEEN', '몬테카를로', '가중치 뽑기', 'FREQUENCY', 'PERCENTILE.INC', '히스토그램'],
   },
   {
-    date: '2026-10-10',
+    date: '2026-10-21',
     tool: 'excel',
     dayIndex: 13,
     title: '레벨별 경험치·보상 테이블을 수식 기반 곡선으로 설계',
@@ -241,7 +241,7 @@ export const EXCEL_PLANNING: StudyDay[] = [
     keywords: ['경험치 테이블', '성장 곡선', '파라미터', '구간 배율', '누적 경험치', 'MOD', '밸런싱'],
   },
   {
-    date: '2026-10-21',
+    date: '2026-10-22',
     tool: 'excel',
     dayIndex: 14,
     title: '전체 복습 + 스타포스 기대 비용 재현',
@@ -280,7 +280,7 @@ export const EXCEL_PLANNING: StudyDay[] = [
     keywords: ['복습', '스타포스', '기대 비용', '파괴 확률', '누적 기대값', '시뮬레이션 검증'],
   },
   {
-    date: '2026-10-22',
+    date: '2026-10-23',
     tool: 'excel',
     dayIndex: 15,
     title: '미니 과제: 이벤트 보상 테이블 + 확률표 완성 및 문서화',

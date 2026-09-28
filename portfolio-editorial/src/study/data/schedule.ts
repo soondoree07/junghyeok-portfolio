@@ -1,7 +1,7 @@
 // 학습 기간·휴식 기간·하루 구성. 날짜는 모두 Asia/Seoul 기준 YYYY-MM-DD.
 import type { BlockId } from '../types';
 
-export const STUDY_PERIOD = { start: '2026-09-28', end: '2026-11-30' } as const;
+export const STUDY_PERIOD = { start: '2026-09-29', end: '2026-12-01' } as const;
 
 export const REST_PERIOD = { start: '2026-10-11', end: '2026-10-20' } as const;
 

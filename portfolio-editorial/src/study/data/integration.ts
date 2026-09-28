@@ -1,9 +1,9 @@
-// 통합 5일 커리큘럼 데이터 (2026-11-26 ~ 11-30, 약점 복습·메이플 이벤트 역기획 미니 프로젝트·회고)
+// 통합 5일 커리큘럼 데이터 (2026-11-27 ~ 12-01, 약점 복습·메이플 이벤트 역기획 미니 프로젝트·회고)
 import type { StudyDay } from '../types';
 
 export const INTEGRATION_DAYS: StudyDay[] = [
   {
-    date: '2026-11-26',
+    date: '2026-11-27',
     tool: 'integration',
     dayIndex: 1,
     title: '툴별 약점 복습',
@@ -40,7 +40,7 @@ export const INTEGRATION_DAYS: StudyDay[] = [
     keywords: ['약점 복습', '재실습', '엑셀', '피그마', '포토샵', '일러스트레이터', '점검표'],
   },
   {
-    date: '2026-11-27',
+    date: '2026-11-28',
     tool: 'integration',
     dayIndex: 2,
     title: '통합 미니 프로젝트 1일차: 메이플 이벤트 역기획 — 엑셀 수치 분석',
@@ -77,7 +77,7 @@ export const INTEGRATION_DAYS: StudyDay[] = [
     keywords: ['역기획', '메이플스토리', '이벤트 분석', '보상 테이블', '엑셀', '수치 분석', '기획 의도'],
   },
   {
-    date: '2026-11-28',
+    date: '2026-11-29',
     tool: 'integration',
     dayIndex: 3,
     title: '통합 미니 프로젝트 2일차: 워드/PPT 문서와 피그마 UI 흐름',
@@ -114,7 +114,7 @@ export const INTEGRATION_DAYS: StudyDay[] = [
     keywords: ['역기획서', '워드', 'PPT', '피그마', '와이어프레임', '프로토타입', 'UI 흐름'],
   },
   {
-    date: '2026-11-29',
+    date: '2026-11-30',
     tool: 'integration',
     dayIndex: 4,
     title: '통합 미니 프로젝트 3일차: 포토샵/일러스트레이터 배너와 최종 정리',
@@ -152,7 +152,7 @@ export const INTEGRATION_DAYS: StudyDay[] = [
     keywords: ['배너', '포토샵', '일러스트레이터', '포트폴리오 정리', 'AI 활용 표기', '최종 점검', '역기획'],
   },
   {
-    date: '2026-11-30',
+    date: '2026-12-01',
     tool: 'integration',
     dayIndex: 5,
     title: '전체 회고와 12월 이후 계획 확정',

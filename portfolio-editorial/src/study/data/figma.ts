@@ -1,9 +1,9 @@
-// 피그마 8일 커리큘럼 데이터 (2026-11-03 ~ 11-10)
+// 피그마 8일 커리큘럼 데이터 (2026-11-04 ~ 11-11)
 import type { StudyDay } from '../types';
 
 export const FIGMA_DAYS: StudyDay[] = [
   {
-    date: '2026-11-03',
+    date: '2026-11-04',
     tool: 'figma',
     dayIndex: 1,
     title: '인터페이스, 프레임, 도형, 텍스트',
@@ -41,7 +41,7 @@ export const FIGMA_DAYS: StudyDay[] = [
     keywords: ['피그마 기초', '프레임', '도형', '텍스트', '레이어 패널', '단축키'],
   },
   {
-    date: '2026-11-04',
+    date: '2026-11-05',
     tool: 'figma',
     dayIndex: 2,
     title: 'Auto Layout',
@@ -80,7 +80,7 @@ export const FIGMA_DAYS: StudyDay[] = [
     keywords: ['Auto Layout', 'Hug', 'Fill container', '패딩', '간격', '보상 리스트'],
   },
   {
-    date: '2026-11-05',
+    date: '2026-11-06',
     tool: 'figma',
     dayIndex: 3,
     title: '컴포넌트, Variants',
@@ -117,7 +117,7 @@ export const FIGMA_DAYS: StudyDay[] = [
     keywords: ['컴포넌트', 'Variants', '인스턴스', '버튼 상태', '컴포넌트 속성', '보상 슬롯'],
   },
   {
-    date: '2026-11-06',
+    date: '2026-11-07',
     tool: 'figma',
     dayIndex: 4,
     title: '스타일과 Variables, 레이아웃 그리드',
@@ -154,7 +154,7 @@ export const FIGMA_DAYS: StudyDay[] = [
     keywords: ['Variables', '색 스타일', '텍스트 스타일', '레이아웃 그리드', '8px 그리드', '인벤토리 슬롯'],
   },
   {
-    date: '2026-11-07',
+    date: '2026-11-08',
     tool: 'figma',
     dayIndex: 5,
     title: '메이플 UI 창 1개를 흑백 와이어프레임으로 재현',
@@ -191,7 +191,7 @@ export const FIGMA_DAYS: StudyDay[] = [
     keywords: ['와이어프레임', 'UI 분석', '메이플스토리', '흑백', '설계 의도', '학습용 재현'],
   },
   {
-    date: '2026-11-08',
+    date: '2026-11-09',
     tool: 'figma',
     dayIndex: 6,
     title: '프로토타입 연결, 인터랙션',
@@ -228,7 +228,7 @@ export const FIGMA_DAYS: StudyDay[] = [
     keywords: ['프로토타입', '인터랙션', 'Open overlay', 'Interactive components', 'Smart animate', '확인 팝업'],
   },
   {
-    date: '2026-11-09',
+    date: '2026-11-10',
     tool: 'figma',
     dayIndex: 7,
     title: 'FigJam으로 UI 플로우 다이어그램',
@@ -265,7 +265,7 @@ export const FIGMA_DAYS: StudyDay[] = [
     keywords: ['FigJam', 'UI 플로우', '다이어그램', '예외 흐름', '스윔레인', '순서도'],
   },
   {
-    date: '2026-11-10',
+    date: '2026-11-11',
     tool: 'figma',
     dayIndex: 8,
     title: '미니 과제: 신규 이벤트 UI 와이어프레임과 플로우',
