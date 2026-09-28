@@ -39,6 +39,7 @@ src/
     components/  체크리스트, 기록 입력, 달력, 로그인 등
     pages/       페이지 6종
     StudyContext.tsx   기록 상태·저장·인증
+    theme/       공부 섹션 글래스 테마 (base → controls → pages → lesson → responsive 순서로 불러옴)
     lessons/     레슨 페이지·문제 채점·마크다운 표시, content/<툴>/day-NN.md + .quiz.json
 scripts/excel/   엑셀 실습 파일(.xlsx) 생성 스크립트 → public/lessons/excel/
 api/
@@ -51,6 +52,13 @@ api/
 
 커리큘럼을 고칠 때는 `src/study/data/<툴>.ts` 만 수정한다. 화면 코드는 건드리지 않는다.
 데이터 파일은 순수 내용이라 200줄을 넘어도 툴 하나당 파일 하나로 둔다 (엑셀만 15일이라 두 개로 나눔).
+
+## 디자인 (글래스 테마)
+
+- 공부 화면에 들어오면 `<html data-study-theme="glass">`가 붙고 홈(`#/`)으로 가면 떨어진다 → 홈은 옛 에디토리얼 디자인 그대로
+- 기본 규칙은 `study.css`·`study-widgets.css`·`lessons/lesson.css`, 글래스 모양은 `theme/glass-*.css`가 덮어쓴다
+- 2026-09-28 시안 8개(노트·다크 포커스·퀘스트·픽셀·대시보드·다이어리·네오 브루탈·글래스) 비교 후 글래스로 확정. 시안 파일은 git 기록에 남아 있다
+- 폰 전용 디자인은 아직 따로 만들지 않았다 (기본 반응형 규칙만)
 
 ## 레슨(공부 자료) 고치기
 

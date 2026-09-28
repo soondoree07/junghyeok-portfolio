@@ -1,0 +1,129 @@
+/* 공부 섹션 글래스 테마 — 레슨 본문·강조 상자·마무리 문제
+   공부 화면에 들어오면 StudySection 이 <html data-study-theme="glass"> 를 붙이고, 홈으로 가면 뗀다.
+   시안 비교(2026-09-28)에서 8번 '글래스'로 확정. 불러오는 순서: base → controls → pages → lesson → responsive */
+
+/* ===== 레슨 ===== */
+html[data-study-theme="glass"] .ls-nav { font-family: var(--display); font-weight: 600; }
+html[data-study-theme="glass"] .ls-nav a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--glass-border); border-radius: 999px;
+  background: var(--glass-bg); box-shadow: var(--glass-shadow);
+  transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
+}
+html[data-study-theme="glass"] .ls-nav a:hover { background: #fff; color: var(--accent-ink); }
+html[data-study-theme="glass"] .ls-unreviewed {
+  padding: 14px 18px; color: #2E2A5C;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  word-break: keep-all;
+}
+html[data-study-theme="glass"] .ls-unreviewed strong { color: var(--accent-ink); }
+html[data-study-theme="glass"] .ls-example {
+  border: 1px solid var(--glass-border); border-radius: var(--radius-sm); overflow: hidden;
+  background: rgba(255, 255, 255, 0.7);
+}
+html[data-study-theme="glass"] .ls-example figcaption { border-top-color: var(--softer); color: var(--muted); }
+
+html[data-study-theme="glass"] .ls-md { word-break: keep-all; }
+html[data-study-theme="glass"] .ls-md h2,
+html[data-study-theme="glass"] .ls-quiz-section h2 {
+  border-top: none; padding-top: 0;
+  font-family: var(--display); font-weight: 700;
+}
+html[data-study-theme="glass"] .ls-md h3 { font-family: var(--display); font-weight: 700; }
+html[data-study-theme="glass"] .ls-md a { color: var(--accent-ink); text-decoration-color: rgba(124, 58, 237, 0.4); }
+html[data-study-theme="glass"] .ls-md :not(pre) > code {
+  padding: 1px 7px; border-radius: 6px;
+  background: rgba(237, 233, 254, 0.85); border: 1px solid rgba(124, 58, 237, 0.18);
+  color: #4C1D95;
+}
+html[data-study-theme="glass"] .ls-md kbd {
+  padding: 1px 8px; border-radius: 7px;
+  border: 1px solid rgba(30, 27, 75, 0.2); border-bottom-width: 2px;
+  background: #fff; color: var(--ink);
+  font-family: var(--display); font-weight: 600;
+  box-shadow: 0 1px 2px rgba(30, 27, 75, 0.08);
+}
+html[data-study-theme="glass"] .ls-code {
+  margin: 18px 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px;
+  background: rgba(30, 27, 75, 0.94);
+  box-shadow: 0 10px 30px rgba(30, 27, 75, 0.22);
+}
+html[data-study-theme="glass"] .ls-code pre { color: #E0E7FF; padding: 18px 16px 14px; }
+html[data-study-theme="glass"] .ls-code-lang {
+  left: 14px; top: -11px; padding: 1px 10px;
+  border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 999px;
+  background: #fff; color: var(--accent-ink);
+  font-family: var(--display); font-weight: 600;
+}
+html[data-study-theme="glass"] .ls-copy {
+  top: 8px; right: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12); color: #fff;
+  font-family: var(--display); font-weight: 600;
+  transition: background 0.2s var(--ease-out);
+}
+html[data-study-theme="glass"] .ls-copy:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+html[data-study-theme="glass"] .ls-table table {
+  border-collapse: separate; border-spacing: 0;
+  border: 1px solid var(--glass-border); border-radius: var(--radius-sm); overflow: hidden;
+  background: rgba(255, 255, 255, 0.6);
+}
+html[data-study-theme="glass"] .ls-table th,
+html[data-study-theme="glass"] .ls-table td { border: none; border-bottom: 1px solid var(--softer); }
+html[data-study-theme="glass"] .ls-table th + th,
+html[data-study-theme="glass"] .ls-table td + td { border-left: 1px solid var(--softer); }
+html[data-study-theme="glass"] .ls-table tr:last-child td { border-bottom: none; }
+html[data-study-theme="glass"] .ls-table th { background: rgba(237, 233, 254, 0.9); font-family: var(--display); font-weight: 600; }
+
+/* 강조 상자 */
+html[data-study-theme="glass"] .ls-callout {
+  padding: 14px 18px 14px 20px;
+  border: 1px solid var(--glass-border); border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 16px rgba(76, 29, 149, 0.06);
+}
+html[data-study-theme="glass"] .ls-callout.checkpoint { border-left-color: var(--ok); background: rgba(209, 250, 229, 0.65); }
+html[data-study-theme="glass"] .ls-callout.checkpoint strong:first-child { color: #065F46; }
+html[data-study-theme="glass"] .ls-callout.version { border-left-color: #D97706; background: rgba(254, 243, 199, 0.7); }
+html[data-study-theme="glass"] .ls-callout.version strong:first-child { color: #92400E; }
+html[data-study-theme="glass"] .ls-callout.tip { border-left-color: var(--accent); background: rgba(237, 233, 254, 0.75); }
+html[data-study-theme="glass"] .ls-callout.tip strong:first-child { color: var(--accent-ink); }
+
+/* 마무리 문제 */
+html[data-study-theme="glass"] .ls-quiz { padding: 20px 22px; }
+html[data-study-theme="glass"] .ls-quiz.correct {
+  border-color: rgba(4, 120, 87, 0.45);
+  box-shadow: var(--glass-shadow), inset 4px 0 0 var(--ok);
+}
+html[data-study-theme="glass"] .ls-quiz.wrong {
+  border-color: rgba(194, 37, 92, 0.45);
+  box-shadow: var(--glass-shadow), inset 4px 0 0 var(--bad);
+}
+html[data-study-theme="glass"] .ls-quiz-num { font-family: var(--display); font-weight: 700; color: var(--accent-ink); }
+html[data-study-theme="glass"] .ls-quiz-result { font-family: var(--kr); font-weight: 700; padding: 2px 10px; border-radius: 999px; }
+html[data-study-theme="glass"] .ls-quiz-result.correct { color: #fff; background: var(--ok); }
+html[data-study-theme="glass"] .ls-quiz-result.wrong { color: #fff; background: var(--bad); }
+html[data-study-theme="glass"] .ls-quiz-q { word-break: keep-all; }
+html[data-study-theme="glass"] .ls-option {
+  border: 1px solid rgba(30, 27, 75, 0.12); border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.7); color: var(--ink);
+  word-break: keep-all;
+  transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+}
+html[data-study-theme="glass"] .ls-option:not(:disabled):hover { border-color: var(--accent); background: #fff; }
+html[data-study-theme="glass"] .ls-option-num {
+  border: 1px solid rgba(124, 58, 237, 0.35); border-radius: 50%;
+  color: var(--accent-ink); font-family: var(--display); font-weight: 600;
+}
+html[data-study-theme="glass"] .ls-option.is-answer { border-color: var(--ok); background: rgba(209, 250, 229, 0.85); }
+html[data-study-theme="glass"] .ls-option.is-answer .ls-option-num { background: var(--ok); border-color: var(--ok); color: #fff; }
+html[data-study-theme="glass"] .ls-option.is-wrong { border-color: var(--bad); background: rgba(252, 231, 243, 0.9); }
+html[data-study-theme="glass"] .ls-option.is-wrong .ls-option-num { background: var(--bad); border-color: var(--bad); color: #fff; }
+html[data-study-theme="glass"] .ls-explain {
+  border-radius: var(--radius-sm);
+  background: rgba(237, 233, 254, 0.7);
+  word-break: keep-all;
+}
+html[data-study-theme="glass"] .ls-dev-error { color: var(--bad); }

@@ -1,0 +1,227 @@
+/* 공부 섹션 글래스 테마 — 토큰·배경·유리 면·상단 바·섹션 탭·머리말·블록
+   공부 화면에 들어오면 StudySection 이 <html data-study-theme="glass"> 를 붙이고, 홈으로 가면 뗀다.
+   시안 비교(2026-09-28)에서 8번 '글래스'로 확정. 불러오는 순서: base → controls → pages → lesson → responsive */
+
+/* ===== 토큰 ===== */
+html[data-study-theme="glass"] {
+  --bg: #F5F3FF;
+  --bg-alt: rgba(237, 233, 254, 0.75);
+  --ink: #1E1B4B;
+  --muted: #45406E;               /* 반투명 흰 면(최악 #E9E6F8) 위에서도 7:1 이상 */
+  --rule: rgba(255, 255, 255, 0.75);
+  --soft: rgba(30, 27, 75, 0.16);
+  --softer: rgba(30, 27, 75, 0.09);
+  --accent: #7C3AED;
+  --accent-ink: #5B21B6;          /* 글자용 보라. 가장 진한 배경(#C4B5FD 부근) 위에서도 4.8:1 */
+  --ok: #047857;
+  --warn: #B45309;
+  --bad: #C2255C;
+  --dark: #1E1B4B;
+  --dark-ink: #EEF2FF;
+  --display: 'Space Grotesk', 'Noto Sans KR', sans-serif;
+  --kr: 'Noto Sans KR', sans-serif;
+  --mono: 'JetBrains Mono', 'Noto Sans KR', monospace;
+
+  --radius: 18px;
+  --radius-sm: 12px;
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-bg-strong: rgba(255, 255, 255, 0.74);
+  --glass-inner: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-blur: blur(16px) saturate(1.4);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 1px 2px rgba(30, 27, 75, 0.06),
+    0 8px 28px rgba(76, 29, 149, 0.10);
+  --glass-shadow-lift:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(30, 27, 75, 0.07),
+    0 16px 40px rgba(76, 29, 149, 0.16);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  background: #EDE9FE;
+}
+
+/* backdrop-filter 를 못 쓰는 브라우저에선 면을 거의 불투명하게 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  html[data-study-theme="glass"] {
+    --glass-bg: rgba(250, 249, 255, 0.94);
+    --glass-bg-strong: rgba(250, 249, 255, 0.96);
+  }
+}
+
+/* ===== 배경 ===== */
+html[data-study-theme="glass"] body {
+  color: var(--ink);
+  font-family: var(--kr);
+  background-color: #EAE8FB;
+  background-image:
+    radial-gradient(60% 55% at 8% 6%, rgba(196, 181, 253, 0.95) 0%, rgba(196, 181, 253, 0) 70%),
+    radial-gradient(55% 50% at 92% 12%, rgba(147, 197, 253, 0.85) 0%, rgba(147, 197, 253, 0) 70%),
+    radial-gradient(60% 55% at 78% 88%, rgba(153, 246, 228, 0.8) 0%, rgba(153, 246, 228, 0) 70%),
+    radial-gradient(50% 45% at 18% 82%, rgba(165, 180, 252, 0.7) 0%, rgba(165, 180, 252, 0) 70%),
+    linear-gradient(160deg, #EDE9FE 0%, #E0ECFF 50%, #DDF7F1 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+html[data-study-theme="glass"] a:hover { color: var(--accent-ink); }
+html[data-study-theme="glass"] :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* 화면 전환: 끝난 뒤 transform/opacity 를 붙잡고 있으면 조상이 backdrop 루트가 되어
+   안쪽 유리(섹션 탭 등)의 흐림이 사라진다. 끝나면 풀리게 backwards 로 바꾼다. */
+html[data-study-theme="glass"] .view {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-fill-mode: backwards;
+}
+
+/* ===== 유리 면 공통 ===== */
+html[data-study-theme="glass"] .topbar,
+html[data-study-theme="glass"] .st-nav,
+html[data-study-theme="glass"] .st .block,
+html[data-study-theme="glass"] .st-review-group,
+html[data-study-theme="glass"] .st-stat-row,
+html[data-study-theme="glass"] .st-tool-card,
+html[data-study-theme="glass"] .st-accordion,
+html[data-study-theme="glass"] .st-notice,
+html[data-study-theme="glass"] .st-note,
+html[data-study-theme="glass"] .st-table-wrap,
+html[data-study-theme="glass"] .ls-quiz,
+html[data-study-theme="glass"] .ls-unreviewed,
+html[data-study-theme="glass"] .st-access,
+html[data-study-theme="glass"] .footer {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: var(--glass-shadow);
+}
+
+/* ===== 상단 바 ===== */
+html[data-study-theme="glass"] .topbar {
+  top: 10px; left: 16px; right: 16px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  font-family: var(--display);
+  font-weight: 600; font-size: 13px; letter-spacing: 0.01em;
+  transition: padding 0.2s var(--ease-out);
+}
+html[data-study-theme="glass"] .topbar.scrolled { padding: 8px 20px; }
+html[data-study-theme="glass"] .tb-mark { font-weight: 700; }
+html[data-study-theme="glass"] .tb-mark .dot,
+html[data-study-theme="glass"] .tb-issue { color: var(--accent-ink); }
+html[data-study-theme="glass"] .tb-mid { letter-spacing: 0.14em; font-size: 11.5px; }
+html[data-study-theme="glass"] .tb-nav { gap: 4px; }
+html[data-study-theme="glass"] .tb-nav a {
+  padding: 6px 12px; border: none; border-radius: 999px;
+  letter-spacing: 0.04em; font-weight: 600;
+  transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
+}
+html[data-study-theme="glass"] .tb-nav a:hover { background: rgba(124, 58, 237, 0.10); color: var(--accent-ink); }
+html[data-study-theme="glass"] .tb-nav a.on { background: var(--ink); color: #fff; }
+html[data-study-theme="glass"] .tb-tick-dot { background: var(--accent); }
+html[data-study-theme="glass"] .lang {
+  border: 1px solid var(--soft); border-radius: 999px; overflow: hidden;
+  background: rgba(255, 255, 255, 0.5);
+}
+html[data-study-theme="glass"] .lang button { font-family: var(--display); font-weight: 600; letter-spacing: 0.06em; }
+html[data-study-theme="glass"] .lang button + button { border-left: 1px solid var(--soft); }
+html[data-study-theme="glass"] .lang button.on { background: var(--accent); color: #fff; }
+
+/* ===== 섹션 탭: 떠 있는 알약 세그먼트 ===== */
+html[data-study-theme="glass"] .st { padding-top: 24px; }
+html[data-study-theme="glass"] .st-nav {
+  top: 76px;
+  width: max-content; max-width: 100%;
+  margin: 0 auto 32px;
+  padding: 5px; gap: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--glass-shadow-lift);
+}
+html[data-study-theme="glass"] .st-nav a {
+  display: inline-flex; align-items: center;
+  min-height: 44px; padding: 0 18px;
+  border: none; border-radius: 999px;
+  font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0;
+  color: var(--muted);
+  transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+html[data-study-theme="glass"] .st-nav a:hover { color: var(--ink); background: rgba(255, 255, 255, 0.6); }
+html[data-study-theme="glass"] .st-nav a:active { transform: scale(0.97); }
+html[data-study-theme="glass"] .st-nav a.on {
+  background: #fff; color: var(--accent-ink); font-weight: 700;
+  box-shadow: 0 1px 2px rgba(30, 27, 75, 0.08), 0 4px 12px rgba(124, 58, 237, 0.16);
+}
+
+/* ===== 머리말·제목 ===== */
+html[data-study-theme="glass"] .detail-kicker {
+  border-top: none; padding: 0; margin-bottom: 14px;
+  font-family: var(--display); font-weight: 600; font-size: 12.5px;
+  letter-spacing: 0.08em;
+}
+html[data-study-theme="glass"] .detail-kicker > :first-child,
+html[data-study-theme="glass"] .detail-kicker .accent { color: var(--accent-ink); }
+html[data-study-theme="glass"] .detail-kicker-r { color: var(--muted); }
+html[data-study-theme="glass"] .st-title {
+  font-family: var(--display); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.1;
+  color: var(--ink);
+}
+html[data-study-theme="glass"] .st-lead { color: #2E2A5C; word-break: keep-all; }
+html[data-study-theme="glass"] .st-section-title {
+  border-top: none; padding-top: 0; margin: 44px 0 14px;
+  font-family: var(--display); font-weight: 700; font-size: 21px;
+}
+html[data-study-theme="glass"] .st-hint,
+html[data-study-theme="glass"] .st-empty,
+html[data-study-theme="glass"] .ls-hint,
+html[data-study-theme="glass"] .ls-quiz-note { color: var(--muted); }
+html[data-study-theme="glass"] .st-empty {
+  border: 1px dashed rgba(30, 27, 75, 0.25); border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.45);
+}
+html[data-study-theme="glass"] .st-error { color: var(--bad); }
+html[data-study-theme="glass"] .st-muted-label { color: var(--muted); letter-spacing: 0.02em; }
+
+/* ===== 블록(유리 카드) ===== */
+html[data-study-theme="glass"] .st .block,
+html[data-study-theme="glass"] .st-review-group { padding: 20px 22px; }
+html[data-study-theme="glass"] .st-acc-body .block {
+  /* 아코디언 안쪽 블록은 이미 유리 위라 겹치지 않게 평평하게 */
+  background: none; border: none; box-shadow: none; padding: 0;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+html[data-study-theme="glass"] .block .block-label,
+html[data-study-theme="glass"] .st-review-group > .block-label {
+  font-family: var(--display); font-weight: 700; font-size: 14px;
+  letter-spacing: 0.01em; text-transform: none;
+  padding-bottom: 12px; margin-bottom: 8px;
+  border-bottom: 1px solid var(--soft);
+}
+html[data-study-theme="glass"] .st-review-group > .block-label { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; margin-bottom: 14px; }
+html[data-study-theme="glass"] .st-review-group > .block-label > :last-child { white-space: nowrap; color: var(--muted); }
+html[data-study-theme="glass"] .block .block-label .accent { color: var(--accent-ink); font-weight: 600; }
+html[data-study-theme="glass"] .bullets li {
+  border-bottom: 1px solid var(--softer);
+  word-break: keep-all;
+}
+html[data-study-theme="glass"] .bullets li:last-child,
+html[data-study-theme="glass"] .st-checklist li:last-child label,
+html[data-study-theme="glass"] .st-steps li:last-child,
+html[data-study-theme="glass"] .st-review-item:last-child { border-bottom: none; }
+html[data-study-theme="glass"] .bullets li::before {
+  top: 20px; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+}
+html[data-study-theme="glass"] .tag-row span,
+html[data-study-theme="glass"] .card-tags span {
+  font-family: var(--display); font-weight: 600;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  background: rgba(255, 255, 255, 0.6); color: var(--ink);
+}
