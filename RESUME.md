@@ -1,40 +1,35 @@
 # 진행 상황 (2026-09-28 KST 기준)
 
 ## 한 줄
-editorial 에 **"게임 기획자 준비 & 툴 학습" 섹션** 추가 완료 (로드맵·학습 계획·툴 상세·오늘 공부·복습·기록). 코드는 커밋됨, **Vercel 배포와 Upstash 연결은 아직** — 배포 전까지는 로컬 개발 모드(브라우저 저장)로만 기록된다.
+포트폴리오 레포가 **공부 사이트(study.junghyeok.com)** + **임시 첫 페이지(junghyeok.com)** 로 나뉘어 배포 완료. 툴 학습은 **9/29(엑셀 1일차)부터 시작**. 다음은 사용자가 1일차 레슨으로 공부하며 검수 → 그 의견 반영해 엑셀 4~15일차 레슨 작성.
 
-## 오늘 한 것
-- 54일 커리큘럼 데이터 (`portfolio-editorial/src/study/data/`, 툴별 파일) — 메이플 소재 실습, 가정 수치 명시
-- 해시 라우팅 `#/roadmap`, `#/study/...` + 상단 메뉴 (작업 / 로드맵 / 학습)
-- 저장: Vercel 함수(`api/`) + Upstash Redis, 공개 읽기 / 비밀번호 로그인 후 쓰기, 메모·링크는 비공개
-- JSON 내보내기·가져오기, 간격 반복 복습(1·3·7일, 몰랐음 다음 날 재출제, 휴식 기간 복습은 10-21로)
-- 상위 폴더 postcss(tailwind) 설정을 끌어오던 문제 차단 (`vite.config.ts` 의 `css.postcss`)
-- 사용법·배포 절차: `portfolio-editorial/README.md`
+## 오늘 완료한 것
+- **공부 섹션** (`portfolio-editorial/src/study/`): 로드맵·학습 계획·툴 상세·오늘 공부·복습·기록 6페이지, 54일 커리큘럼(툴별 데이터 파일), 간격 반복 복습(1·3·7일, 몰랐음 다음 날, 휴식 중 복습은 10/21로)
+- **날짜별 레슨** `#/study/lesson/<툴>/<일차>`: 엑셀 1~3일차 (전부 **미검수**). 마무리 문제 자동 채점, 틀린 문제는 복습 페이지 "틀린 레슨 문제"로. 실습 xlsx 는 `npm run lessons:excel` (exceljs, 정답값 대조)
+- **저장·로그인**: Vercel 함수 `api/` + Upstash Redis 무료(`junghyeok-study`), **구글 로그인**(본인 계정만 편집, 나머지 보기 전용), JSON 내보내기·가져오기
+- **배포**: GitHub 레포 보관 해제, Vercel `junghyeok-portfolio`(Root `portfolio-editorial`) → **https://study.junghyeok.com**, 첫 화면 = 오늘 공부, 옛 포트폴리오 홈은 `#/work`
+- **junghyeok.com·www**: 임시 첫 페이지 `home-landing/index.html` (Vercel `junghyeok-home`) — 이름·소개·"공부 기록 보기"
+- **디자인**: 시안 8개 비교 → **글래스 테마** 적용 (`src/study/theme/glass-*.css`, 공부 화면에서만 켜짐). 폰 전용 디자인은 보류 결정
+- **일정**: 하루 미룸 → 9/29 시작, 12/1 종료 (휴식 10/11~10/20 유지)
+- KO/EN 언어 전환 버튼 숨김 (`Topbar.tsx` 의 `SHOW_LANG_TOGGLE`)
 
-## 레슨(공부 자료) — 같은 날 추가
-- 날짜별 레슨 페이지 `#/study/lesson/excel/1` + 엑셀 1~3일차 레슨(미검수) + 실습 xlsx(`npm run lessons:excel`)
-- 마무리 문제 채점, 틀린 문제는 복습 페이지 "틀린 레슨 문제"로
-- **사용자가 1일차로 공부하며 검수 중** → 의견 받아 4~15일차 작성 → "다음 툴 진행"이면 파워포인트 레슨
+## 결정 대기 / 막힌 지점
+- 막힌 것 없음
+- 레슨 내용 중 **실제 엑셀 화면과 대조가 필요한 메뉴 이름**: 1일차 Alt→H→O→I, 2일차 정렬 창 "내림차순"·필터 중 상태 표시줄 문구·"자동 고침 옵션"·테이블 디자인 탭 위치, 3일차 수식 > 수식 분석 > 수식 표시·Ctrl+` → 사용자 검수 의견으로 확정
 
-## 배포 (2026-09-28 완료)
-- GitHub 레포 보관 해제 → push. Vercel 프로젝트 `junghyeok-portfolio` (Root Directory `portfolio-editorial`, GitHub 연결 → push 하면 자동 배포)
-- 주소: **https://study.junghyeok.com** (Cloudflare DNS A `study` → 76.76.21.21, DNS only) · 기본 주소 https://junghyeok-portfolio.vercel.app 도 동작
-- `junghyeok.com`·`www` = **임시 첫 페이지**(`home-landing/index.html`, Vercel 프로젝트 `junghyeok-home`): 이름·한 줄 소개·"공부 기록 보기"(study 로)·GitHub·이메일. 완전한 포트폴리오를 만들면 이 폴더를 교체
-- 한 레포에 Vercel 프로젝트 2개 → 각자 **자기 폴더가 바뀔 때만 빌드**(Ignored Build Step `git diff --quiet HEAD^ HEAD -- .`)
-- 일정 하루 미룸: 1일차 9/29, 종료 12/1 (휴식 10/11~10/20 유지)
-- Upstash Redis 무료 요금제 `junghyeok-study` 연결, `STUDY_SESSION_SECRET` 등록
-- 로그인은 **구글 계정**으로 변경 (비밀번호 방식 삭제). `STUDY_ALLOWED_EMAIL`=본인 계정만 편집, 다른 계정·방문자는 보기 전용
-- 구글 OAuth 는 **별도 Google Cloud 프로젝트 `junghyeok-portfolio`** 에 만듦 (기존 `junghyeok1` 은 claude dashboard 용이라 건드리지 않음). `GOOGLE_CLIENT_ID`/`SECRET` 등록·재배포 후 **로그인 동작 확인 완료**
+## 다음 액션 (우선순위)
+1. 사용자가 9/29 엑셀 1일차 레슨으로 공부 → **검수 의견 받기** (설명 깊이·문제 난이도·틀린 메뉴명)
+2. 의견 반영 후 **엑셀 4~15일차 레슨 작성** (1~3일차와 같은 구조, 실습 xlsx 는 `scripts/excel/` 에 날짜 추가) → 검수된 레슨은 frontmatter `status: 검수 완료`
+3. 사용자가 "다음 툴 진행"이라고 하면 **파워포인트 레슨** (디자인 툴은 완성 예시 이미지 SVG/HTML)
+4. 폰에서도 구글 로그인·체크·메모 저장 확인 (사용자)
+5. (나중) junghyeok.com 에 완전한 포트폴리오 → study 로 연결 / (보류) neon 무드
 
-## 디자인 (2026-09-28)
-- 공부 섹션을 **글래스 테마**로 교체 (시안 8개 비교 후 사용자 선택). 공부 화면에서만 `data-study-theme="glass"`, 홈은 옛 디자인
-- 폰 전용 디자인은 "아직 안 만들어도 된다"는 결정 — 기본 반응형 규칙만
-
-## 다음 할 일
-1. 폰에서도 구글 로그인·체크·메모 저장 확인
-2. 배포 사이트에서 엑셀 1~3일차 레슨 검수 → 4~15일차 작성
-3. 개인 도메인(junghyeok.com) 연결 여부 결정
-4. (보류) neon 무드 C 단계
+## 이미 끝난 환경 (다시 할 필요 없음)
+- Vercel 두 프로젝트 모두 GitHub 연결 + **자기 폴더 변경 시에만 빌드** (Ignored Build Step)
+- Vercel 환경변수(Production): `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `STUDY_ALLOWED_EMAIL`, `STUDY_SESSION_SECRET`, `KV_REST_API_*`
+- Google OAuth: Google Cloud 프로젝트 `junghyeok-portfolio` (대시보드용 `junghyeok1` 은 건드리지 않음), 리디렉션 URI 에 vercel.app·study 도메인 둘 다 등록
+- Cloudflare DNS: `study`, `@`, `www` → A 76.76.21.21 (DNS only)
+- 마지막 push 커밋: `97b6246 chore(topbar): 언어 전환(KO/EN) 버튼 숨김`
 
 ---
 
