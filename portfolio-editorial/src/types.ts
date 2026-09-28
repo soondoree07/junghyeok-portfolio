@@ -61,6 +61,9 @@ export interface UIStrings {
   footerEmail: LocalizedString;
   footerGit: LocalizedString;
   toastLang: LocalizedString;
+  navWork: LocalizedString;
+  navRoadmap: LocalizedString;
+  navStudy: LocalizedString;
 }
 
 export interface PortfolioData {

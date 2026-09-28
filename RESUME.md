@@ -1,4 +1,26 @@
-# 진행 상황 (2026-05-21 KST 기준)
+# 진행 상황 (2026-09-28 KST 기준)
+
+## 한 줄
+editorial 에 **"게임 기획자 준비 & 툴 학습" 섹션** 추가 완료 (로드맵·학습 계획·툴 상세·오늘 공부·복습·기록). 코드는 커밋됨, **Vercel 배포와 Upstash 연결은 아직** — 배포 전까지는 로컬 개발 모드(브라우저 저장)로만 기록된다.
+
+## 오늘 한 것
+- 54일 커리큘럼 데이터 (`portfolio-editorial/src/study/data/`, 툴별 파일) — 메이플 소재 실습, 가정 수치 명시
+- 해시 라우팅 `#/roadmap`, `#/study/...` + 상단 메뉴 (작업 / 로드맵 / 학습)
+- 저장: Vercel 함수(`api/`) + Upstash Redis, 공개 읽기 / 비밀번호 로그인 후 쓰기, 메모·링크는 비공개
+- JSON 내보내기·가져오기, 간격 반복 복습(1·3·7일, 몰랐음 다음 날 재출제, 휴식 기간 복습은 10-21로)
+- 상위 폴더 postcss(tailwind) 설정을 끌어오던 문제 차단 (`vite.config.ts` 의 `css.postcss`)
+- 사용법·배포 절차: `portfolio-editorial/README.md`
+
+## 다음 할 일
+1. Vercel 프로젝트 만들기 (Root Directory = `portfolio-editorial`) → Upstash Redis 연결 → `STUDY_PASSWORD`, `STUDY_SESSION_SECRET` 등록
+2. 배포 후 폰에서 `#/study/today` 로그인·체크·메모 저장 확인
+3. 로컬 개발 모드에서 쓴 기록이 있으면 JSON 내보내기 → 배포본에서 가져오기
+4. (보류) neon 무드 C 단계
+
+---
+
+# 이전 기록 (2026-05-21)
+
 
 ## 한 줄
 박정혁 포트폴리오 사이트 작업. 두 무드(editorial / neon)를 각각 독립 Vite 프로젝트로 제작 중. **editorial은 A·B 단계 완료, neon은 아직 시작 안 함.**

@@ -63,6 +63,10 @@ export const DATA_EDITORIAL: PortfolioData = {
     footerGit:   { ko: 'github.com/soondoree07', en: 'github.com/soondoree07' },
 
     toastLang: { ko: '언어 변경 · KOR', en: 'Language · EN' },
+
+    navWork:    { ko: '작업',   en: 'Work' },
+    navRoadmap: { ko: '로드맵', en: 'Roadmap' },
+    navStudy:   { ko: '학습',   en: 'Study' },
   },
 
   projects: [

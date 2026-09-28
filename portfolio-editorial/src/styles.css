@@ -57,6 +57,9 @@ a:hover { color: var(--accent); }
 .tb-mid { justify-self: center; letter-spacing: 0.22em; text-transform: uppercase; }
 .tb-issue { color: var(--accent); }
 .tb-right { justify-self: end; display: inline-flex; align-items: center; gap: 18px; }
+.tb-nav { display: inline-flex; gap: 14px; }
+.tb-nav a { padding: 4px 0; border-bottom: 2px solid transparent; letter-spacing: 0.08em; text-transform: uppercase; }
+.tb-nav a.on { border-bottom-color: var(--accent); }
 .tb-tick {
   display: inline-flex; align-items: center; gap: 8px;
   letter-spacing: 0.18em;
