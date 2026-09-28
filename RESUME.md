@@ -11,6 +11,11 @@ editorial 에 **"게임 기획자 준비 & 툴 학습" 섹션** 추가 완료 (�
 - 상위 폴더 postcss(tailwind) 설정을 끌어오던 문제 차단 (`vite.config.ts` 의 `css.postcss`)
 - 사용법·배포 절차: `portfolio-editorial/README.md`
 
+## 레슨(공부 자료) — 같은 날 추가
+- 날짜별 레슨 페이지 `#/study/lesson/excel/1` + 엑셀 1~3일차 레슨(미검수) + 실습 xlsx(`npm run lessons:excel`)
+- 마무리 문제 채점, 틀린 문제는 복습 페이지 "틀린 레슨 문제"로
+- **사용자가 1일차로 공부하며 검수 중** → 의견 받아 4~15일차 작성 → "다음 툴 진행"이면 파워포인트 레슨
+
 ## 다음 할 일
 1. Vercel 프로젝트 만들기 (Root Directory = `portfolio-editorial`) → Upstash Redis 연결 → `STUDY_PASSWORD`, `STUDY_SESSION_SECRET` 등록
 2. 배포 후 폰에서 `#/study/today` 로그인·체크·메모 저장 확인
