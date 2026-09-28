@@ -85,4 +85,4 @@ api/
 3. Google Cloud Console 에서 OAuth 클라이언트 ID(웹 애플리케이션)를 만들고 리디렉션 URI `https://<사이트 주소>/api/auth/callback` 등록
 4. 환경변수 `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `STUDY_ALLOWED_EMAIL`, `STUDY_SESSION_SECRET` 추가 (`.env.example` 참고) 후 재배포
 5. 학습 페이지 맨 아래 "구글로 로그인"으로 편집 모드 진입
-6. 개인 도메인을 붙이면 그 주소의 리디렉션 URI 도 구글에 추가해야 한다
+6. 개인 도메인: `study.junghyeok.com` (Cloudflare DNS 에 A 레코드 `study` → `76.76.21.21`, 프록시 끔). 도메인을 추가하면 그 주소의 리디렉션 URI 도 구글에 추가해야 한다

@@ -18,7 +18,9 @@ editorial 에 **"게임 기획자 준비 & 툴 학습" 섹션** 추가 완료 (�
 
 ## 배포 (2026-09-28 완료)
 - GitHub 레포 보관 해제 → push. Vercel 프로젝트 `junghyeok-portfolio` (Root Directory `portfolio-editorial`, GitHub 연결 → push 하면 자동 배포)
-- 주소: https://junghyeok-portfolio.vercel.app (학습: `#/study/today`)
+- 주소: **https://study.junghyeok.com** (Cloudflare DNS A `study` → 76.76.21.21, DNS only) · 기본 주소 https://junghyeok-portfolio.vercel.app 도 동작
+- `junghyeok.com` 본 주소는 나중에 만들 완전한 포트폴리오용으로 비워 둠 → 그 사이트에서 study 로 넘어오게 할 예정
+- 일정 하루 미룸: 1일차 9/29, 종료 12/1 (휴식 10/11~10/20 유지)
 - Upstash Redis 무료 요금제 `junghyeok-study` 연결, `STUDY_SESSION_SECRET` 등록
 - 로그인은 **구글 계정**으로 변경 (비밀번호 방식 삭제). `STUDY_ALLOWED_EMAIL`=본인 계정만 편집, 다른 계정·방문자는 보기 전용
 - 구글 OAuth 는 **별도 Google Cloud 프로젝트 `junghyeok-portfolio`** 에 만듦 (기존 `junghyeok1` 은 claude dashboard 용이라 건드리지 않음). `GOOGLE_CLIENT_ID`/`SECRET` 등록·재배포 후 **로그인 동작 확인 완료**
