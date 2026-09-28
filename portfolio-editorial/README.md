@@ -16,7 +16,8 @@ vercel dev       # api/ 까지 함께 띄울 때 (Vercel CLI, 환경변수 필�
 
 | 주소 | 화면 |
 |---|---|
-| `#/` | 포트폴리오 홈 (프로젝트 캐러셀·상세) |
+| `/` 또는 `#/` | 오늘 공부 (이 사이트의 첫 화면) |
+| `#/work` | 예전 포트폴리오 홈 (프로젝트 캐러셀·상세, 옛 디자인) |
 | `#/roadmap` | 장기 로드맵 타임라인, 현재 위치 |
 | `#/study` | 툴 학습 계획 개요 (툴별 카드, 전체 진행률) |
 | `#/study/tool/:tool` | 툴별 상세 (`excel` `ppt` `word` `figma` `photoshop` `illustrator` `integration`) |

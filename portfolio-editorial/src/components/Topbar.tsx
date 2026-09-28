@@ -24,7 +24,7 @@ export function Topbar({ lang, setLang, ui, scrolled, route }: Props) {
 
   return (
     <header className={`topbar ${scrolled ? 'scrolled' : ''}`}>
-      <a className="tb-left" href={href({ name: 'home' })}>
+      <a className="tb-left" href={href({ name: 'today' })}>
         <span className="tb-mark">PJ<span className="dot">·</span></span>
         <span className="tb-full">Park Junghyeok</span>
       </a>

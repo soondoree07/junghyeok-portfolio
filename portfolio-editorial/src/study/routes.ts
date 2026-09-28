@@ -1,4 +1,5 @@
 // 해시 라우트 정의. 주소 문자열은 여기서만 만들고 해석한다.
+// 이 사이트는 공부 사이트라 빈 주소(/)는 "오늘 공부"로, 예전 포트폴리오 홈은 #/work 로 간다.
 import { isToolId } from './data/tools';
 import { isValidDate } from './lib/seoulDate';
 import type { ToolId } from './types';
@@ -18,8 +19,10 @@ export function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   const [section, page, param, extra] = parts;
 
+  if (!section) return { name: 'today' };
+  if (section === 'work') return { name: 'home' };
   if (section === 'roadmap') return { name: 'roadmap' };
-  if (section !== 'study') return { name: 'home' };
+  if (section !== 'study') return { name: 'today' };
 
   if (!page) return { name: 'overview' };
   if (page === 'today') return { name: 'today' };
@@ -36,7 +39,7 @@ export function parseRoute(hash: string): Route {
 export function href(route: Route): string {
   switch (route.name) {
     case 'home':
-      return '#/';
+      return '#/work';
     case 'roadmap':
       return '#/roadmap';
     case 'overview':
