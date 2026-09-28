@@ -1,6 +1,6 @@
 // 기록 데이터 형태 검사. 브라우저(가져오기)와 서버(api/)가 함께 쓰므로
-// 타입 import 외에는 다른 모듈을 가져오지 않는다.
-import type { DayRecord, QuizAnswer, ReviewAnswer, StudyRecords } from '../types';
+// 타입 import 외에는 다른 모듈을 가져오지 않는다. (Vercel 함수 빌드 규칙상 경로에 .js 를 붙인다)
+import type { DayRecord, QuizAnswer, ReviewAnswer, StudyRecords } from '../types.js';
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const REVIEW_KEY_PATTERN = /^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|\d{1,2}$/;

@@ -3,7 +3,7 @@
 // 필요한 환경변수: UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN
 // (Vercel 마켓플레이스로 연결하면 KV_REST_API_URL / KV_REST_API_TOKEN 이름으로 들어온다)
 import { Redis } from '@upstash/redis';
-import type { DayRecord, QuizAnswer, ReviewAnswer, StudyRecords } from '../../src/study/types';
+import type { DayRecord, QuizAnswer, ReviewAnswer, StudyRecords } from '../../src/study/types.js';
 
 const DAYS_KEY = 'study:days';
 const REVIEWS_KEY = 'study:reviews';
