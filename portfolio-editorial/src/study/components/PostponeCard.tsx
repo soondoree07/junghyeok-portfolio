@@ -6,7 +6,8 @@ import { useStudy } from '../StudyContext';
 
 export function PostponeCard() {
   const { records, today, canEdit, setTodayPostponed, notify } = useStudy();
-  if (!canEdit) return null;
+  // 다 끝낸 날은 미룰 필요가 없다
+  if (!canEdit || records.days[today]?.completed) return null;
 
   const blocked = getPostponeBlock(today, records) === 'has-record';
 

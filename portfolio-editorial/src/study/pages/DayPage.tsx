@@ -10,6 +10,7 @@ import { BlockChecklist } from '../components/BlockChecklist';
 import { DayNotice } from '../components/DayNotice';
 import { DayRecordForm } from '../components/DayRecordForm';
 import { PostponeCard } from '../components/PostponeCard';
+import { PullForwardCard } from '../components/PullForwardCard';
 import { PageHeader } from '../components/PageHeader';
 import { LessonLink } from '../lessons/components/LessonLink';
 
@@ -82,6 +83,7 @@ export function DayPage({ date }: { date?: string }) {
             <p className="st-deliverable">{day.deliverable}</p>
           </section>
           <DayRecordForm date={target} />
+          {isToday && <PullForwardCard />}
           {isToday && <PostponeCard />}
           <section className="block">
             <div className="block-label">

@@ -11,6 +11,7 @@ import * as api from './lib/recordsApi';
 import { emptyRecords, readCache, writeCache } from './lib/localCache';
 import { emptyDayRecord } from './lib/progress';
 import { getPostponedDates } from './lib/postpone';
+import { pullForward } from './lib/pullForward';
 import { applyPostponedDates } from './data';
 import { useSaveQueue } from './hooks/useSaveQueue';
 import { useToday } from './hooks/useToday';
@@ -29,6 +30,8 @@ interface StudyStore {
   answerQuiz: (key: string, answer: Omit<QuizAnswer, 'answeredOn'>) => void;
   /** 오늘을 미루거나(true) 미룬 것을 되돌린다(false) */
   setTodayPostponed: (postponed: boolean) => void;
+  /** 가장 최근 미룬 날을 채워 다음 공부를 오늘로 당겨온다. 성공하면 true */
+  pullNextDay: () => Promise<boolean>;
   importRecords: (records: StudyRecords) => Promise<boolean>;
   logout: () => Promise<void>;
   notify: (message: string) => void;
@@ -61,7 +64,7 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
   const [mode, setMode] = useState<Mode>('loading');
   const [authed, setAuthed] = useState(false);
   const recordsRef = useRef(records);
-  const enqueue = useSaveQueue(() => notify(SAVE_FAILED));
+  const { enqueue, discardPending } = useSaveQueue(() => notify(SAVE_FAILED));
 
   const applyRecords = useCallback((next: StudyRecords) => {
     recordsRef.current = next;
@@ -140,15 +143,23 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
     async (next: StudyRecords) => {
       if (!canEdit) return false;
       try {
-        if (mode === 'server') await api.replaceRecords(next);
+        if (mode === 'server') {
+          discardPending();
+          await api.replaceRecords(next);
+        }
         applyRecords(next);
         return true;
       } catch {
         return false;
       }
     },
-    [applyRecords, canEdit, mode],
+    [applyRecords, canEdit, discardPending, mode],
   );
+
+  const pullNextDay = useCallback(async () => {
+    const next = pullForward(recordsRef.current, today);
+    return next ? importRecords(next) : false;
+  }, [importRecords, today]);
 
   const logout = useCallback(async () => {
     try {
@@ -160,11 +171,11 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
 
   const store = useMemo<StudyStore>(
     () => ({
-      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, setTodayPostponed, importRecords,
+      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, setTodayPostponed, pullNextDay, importRecords,
       logout, notify,
     }),
     [
-      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, setTodayPostponed, importRecords,
+      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, setTodayPostponed, pullNextDay, importRecords,
       logout, notify,
     ],
   );

@@ -45,6 +45,12 @@ export function useSaveQueue(onError: () => void) {
     [flush],
   );
 
+  /** 전체 기록을 통째로 바꾸기 직전에 부른다. 기다리던 변경이 새 기록을 덮어쓰지 않게 버린다 */
+  const discardPending = useCallback(() => {
+    window.clearTimeout(timer.current);
+    pending.current = {};
+  }, []);
+
   // 탭을 닫거나 백그라운드로 보낼 때 남은 변경을 바로 보낸다
   useEffect(() => {
     const flushNow = () => {
@@ -58,5 +64,5 @@ export function useSaveQueue(onError: () => void) {
     };
   }, [flush]);
 
-  return enqueue;
+  return { enqueue, discardPending };
 }
