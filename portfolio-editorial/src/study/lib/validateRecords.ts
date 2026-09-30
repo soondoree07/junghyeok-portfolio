@@ -55,6 +55,10 @@ export function isQuizAnswer(value: unknown): value is QuizAnswer {
   );
 }
 
+function isBoolean(value: unknown): value is boolean {
+  return typeof value === 'boolean';
+}
+
 function parseEntries<T>(
   value: unknown,
   keyPattern: RegExp,
@@ -73,6 +77,7 @@ export function parseRecords(value: unknown): StudyRecords | null {
   const days = parseEntries(value.days, DATE_PATTERN, isDayRecord);
   const reviews = parseEntries(value.reviews, REVIEW_KEY_PATTERN, isReviewAnswer);
   const quiz = parseEntries(value.quiz, QUIZ_KEY_PATTERN, isQuizAnswer);
-  if (!days || !reviews || !quiz) return null;
-  return { days, reviews, quiz };
+  const postponed = parseEntries(value.postponed, DATE_PATTERN, isBoolean);
+  if (!days || !reviews || !quiz || !postponed) return null;
+  return { days, reviews, quiz, postponed };
 }

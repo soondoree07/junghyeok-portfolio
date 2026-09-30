@@ -2,7 +2,7 @@
 // - 정기 복습: 학습일 +1, +3, +7일에 그날의 복습 질문을 다시 낸다
 // - 다시 풀기: "몰랐음"으로 답한 질문은 답한 다음 날 다시 낸다
 // - 휴식 기간에 걸린 복습은 복귀일로 미룬다
-import { STUDY_DAYS } from '../data';
+import { getStudyDays } from '../data';
 import { REST_PERIOD, RESUME_DATE, REVIEW_OFFSETS, STUDY_PERIOD } from '../data/schedule';
 import type { ReviewAnswer, StudyDay, StudyRecords } from '../types';
 import { addDays, isWithin } from './seoulDate';
@@ -35,7 +35,7 @@ function moveOutOfRest(date: string): string {
   return isWithin(date, REST_PERIOD) ? RESUME_DATE : date;
 }
 
-export function buildReviewItems(records: StudyRecords, days: StudyDay[] = STUDY_DAYS): ReviewItem[] {
+export function buildReviewItems(records: StudyRecords, days: StudyDay[] = getStudyDays()): ReviewItem[] {
   const dayByDate = new Map(days.map((day) => [day.date, day]));
   const items = new Map<string, ReviewItem>();
 

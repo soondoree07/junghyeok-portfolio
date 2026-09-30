@@ -1,5 +1,5 @@
-import { STUDY_DAYS, getToolDays } from '../data';
-import { REST_PERIOD, STUDY_PERIOD } from '../data/schedule';
+import { getStudyDays, getStudyPeriod, getToolDays } from '../data';
+import { REST_PERIOD } from '../data/schedule';
 import { TOOLS } from '../data/tools';
 import { getElapsedStudyDays, getOverallProgress, getToolProgress } from '../lib/progress';
 import { formatShort } from '../lib/seoulDate';
@@ -12,20 +12,22 @@ export function OverviewPage() {
   const { records, today } = useStudy();
   const overall = getOverallProgress(records);
   const elapsed = getElapsedStudyDays(today);
-  const plannedHours = STUDY_DAYS.reduce((sum, day) => sum + day.estimatedHours, 0);
+  const studyDays = getStudyDays();
+  const studyPeriod = getStudyPeriod();
+  const plannedHours = studyDays.reduce((sum, day) => sum + day.estimatedHours, 0);
 
   return (
     <>
       <PageHeader
         kicker="게임 기획자 준비 · 툴 학습"
-        meta={`${formatShort(STUDY_PERIOD.start)} — ${formatShort(STUDY_PERIOD.end)}`}
+        meta={`${formatShort(studyPeriod.start)} — ${formatShort(studyPeriod.end)}`}
         title="툴 학습 계획"
-        lead={`기획 문서와 UI를 직접 만들 수 있도록 여섯 가지 툴을 ${STUDY_DAYS.length}일 동안 익혀요. 실습은 메이플스토리 소재로 해요.`}
+        lead={`기획 문서와 UI를 직접 만들 수 있도록 여섯 가지 툴을 ${studyDays.length}일 동안 익혀요. 실습은 메이플스토리 소재로 해요.`}
       />
 
       <div className="st-stat-row">
         <div className="st-stat">
-          <span className="st-stat-num">{STUDY_DAYS.length}일</span>
+          <span className="st-stat-num">{studyDays.length}일</span>
           <span className="st-stat-lbl">학습일</span>
         </div>
         <div className="st-stat">
@@ -34,7 +36,7 @@ export function OverviewPage() {
         </div>
         <div className="st-stat">
           <span className="st-stat-num">
-            {elapsed}/{STUDY_DAYS.length}
+            {elapsed}/{studyDays.length}
           </span>
           <span className="st-stat-lbl">지난 학습일</span>
         </div>

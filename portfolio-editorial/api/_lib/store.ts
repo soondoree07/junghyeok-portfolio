@@ -1,4 +1,4 @@
-// Upstash Redis 저장소. 날짜별 기록·복습 답·레슨 문제 답을 해시 세 개에 나눠 담아
+// Upstash Redis 저장소. 날짜별 기록·복습 답·레슨 문제 답·미룬 날을 해시 네 개에 나눠 담아
 // 폰·PC에서 서로 다른 날짜를 고쳐도 덮어쓰지 않게 한다.
 // 필요한 환경변수: UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN
 // (Vercel 마켓플레이스로 연결하면 KV_REST_API_URL / KV_REST_API_TOKEN 이름으로 들어온다)
@@ -8,6 +8,7 @@ import type { DayRecord, QuizAnswer, ReviewAnswer, StudyRecords } from '../../sr
 const DAYS_KEY = 'study:days';
 const REVIEWS_KEY = 'study:reviews';
 const QUIZ_KEY = 'study:quiz';
+const POSTPONED_KEY = 'study:postponed';
 
 let client: Redis | null = null;
 
@@ -21,12 +22,13 @@ function redis(): Redis {
 }
 
 export async function readRecords(): Promise<StudyRecords> {
-  const [days, reviews, quiz] = await Promise.all([
+  const [days, reviews, quiz, postponed] = await Promise.all([
     redis().hgetall<Record<string, DayRecord>>(DAYS_KEY),
     redis().hgetall<Record<string, ReviewAnswer>>(REVIEWS_KEY),
     redis().hgetall<Record<string, QuizAnswer>>(QUIZ_KEY),
+    redis().hgetall<Record<string, boolean>>(POSTPONED_KEY),
   ]);
-  return { days: days ?? {}, reviews: reviews ?? {}, quiz: quiz ?? {} };
+  return { days: days ?? {}, reviews: reviews ?? {}, quiz: quiz ?? {}, postponed: postponed ?? {} };
 }
 
 export async function mergeRecords(patch: Partial<StudyRecords>): Promise<void> {
@@ -34,15 +36,19 @@ export async function mergeRecords(patch: Partial<StudyRecords>): Promise<void> 
   if (patch.days && Object.keys(patch.days).length > 0) writes.push(redis().hset(DAYS_KEY, patch.days));
   if (patch.reviews && Object.keys(patch.reviews).length > 0) writes.push(redis().hset(REVIEWS_KEY, patch.reviews));
   if (patch.quiz && Object.keys(patch.quiz).length > 0) writes.push(redis().hset(QUIZ_KEY, patch.quiz));
+  if (patch.postponed && Object.keys(patch.postponed).length > 0) {
+    writes.push(redis().hset(POSTPONED_KEY, patch.postponed));
+  }
   await Promise.all(writes);
 }
 
 export async function replaceRecords(records: StudyRecords): Promise<void> {
   const transaction = redis().multi();
-  transaction.del(DAYS_KEY, REVIEWS_KEY, QUIZ_KEY);
+  transaction.del(DAYS_KEY, REVIEWS_KEY, QUIZ_KEY, POSTPONED_KEY);
   if (Object.keys(records.days).length > 0) transaction.hset(DAYS_KEY, records.days);
   if (Object.keys(records.reviews).length > 0) transaction.hset(REVIEWS_KEY, records.reviews);
   if (Object.keys(records.quiz).length > 0) transaction.hset(QUIZ_KEY, records.quiz);
+  if (Object.keys(records.postponed).length > 0) transaction.hset(POSTPONED_KEY, records.postponed);
   await transaction.exec();
 }
 
@@ -51,5 +57,5 @@ export function toPublicRecords(records: StudyRecords): StudyRecords {
   const days = Object.fromEntries(
     Object.entries(records.days).map(([date, record]) => [date, { ...record, memo: '', links: [] }]),
   );
-  return { days, reviews: records.reviews, quiz: records.quiz };
+  return { ...records, days };
 }

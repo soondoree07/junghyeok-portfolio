@@ -9,6 +9,7 @@ export interface RecordsPatch {
   days?: StudyRecords['days'];
   reviews?: StudyRecords['reviews'];
   quiz?: StudyRecords['quiz'];
+  postponed?: StudyRecords['postponed'];
 }
 
 async function request(path: string, init?: RequestInit): Promise<unknown> {

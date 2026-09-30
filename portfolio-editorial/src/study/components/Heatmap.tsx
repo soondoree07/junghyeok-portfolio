@@ -1,13 +1,12 @@
-// 학습 기간 달력. 월요일 시작 7열, 칸 색은 그날 상태(완료/부분/미완료/휴식/예정).
-import { getStudyDay } from '../data';
-import { STUDY_PERIOD } from '../data/schedule';
+// 학습 기간 달력. 월요일 시작 7열, 칸 색은 그날 상태(완료/부분/미완료/미룸/휴식/예정).
+import { getStudyDay, getStudyPeriod } from '../data';
 import { STATUS_LABEL, getDayStatus, type DayStatus } from '../lib/progress';
 import { addDays, eachDate, formatShort, weekdayOf } from '../lib/seoulDate';
 import { href } from '../routes';
 import { useStudy } from '../StudyContext';
 
 const WEEKDAY_HEADERS = ['월', '화', '수', '목', '금', '토', '일'];
-const LEGEND: DayStatus[] = ['done', 'partial', 'missed', 'rest', 'upcoming'];
+const LEGEND: DayStatus[] = ['done', 'partial', 'missed', 'postponed', 'rest', 'upcoming'];
 
 /** 월요일부터 세는 요일 번호 (월=0) */
 function mondayIndex(date: string): number {
@@ -16,8 +15,9 @@ function mondayIndex(date: string): number {
 
 export function Heatmap() {
   const { records, today } = useStudy();
-  const firstMonday = addDays(STUDY_PERIOD.start, -mondayIndex(STUDY_PERIOD.start));
-  const dates = eachDate(firstMonday, STUDY_PERIOD.end);
+  const studyPeriod = getStudyPeriod();
+  const firstMonday = addDays(studyPeriod.start, -mondayIndex(studyPeriod.start));
+  const dates = eachDate(firstMonday, studyPeriod.end);
 
   return (
     <div className="st-heatmap">
@@ -28,7 +28,7 @@ export function Heatmap() {
           </span>
         ))}
         {dates.map((date) => {
-          if (date < STUDY_PERIOD.start) return <span key={date} className="st-heat-cell blank" />;
+          if (date < studyPeriod.start) return <span key={date} className="st-heat-cell blank" />;
           const status = getDayStatus(date, records, today);
           const day = getStudyDay(date);
           const label = `${formatShort(date)} ${STATUS_LABEL[status]}${day ? ` · ${day.title}` : ''}`;

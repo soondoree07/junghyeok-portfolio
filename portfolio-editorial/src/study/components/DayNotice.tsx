@@ -1,11 +1,16 @@
-// 학습일이 아닌 날(시작 전, 휴식, 종료 후)의 안내.
+// 학습일이 아닌 날(시작 전, 휴식, 미룬 날, 종료 후)의 안내.
 import { getNextStudyDay } from '../data';
 import { REST_PERIOD, STUDY_PERIOD } from '../data/schedule';
 import { formatLong, formatShort, isWithin } from '../lib/seoulDate';
 import { href } from '../routes';
+import { useStudy } from '../StudyContext';
+import { PostponedNotice } from './PostponedNotice';
 
 export function DayNotice({ date }: { date: string }) {
+  const { records } = useStudy();
   const next = getNextStudyDay(date);
+
+  if (records.postponed[date]) return <PostponedNotice date={date} />;
 
   if (isWithin(date, REST_PERIOD)) {
     return (

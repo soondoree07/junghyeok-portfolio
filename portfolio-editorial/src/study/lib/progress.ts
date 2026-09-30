@@ -1,14 +1,15 @@
 // 진행률·상태·통계 계산. 화면은 기록을 직접 세지 않고 여기 함수를 쓴다.
-import { STUDY_DAYS, getStudyDay } from '../data';
-import { DAY_BLOCKS, EVENING_TASKS, REST_PERIOD, STUDY_PERIOD } from '../data/schedule';
+import { getStudyDay, getStudyDays, getStudyPeriod } from '../data';
+import { DAY_BLOCKS, EVENING_TASKS, REST_PERIOD } from '../data/schedule';
 import { TOOLS } from '../data/tools';
 import type { BlockId, DayRecord, StudyDay, StudyRecords, ToolId } from '../types';
 import { isWithin } from './seoulDate';
 
-export type DayStatus = 'rest' | 'done' | 'partial' | 'missed' | 'upcoming' | 'outside';
+export type DayStatus = 'rest' | 'postponed' | 'done' | 'partial' | 'missed' | 'upcoming' | 'outside';
 
 export const STATUS_LABEL: Record<DayStatus, string> = {
   rest: '휴식',
+  postponed: '미룸',
   done: '완료',
   partial: '부분',
   missed: '미완료',
@@ -33,6 +34,7 @@ export function hasActivity(record: DayRecord | undefined): boolean {
 
 export function getDayStatus(date: string, records: StudyRecords, today: string): DayStatus {
   if (isWithin(date, REST_PERIOD)) return 'rest';
+  if (records.postponed[date]) return 'postponed';
   if (!getStudyDay(date)) return 'outside';
   const record = records.days[date];
   if (record?.completed) return 'done';
@@ -67,19 +69,20 @@ function toProgress(done: number, total: number): Progress {
 }
 
 export function getOverallProgress(records: StudyRecords): Progress {
-  const done = STUDY_DAYS.filter((day) => records.days[day.date]?.completed).length;
-  return toProgress(done, STUDY_DAYS.length);
+  const days = getStudyDays();
+  const done = days.filter((day) => records.days[day.date]?.completed).length;
+  return toProgress(done, days.length);
 }
 
 export function getToolProgress(tool: ToolId, records: StudyRecords): Progress {
-  const days = STUDY_DAYS.filter((day) => day.tool === tool);
+  const days = getStudyDays().filter((day) => day.tool === tool);
   const done = days.filter((day) => records.days[day.date]?.completed).length;
   return toProgress(done, days.length);
 }
 
 /** 기간 진행: 오늘까지 지나간 학습일 수 */
 export function getElapsedStudyDays(today: string): number {
-  return STUDY_DAYS.filter((day) => day.date <= today).length;
+  return getStudyDays().filter((day) => day.date <= today).length;
 }
 
 export interface ToolStat {
@@ -93,7 +96,7 @@ export interface ToolStat {
 
 export function getToolStats(records: StudyRecords): ToolStat[] {
   return TOOLS.map((tool) => {
-    const days = STUDY_DAYS.filter((day) => day.tool === tool.id);
+    const days = getStudyDays().filter((day) => day.tool === tool.id);
     return {
       tool: tool.id,
       name: tool.name,
@@ -107,7 +110,7 @@ export function getToolStats(records: StudyRecords): ToolStat[] {
 
 export function getTotalMinutes(records: StudyRecords): number {
   return Object.entries(records.days)
-    .filter(([date]) => isWithin(date, STUDY_PERIOD))
+    .filter(([date]) => isWithin(date, getStudyPeriod()))
     .reduce((sum, [, record]) => sum + record.minutes, 0);
 }
 

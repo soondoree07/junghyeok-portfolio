@@ -1,4 +1,4 @@
-import { STUDY_DAYS } from '../data';
+import { getStudyDays } from '../data';
 import { getTool } from '../data/tools';
 import { formatMinutes, getOverallProgress, getToolStats, getTotalMinutes } from '../lib/progress';
 import { formatShort } from '../lib/seoulDate';
@@ -13,7 +13,7 @@ export function LogPage() {
   const totalMinutes = getTotalMinutes(records);
   const overall = getOverallProgress(records);
   const toolStats = getToolStats(records);
-  const notes = STUDY_DAYS.filter((day) => {
+  const notes = getStudyDays().filter((day) => {
     const record = records.days[day.date];
     return record && (record.memo.trim() !== '' || record.links.length > 0);
   }).reverse();

@@ -9,11 +9,12 @@ function mergePatch(base: RecordsPatch, next: RecordsPatch): RecordsPatch {
     days: { ...base.days, ...next.days },
     reviews: { ...base.reviews, ...next.reviews },
     quiz: { ...base.quiz, ...next.quiz },
+    postponed: { ...base.postponed, ...next.postponed },
   };
 }
 
 function isEmpty(patch: RecordsPatch): boolean {
-  return [patch.days, patch.reviews, patch.quiz].every((entries) => Object.keys(entries ?? {}).length === 0);
+  return [patch.days, patch.reviews, patch.quiz, patch.postponed].every((entries) => Object.keys(entries ?? {}).length === 0);
 }
 
 export function useSaveQueue(onError: () => void) {

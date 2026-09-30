@@ -86,4 +86,6 @@ export interface StudyRecords {
   days: Record<string, DayRecord>;
   reviews: Record<string, ReviewAnswer>;
   quiz: Record<string, QuizAnswer>;
+  /** 미룬 날. 키는 날짜, true 면 미룸 · false 면 미루기를 취소함 */
+  postponed: Record<string, boolean>;
 }

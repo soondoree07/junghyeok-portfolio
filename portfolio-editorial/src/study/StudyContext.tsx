@@ -10,6 +10,8 @@ import type { DayRecord, QuizAnswer, ReviewResult, StudyRecords } from './types'
 import * as api from './lib/recordsApi';
 import { emptyRecords, readCache, writeCache } from './lib/localCache';
 import { emptyDayRecord } from './lib/progress';
+import { getPostponedDates } from './lib/postpone';
+import { applyPostponedDates } from './data';
 import { useSaveQueue } from './hooks/useSaveQueue';
 import { useToday } from './hooks/useToday';
 
@@ -25,6 +27,8 @@ interface StudyStore {
   answerReview: (keys: string[], result: ReviewResult) => void;
   /** 레슨 문제 답 저장. key 는 `${date}|${questionId}` */
   answerQuiz: (key: string, answer: Omit<QuizAnswer, 'answeredOn'>) => void;
+  /** 오늘을 미루거나(true) 미룬 것을 되돌린다(false) */
+  setTodayPostponed: (postponed: boolean) => void;
   importRecords: (records: StudyRecords) => Promise<boolean>;
   logout: () => Promise<void>;
   notify: (message: string) => void;
@@ -83,6 +87,9 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
     if (loginMessage) notify(loginMessage);
   }, [load, notify]);
 
+  // 화면이 일정을 읽기 전에 미룬 날을 반영한다 (같은 목록이면 다시 계산하지 않는다)
+  applyPostponedDates(getPostponedDates(records));
+
   const canEdit = mode === 'local' || (mode === 'server' && authed);
 
   const updateDay = useCallback(
@@ -118,6 +125,17 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
     [applyRecords, canEdit, enqueue, mode, today],
   );
 
+  const setTodayPostponed = useCallback(
+    (postponed: boolean) => {
+      if (!canEdit) return;
+      const current = recordsRef.current;
+      const change = { [today]: postponed };
+      applyRecords({ ...current, postponed: { ...current.postponed, ...change } });
+      if (mode === 'server') enqueue({ postponed: change });
+    },
+    [applyRecords, canEdit, enqueue, mode, today],
+  );
+
   const importRecords = useCallback(
     async (next: StudyRecords) => {
       if (!canEdit) return false;
@@ -142,9 +160,13 @@ export function StudyProvider({ notify, children }: { notify: (message: string) 
 
   const store = useMemo<StudyStore>(
     () => ({
-      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, logout, notify,
+      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, setTodayPostponed, importRecords,
+      logout, notify,
     }),
-    [records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, importRecords, logout, notify],
+    [
+      records, mode, authed, canEdit, today, updateDay, answerReview, answerQuiz, setTodayPostponed, importRecords,
+      logout, notify,
+    ],
   );
 
   return <StudyContext.Provider value={store}>{children}</StudyContext.Provider>;

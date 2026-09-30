@@ -1,11 +1,11 @@
 // 날짜별 레슨(공부 자료) 페이지.
 // 순서: 목표·시간 → 준비물 → 본문(개념·따라 하기·체크포인트·실습 과제) → 마무리 문제 → 본문(실수·더 공부할 자료) → 완료
-import { STUDY_DAYS } from '../data';
+import { getStudyDays } from '../data';
 import { getTool } from '../data/tools';
 import { formatShort } from '../lib/seoulDate';
 import { href } from '../routes';
 import { useStudy } from '../StudyContext';
-import type { ToolId } from '../types';
+import type { StudyDay, ToolId } from '../types';
 import { PageHeader } from '../components/PageHeader';
 import { LessonMarkdown } from './components/LessonMarkdown';
 import { LessonPrep } from './components/LessonPrep';
@@ -15,11 +15,11 @@ import { useLesson } from './useLesson';
 import './lesson.css';
 
 function LessonNav({ tool, dayIndex, date }: { tool: ToolId; dayIndex: number; date: string }) {
-  const withLesson = STUDY_DAYS.filter((day) => hasLesson(day.tool, day.dayIndex));
+  const withLesson = getStudyDays().filter((day) => hasLesson(day.tool, day.dayIndex));
   const index = withLesson.findIndex((day) => day.tool === tool && day.dayIndex === dayIndex);
   const prev = withLesson[index - 1];
   const next = withLesson[index + 1];
-  const label = (day: (typeof STUDY_DAYS)[number]) => `${getTool(day.tool).name} ${day.dayIndex}일차`;
+  const label = (day: StudyDay) => `${getTool(day.tool).name} ${day.dayIndex}일차`;
 
   return (
     <nav className="ls-nav" aria-label="레슨 이동">
@@ -33,7 +33,7 @@ function LessonNav({ tool, dayIndex, date }: { tool: ToolId; dayIndex: number; d
 export function LessonPage({ tool, dayIndex }: { tool: ToolId; dayIndex: number }) {
   const { records, canEdit, updateDay, notify } = useStudy();
   const state = useLesson(tool, dayIndex);
-  const day = STUDY_DAYS.find((item) => item.tool === tool && item.dayIndex === dayIndex);
+  const day = getStudyDays().find((item) => item.tool === tool && item.dayIndex === dayIndex);
   const toolInfo = getTool(tool);
 
   if (!day) return <p className="st-empty">해당 날짜의 커리큘럼이 없어요. 학습 계획에서 날짜를 다시 골라 주세요.</p>;

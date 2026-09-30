@@ -6,7 +6,7 @@ import { parseRecords } from './validateRecords';
 const CACHE_KEY = 'study-records-v1';
 
 export function emptyRecords(): StudyRecords {
-  return { days: {}, reviews: {}, quiz: {} };
+  return { days: {}, reviews: {}, quiz: {}, postponed: {} };
 }
 
 export function readCache(): StudyRecords | null {

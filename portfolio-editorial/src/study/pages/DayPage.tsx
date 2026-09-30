@@ -1,5 +1,5 @@
 // 오늘 공부(= 오늘 날짜의 하루 페이지)와 특정 날짜 페이지를 함께 담당한다.
-import { STUDY_DAYS, getStudyDay } from '../data';
+import { getStudyDay, getStudyDays } from '../data';
 import { getTool } from '../data/tools';
 import { buildReviewItems, splitReviewQueues } from '../lib/reviewQueue';
 import { STATUS_LABEL, getDayStatus } from '../lib/progress';
@@ -9,6 +9,7 @@ import { useStudy } from '../StudyContext';
 import { BlockChecklist } from '../components/BlockChecklist';
 import { DayNotice } from '../components/DayNotice';
 import { DayRecordForm } from '../components/DayRecordForm';
+import { PostponeCard } from '../components/PostponeCard';
 import { PageHeader } from '../components/PageHeader';
 import { LessonLink } from '../lessons/components/LessonLink';
 
@@ -29,16 +30,17 @@ export function DayPage({ date }: { date?: string }) {
   }
 
   const tool = getTool(day.tool);
-  const index = STUDY_DAYS.indexOf(day);
-  const prev = STUDY_DAYS[index - 1];
-  const next = STUDY_DAYS[index + 1];
+  const studyDays = getStudyDays();
+  const index = studyDays.indexOf(day);
+  const prev = studyDays[index - 1];
+  const next = studyDays[index + 1];
   const reviewCount = isToday ? splitReviewQueues(buildReviewItems(records), today).today.length : 0;
 
   return (
     <>
       <PageHeader
         kicker={kicker}
-        meta={`Day ${index + 1} / ${STUDY_DAYS.length} · ${STATUS_LABEL[getDayStatus(target, records, today)]}`}
+        meta={`Day ${index + 1} / ${studyDays.length} · ${STATUS_LABEL[getDayStatus(target, records, today)]}`}
         title={day.title}
         lead={
           <>
@@ -80,6 +82,7 @@ export function DayPage({ date }: { date?: string }) {
             <p className="st-deliverable">{day.deliverable}</p>
           </section>
           <DayRecordForm date={target} />
+          {isToday && <PostponeCard />}
           <section className="block">
             <div className="block-label">
               <span>복습 질문 미리 보기</span>

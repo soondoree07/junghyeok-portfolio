@@ -118,6 +118,7 @@ html[data-study-theme="glass"] .st-heat-cell.missed {
   background: repeating-linear-gradient(45deg, rgba(194, 37, 92, 0.12) 0 4px, rgba(255, 255, 255, 0.5) 4px 8px);
   color: #9F1239; border-color: rgba(194, 37, 92, 0.3);
 }
+html[data-study-theme="glass"] .st-heat-cell.postponed { background: rgba(253, 230, 138, 0.5); color: #92400E; border: 1px dashed rgba(146, 64, 14, 0.4); text-decoration: line-through; }
 html[data-study-theme="glass"] .st-heat-cell.rest { background: rgba(153, 246, 228, 0.45); color: #115E59; border: 1px dashed rgba(17, 94, 89, 0.4); }
 html[data-study-theme="glass"] .st-heat-cell.upcoming { background: rgba(255, 255, 255, 0.35); color: var(--muted); }
 html[data-study-theme="glass"] .st-heat-cell.today { outline: 2px solid var(--ink); outline-offset: 2px; }
