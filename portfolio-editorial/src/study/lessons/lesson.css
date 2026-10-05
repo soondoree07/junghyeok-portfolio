@@ -28,6 +28,8 @@
 /* 본문 */
 /* 코드 글꼴(JetBrains Mono)에는 한글이 없어 한글은 Noto Sans KR 로 보이게 한다 */
 .ls-md { --code-font: 'JetBrains Mono', 'Noto Sans KR', monospace; }
+/* JetBrains Mono 합자가 <= 를 ≤ 처럼 붙여 그려, 엑셀에 칠 글자와 달라 보이지 않게 끈다 */
+.ls-md code, .ls-md pre { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
 .ls-md { max-width: 820px; font-size: 16px; line-height: 1.75; }
 .ls-md h2 {
   margin: 44px 0 14px; padding-top: 16px;
