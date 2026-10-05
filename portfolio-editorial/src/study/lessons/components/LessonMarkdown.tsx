@@ -1,7 +1,10 @@
-// 레슨 본문 표시. 코드 블록의 복사 버튼은 여기서 한 번에 처리한다 (이벤트 위임).
+// 레슨 본문 표시. 코드 블록의 복사 버튼과 함수 뜻 말풍선은 여기서 한 번에 처리한다 (이벤트 위임).
 import { useMemo, type MouseEvent } from 'react';
 import { useStudy } from '../../StudyContext';
+import type { ToolId } from '../../types';
+import { getFunctionGlossary } from '../functionGlossary';
 import { renderMarkdown } from '../renderMarkdown';
+import { FunctionTip, useFunctionTip } from './FunctionTip';
 
 async function copyText(text: string): Promise<boolean> {
   try {
@@ -12,11 +15,13 @@ async function copyText(text: string): Promise<boolean> {
   }
 }
 
-export function LessonMarkdown({ markdown }: { markdown: string }) {
+export function LessonMarkdown({ markdown, tool }: { markdown: string; tool: ToolId }) {
   const { notify } = useStudy();
-  const html = useMemo(() => renderMarkdown(markdown), [markdown]);
+  const glossary = getFunctionGlossary(tool);
+  const html = useMemo(() => renderMarkdown(markdown, glossary), [markdown, glossary]);
+  const { tip, handlers } = useFunctionTip(glossary);
 
-  const onClick = async (event: MouseEvent<HTMLDivElement>) => {
+  const copyCode = async (event: MouseEvent<HTMLDivElement>) => {
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-copy]');
     const code = button?.parentElement?.querySelector('code');
     if (!button || !code) return;
@@ -27,5 +32,22 @@ export function LessonMarkdown({ markdown }: { markdown: string }) {
     window.setTimeout(() => (button.textContent = '복사'), 1500);
   };
 
-  return <div className="ls-md" onClick={onClick} dangerouslySetInnerHTML={{ __html: html }} />;
+  const onClick = (event: MouseEvent<HTMLDivElement>) => {
+    handlers.onClick(event);
+    void copyCode(event);
+  };
+
+  return (
+    <>
+      <div
+        className="ls-md"
+        onClick={onClick}
+        onMouseOver={handlers.onMouseOver}
+        onMouseOut={handlers.onMouseOut}
+        onKeyDown={handlers.onKeyDown}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+      {tip && <FunctionTip tip={tip} />}
+    </>
+  );
 }

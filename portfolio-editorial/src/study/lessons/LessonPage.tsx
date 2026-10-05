@@ -81,7 +81,7 @@ export function LessonPage({ tool, dayIndex }: { tool: ToolId; dayIndex: number 
       {state.status === 'ready' && (
         <>
           <LessonPrep meta={state.lesson.meta} />
-          <LessonMarkdown markdown={state.lesson.before} />
+          <LessonMarkdown markdown={state.lesson.before} tool={tool} />
           {state.lesson.quiz.questions.length > 0 && (
             <section className="ls-quiz-section">
               <h2>마무리 문제</h2>
@@ -90,7 +90,7 @@ export function LessonPage({ tool, dayIndex }: { tool: ToolId; dayIndex: number 
               ))}
             </section>
           )}
-          <LessonMarkdown markdown={state.lesson.after} />
+          <LessonMarkdown markdown={state.lesson.after} tool={tool} />
           <div className="ls-done">
             <button type="button" className={`st-btn wide ${done ? 'done' : ''}`} disabled={!canEdit} onClick={toggleDone}>
               {done ? '공부 자료 완료 · 취소하기' : '공부 자료 다 봤어요'}
