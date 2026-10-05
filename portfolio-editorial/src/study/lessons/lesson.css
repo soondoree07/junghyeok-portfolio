@@ -117,6 +117,8 @@
 .ls-quiz-result.correct { color: #2E5D3A; }
 .ls-quiz-result.wrong { color: var(--accent); }
 .ls-quiz-q { margin: 0 0 14px; font-size: 16px; line-height: 1.65; font-weight: 500; }
+/* 문제·보기·해설 속 긴 수식은 줄을 바꿀 자리가 없어 휴대폰에서 페이지를 옆으로 밀어낸다 → 아무 데서나 끊는다 */
+.ls-quiz-q, .ls-option, .ls-explain { overflow-wrap: anywhere; }
 .ls-options { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .ls-option {
   display: flex; align-items: flex-start; gap: 10px; width: 100%;
