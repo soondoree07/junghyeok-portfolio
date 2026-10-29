@@ -6,7 +6,7 @@
 import type { StudyDay, ToolId } from '../types';
 import { addDays, isWithin } from '../lib/seoulDate';
 import { EXCEL_BASICS } from './excel-basics';
-import { EXCEL_PLANNING } from './excel-planning';
+import { EXCEL_CRASH } from './excel-crash';
 import { PPT_DAYS } from './ppt';
 import { WORD_DAYS } from './word';
 import { FIGMA_DAYS } from './figma';
@@ -17,7 +17,7 @@ import { REST_PERIOD, STUDY_PERIOD } from './schedule';
 
 const PLANNED_DAYS: StudyDay[] = [
   ...EXCEL_BASICS,
-  ...EXCEL_PLANNING,
+  ...EXCEL_CRASH,
   ...PPT_DAYS,
   ...WORD_DAYS,
   ...FIGMA_DAYS,

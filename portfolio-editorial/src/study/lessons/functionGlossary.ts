@@ -1,6 +1,7 @@
 // 레슨 코드에 나오는 함수의 뜻. 코드 속 함수 이름에 마우스를 올리거나 누르면 이 내용이 말풍선으로 뜬다.
 // 새 레슨에서 처음 쓰는 함수는 여기에 먼저 추가한다 (없으면 밑줄 없이 그냥 보인다).
 import type { ToolId } from '../types';
+import { EXCEL_CRASH_FUNCTIONS } from './functionGlossaryExcelCrash';
 
 export interface FunctionEntry {
   /** 쓰는 법 */
@@ -69,6 +70,7 @@ const EXCEL_FUNCTIONS: FunctionGlossary = {
     meaning: '반올림해요. 자릿수 0은 정수, 2는 소수 둘째 자리, -1은 10 단위예요.',
     example: '=ROUND(1312.5,0) → 1313',
   },
+  ...EXCEL_CRASH_FUNCTIONS,
 };
 
 const GLOSSARIES: Partial<Record<ToolId, FunctionGlossary>> = {

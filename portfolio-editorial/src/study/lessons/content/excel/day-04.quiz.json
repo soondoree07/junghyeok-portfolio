@@ -1,0 +1,68 @@
+{
+  "questions": [
+    {
+      "id": "sumif-order",
+      "type": "choice",
+      "question": "로그에서 보스로 얻은 수량 합계를 구하는 수식으로 맞는 것은? (E열 = 수량, F열 = 획득처)",
+      "options": [
+        "=SUMIF(로그!$E:$E,\"보스\",로그!$F:$F)",
+        "=SUMIF(로그!$F:$F,\"보스\",로그!$E:$E)",
+        "=SUMIFS(로그!$F:$F,로그!$E:$E,\"보스\")",
+        "=COUNTIF(로그!$F:$F,\"보스\")"
+      ],
+      "answer": 1,
+      "explanation": "SUMIF는 (찾을범위, 조건, 합계범위) 순서라 합계 범위가 맨 뒤예요. SUMIFS로 쓴다면 =SUMIFS(로그!$E:$E,로그!$F:$F,\"보스\")처럼 합계 범위가 맨 앞이에요. COUNTIF는 합계가 아니라 행 개수예요."
+    },
+    {
+      "id": "compare-condition",
+      "type": "choice",
+      "question": "K1에 3이 있어요. 수량(E열)이 K1 이상인 로그 수를 세는 조건으로 맞는 것은?",
+      "options": ["\">=K1\"", "\">=\"&K1", ">=K1", "\"K1>=\""],
+      "answer": 1,
+      "explanation": "따옴표 안의 K1은 셀이 아니라 그냥 글자예요. 연산자만 따옴표에 넣고 &로 셀 값을 붙여야 \">=3\"이 돼요."
+    },
+    {
+      "id": "approximate-match",
+      "type": "choice",
+      "question": "레벨구간 표(하한 1=D, 60=C, 100=B, 140=A, 200=S)에서 =XLOOKUP(99,하한범위,등급범위,\"\",-1)의 결과는?",
+      "options": ["B", "C", "빈 칸", "#N/A"],
+      "answer": 1,
+      "explanation": "-1은 같은 값이 없으면 바로 아래 값을 찾아요. 99는 60과 100 사이라서 60 행의 C예요."
+    },
+    {
+      "id": "roundup",
+      "type": "choice",
+      "question": "판매가 1500메소 아이템을 코인(1개 = 350메소)으로 팔 때, 운영이 손해 보지 않는 필요 코인 수식은?",
+      "options": ["=ROUND(1500/350,0) → 4", "=ROUNDDOWN(1500/350,0) → 4", "=ROUNDUP(1500/350,0) → 5", "=INT(1500/350) → 4"],
+      "answer": 2,
+      "explanation": "1500 ÷ 350 = 4.29예요. 4코인이면 1400메소어치라 100메소를 덜 받아요. 가격은 ROUNDUP으로 올려요."
+    },
+    {
+      "id": "log-total",
+      "type": "numeric",
+      "question": "따라 하기 5단계 검산 셀 J1(로그 전체 수량 합계)의 값은 얼마인가요?",
+      "answer": 177,
+      "unit": "개",
+      "hint": "집계 시트 J1 = SUM(로그!$E:$E)",
+      "explanation": "로그 60행의 수량을 모두 더하면 177이에요. 집계 시트 C열 합계(J2)도 177이어야 검산이 OK예요."
+    },
+    {
+      "id": "boss-total",
+      "type": "numeric",
+      "question": "따라 하기 4단계에서 채운 집계 시트의 보스 열(G2:G21) 합계는 얼마인가요?",
+      "answer": 51,
+      "unit": "개",
+      "hint": "G2:G21을 선택하고 상태 표시줄의 합계를 봐요",
+      "explanation": "보스로 얻은 로그는 16행이고 수량 합은 51이에요. =SUMIF(로그!$F:$F,\"보스\",로그!$E:$E)로 바로 구해도 같아요."
+    },
+    {
+      "id": "meso-total",
+      "type": "numeric",
+      "question": "따라 하기 6단계에서 채운 로그 시트 메소환산(I2:I61) 합계는 얼마인가요?",
+      "answer": 2766660,
+      "unit": "메소",
+      "hint": "I2 클릭 → Ctrl+Shift+↓ → 상태 표시줄 합계",
+      "explanation": "각 행의 수량 × 판매가를 더한 값이에요. 다르게 나오면 H열 XLOOKUP의 가져올 범위가 판매가(F열)인지 확인해요."
+    }
+  ]
+}

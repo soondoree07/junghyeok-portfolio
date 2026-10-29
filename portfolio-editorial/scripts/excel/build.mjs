@@ -10,6 +10,18 @@ import {
   addAttendanceSheet, addDropSheet, addItemSheet, addMultiplierSheet, addShortcutSheet, attendanceAnswers,
   dropAnswers, itemAnswers, solveAttendanceSheet, solveDropSheet, solveItemSheet, solveMultiplierSheet,
 } from './sheets.mjs';
+import {
+  addLevelTierSheet, addLogSheet, addSummarySheet, solveItemCoins, solveLevelTierSheet, solveLogSheet, solveSummarySheet,
+  summaryAnswers,
+} from './sheets-day4.mjs';
+import {
+  addCurveSheet, addRewardSheets, addSettingsSheet, fixRewardSheets, rewardAnswers, solveCurveSheet, solveRewardSheets,
+  solveSettings,
+} from './sheets-day5.mjs';
+import {
+  addProbabilitySettings, addProbabilitySheet, addSimulationSheet, addStarforceSheet, probabilityAnswers,
+  solveProbabilitySettings, solveProbabilitySheet, solveSimulationSheet, solveStarforceSheet,
+} from './sheets-day6.mjs';
 import { addGuideSheet, freezeHeaderAndId } from './style.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -45,10 +57,55 @@ function day3Answer(workbook) {
   solveMultiplierSheet(workbook.getWorksheet('배율표'));
 }
 
+// 4~6일차는 원래 4~15일차를 3일로 압축한 속성 과정
+function day4Start(workbook) {
+  day3Answer(workbook);
+  addLogSheet(workbook);
+  addSummarySheet(workbook);
+  addLevelTierSheet(workbook);
+}
+function day4Answer(workbook) {
+  day4Start(workbook);
+  solveLogSheet(workbook.getWorksheet('로그'));
+  solveSummarySheet(workbook.getWorksheet('집계'));
+  solveLevelTierSheet(workbook.getWorksheet('레벨구간'));
+  solveItemCoins(workbook.getWorksheet('아이템'));
+}
+function day5Start(workbook) {
+  day4Answer(workbook);
+  addSettingsSheet(workbook);
+  addRewardSheets(workbook);
+  addCurveSheet(workbook);
+}
+function day5Answer(workbook) {
+  day5Start(workbook);
+  solveSettings(workbook);
+  solveRewardSheets(workbook);
+  solveCurveSheet(workbook.getWorksheet('곡선'));
+}
+function day6Start(workbook) {
+  day5Answer(workbook);
+  fixRewardSheets(workbook);
+  addProbabilitySettings(workbook);
+  addProbabilitySheet(workbook);
+  addSimulationSheet(workbook);
+  addStarforceSheet(workbook);
+}
+function day6Answer(workbook) {
+  day6Start(workbook);
+  solveProbabilitySettings(workbook);
+  solveProbabilitySheet(workbook.getWorksheet('확률'));
+  solveSimulationSheet(workbook.getWorksheet('시뮬'));
+  solveStarforceSheet(workbook.getWorksheet('스타포스'));
+}
+
 const DAYS = [
   { day: 1, start: day1Start, answer: day1Answer, answers: itemAnswers() },
   { day: 2, start: day2Start, answer: day2Answer, answers: dropAnswers() },
   { day: 3, start: day3Start, answer: day3Answer, answers: attendanceAnswers() },
+  { day: 4, start: day4Start, answer: day4Answer, answers: summaryAnswers() },
+  { day: 5, start: day5Start, answer: day5Answer, answers: rewardAnswers() },
+  { day: 6, start: day6Start, answer: day6Answer, answers: probabilityAnswers() },
 ];
 
 const pad = (day) => String(day).padStart(2, '0');
