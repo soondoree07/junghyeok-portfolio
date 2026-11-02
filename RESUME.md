@@ -1,3 +1,40 @@
+# 진행 상황 (2026-11-02 KST 기준)
+
+## 한 줄
+**junghyeok.com 메인이 3D 책장 포트폴리오(`portfolio-folio/`)로 바뀌었다.** 첫 접속 청사진 인트로(게임 컨트롤러 도면) → 책 15권 파도 → 책 클릭 시 전체 화면 상세. 남은 핵심은 **상세 화면에 넣을 캡처와 프로젝트 글 확정**.
+
+## 오늘 완료한 것
+- `portfolio-folio/` 새로 만듦 (motionsites.ai Folio 프롬프트 바탕, 빌드 없는 정적 사이트, three.js r160) — 구조는 `portfolio-folio/README.md`
+  - 책 15권(양장본 모양 `book-model.js`), 사용자가 정한 순서: 젤로팡 · 돈이돼지 · 원격 대시보드 · 작가 포폴 · 크몽 템플릿 · 모아툴 · 두토 · 메이플 보스 · pokenova · pochams · ENCORE · 오늘의집 · LOPA · Smart Highway · 호프테일(유기견 플랫폼, 한영 · AI 미사용)
+  - 파도: 마우스 올린 책 100% · 양옆 45% · 그 옆 15%, 위로만, 중심이 초당 4권 속도로 따라감, 들어오고 나갈 때 서서히 (`wave.js`)
+  - 메인 스크롤하면 책 밑동까지 + 맨 아래 연락처(전화 · 이메일 2 · GitHub · 사이트)
+  - Projects 메뉴 = 4열 펼치기(검은 화면에서 한 권씩), 다시 누르거나 Esc 로 복귀
+  - 책 클릭 = 전체 화면 상세(캡처 자리 `images/<id>/1~3.png`, 안내 `images/README.md`)
+  - 첫 접속 청사진 인트로(Pencil to Blueprint, 게임 컨트롤러): 세션마다 1번, 클릭으로 건너뜀, 로고 클릭 = 처음부터 다시, 페이지 여는 순간 종이색 가림막(`intro-entry.js`)
+  - **윈도우 애니메이션 효과 끄기(reduced-motion)는 따르지 않음** — 사용자 PC 가 늘 꺼져 있어 모션이 사라졌던 게 여러 피드백의 원인이었다
+- **배포**: Vercel `junghyeok-home` 의 Root Directory 를 `home-landing` → `portfolio-folio` 로 변경, push 하면 junghyeok.com 자동 배포. `vercel.json`(캐시 매번 확인) · `.vercelignore`
+- 별도 폴더 `~/animation_styles/` (git 아님): 노션 애니메이션 스타일 카드 37종 + 프롬프트 원문(사용자가 복사해 줌) + 예시 HTML 37개(`examples/`, 한 파일짜리 `examples/standalone/`)
+
+## 결정 대기 / 막힌 지점
+- **상세 화면 캡처 아직 없음** — 사용자가 `portfolio-folio/images/<id>/1.png` 등에 넣으면 됨(지금은 "캡처를 넣을 자리" 표시)
+- **새로 넣은 4개 프로젝트 글은 초안**(크몽 템플릿 · 모아툴 · 두토 · 메이플 보스) — 두토가 크몽 외주인지, 플레이 스토어 링크 확인 필요. 표지 제목 Folio Template · Boss Party · Reward Loop · Living Alone · Remote Desk 는 임의로 붙인 이름
+- 각 프로젝트 "배운 것" 한 줄은 초안 — 본인 말투로 다듬기
+- 예전 첫 페이지의 공부 사이트(study.junghyeok.com) 링크가 새 포트폴리오엔 없음 — 넣을지
+- 파비콘이 아직 예전 베이지 로고 모양 — 바꿀지
+- 예시 Timeline(`~/animation_styles/examples/p2-09-timeline`)의 프로젝트 달은 지어낸 값
+
+## 다음 액션 (우선순위)
+1. 사용자 캡처 받아 `images/<id>/` 에 넣고, 캡처 설명(`shots`)과 프로젝트 글 확정 (`js/projects.js`)
+2. 공부 사이트 링크 · 파비콘 결정
+3. (공부) 엑셀 5일차 — https://study.junghyeok.com/#/study/lesson/excel/5 , 6일차 → 1~6일차 총정리 → 일정 재계획
+4. day-01.md "셀 분할" 수정 승인받기
+
+## 이미 끝난 것
+- push 된 커밋: d542421 ~ 61842ae (portfolio-folio 전부), devlog 2026-11-02 항목에 기록
+- 로컬 미리보기: `cd portfolio-folio && python3 dev-server.py` → http://localhost:4321 (`?intro` 로 인트로 다시)
+
+---
+
 # 진행 상황 (2026-11-01 KST 기준)
 
 ## 한 줄
