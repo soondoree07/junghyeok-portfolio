@@ -51,7 +51,7 @@ export function setContentHeight(px) {
   spacer.style.height = `${Math.ceil(px)}px`;
 }
 
-// "연락하기" — 지금 화면의 맨 아래 연락처로 부드럽게 내려간다
+// About — 지금 화면의 맨 아래 소개 · 연락처 칸으로 부드럽게 내려간다
 export function scrollToContact() {
   contact.scrollIntoView({ behavior: 'smooth' });
 }

@@ -27,17 +27,10 @@ ul { list-style: none; }
 .logo-text strong { font: 400 max(17px, 1.55vw) var(--serif); }
 .logo-text small { font: 400 max(8px, .6vw) var(--sans); opacity: .7; margin-top: .25vw; letter-spacing: .02em; }
 .nav-links { display: flex; gap: 2.3vw; margin-left: 11.4vw; }
-.nav-links a, .nav-plain { opacity: .88; transition: opacity .2s; }
-.nav-links a:hover, .nav-plain:hover { opacity: 1; }
+.nav-links a { opacity: .88; transition: opacity .2s; }
+.nav-links a:hover { opacity: 1; }
 /* 펼친 상태의 Projects — 밑줄로 지금 보기를 알린다 */
 .nav-links a[aria-pressed="true"] { opacity: 1; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
-.nav-right { margin-left: auto; display: flex; align-items: center; gap: 2.4vw; }
-.pill {
-  background: #fff; color: #000; border-radius: .4vw; padding: .55vw 1vw;
-  transition: transform .2s var(--ease);
-}
-.pill:hover { transform: translateY(-1px); }
-.pill:active { transform: scale(.97); transition-duration: .1s; }
 
 /* ---------- 큰 이름 ---------- */
 .wordmark {
@@ -78,6 +71,13 @@ ul { list-style: none; }
 .contact-eyebrow { font: 500 12px var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .contact-name { margin-top: 20px; font: 400 clamp(48px, 7vw, 120px)/1 var(--serif); letter-spacing: -.02em; }
 .contact-role { margin-top: 14px; color: var(--muted); font-size: 15px; }
+.contact-about { margin-top: 48px; max-width: 40em; word-break: keep-all; }
+.about-school { color: var(--muted); font-size: 14px; }
+.about-lead { margin-top: 14px; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.6; letter-spacing: -.01em; }
+.about-text { margin-top: 14px; color: rgba(255, 255, 255, .78); font-size: 15px; line-height: 1.8; }
+.about-skills { margin-top: 22px; display: grid; gap: 8px; }
+.about-skills li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.6; }
+.about-skills li::before { content: ""; position: absolute; left: 0; top: .8em; width: 6px; height: 1px; background: var(--muted); }
 .contact-list { margin-top: 56px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px 24px; }
 .contact-list dt { font: 500 12px var(--sans); letter-spacing: .08em; color: var(--muted); }
 .contact-list dd { margin-top: 10px; display: grid; gap: 6px; font-size: 16px; }
@@ -98,10 +98,8 @@ ul { list-style: none; }
 /* ---------- 휴대폰 ---------- */
 @media (max-width: 760px) {
   .nav { left: 5vw; right: 5vw; top: 2.5vh; }
-  .nav-plain { display: none; }
-  .nav-links { margin-left: auto; margin-right: 18px; } /* 휴대폰은 Projects 만 */
+  .nav-links { margin-left: auto; } /* 휴대폰은 Projects 만 */
   .nav-links a:not([data-open="projects"]) { display: none; }
-  .pill { border-radius: 8px; padding: 8px 14px; }
   :root { --fs: 19vw; }
   .wordmark { top: 18vh; }
   .keywords { top: 12vh; padding: 0 8vw; gap: 6px 14px; }

@@ -1,4 +1,4 @@
-// 상세 화면 — 책을 누르면 화면 전체를 덮는 프로젝트 페이지가 올라온다. About 도 같은 화면을 쓴다.
+// 상세 화면 — 책을 누르면 화면 전체를 덮는 프로젝트 페이지가 올라온다.
 import { PROJECTS } from './projects.js';
 
 const SHOT_COUNT = 3; // 프로젝트마다 기본 캡처 자리 수 (shots 를 따로 적으면 그 수만큼)
@@ -60,22 +60,6 @@ function projectHtml(project) {
     </nav>`;
 }
 
-function aboutHtml() {
-  return `
-    <header class="detail-head">
-      <p class="detail-eyebrow">About</p>
-      <h2 id="panel-title" class="detail-title">박정혁</h2>
-      <p class="detail-sub">한양대학교 ICT융합학부 디자인테크놀로지전공</p>
-      <p class="detail-lead">시스템과 UX 흐름을 중심으로 기획하고, 디자인과 개발까지 직접 만들어 끝까지 끌고 가요.</p>
-    </header>
-    <section class="detail-notes">
-      <div><h3>방향</h3><p class="detail-text">장기적으로는 "이 결정이 맞는가?"를 빠르게가 아니라 정확하게 판단하는 게임 기획자가 되고 싶어요.
-      프로젝트로 사고방식을 정리하고, 멘토링으로 판단 기준을 검증하고 있어요.</p></div>
-      <div><h3>잘하는 것</h3><ul><li>UX 리서치 · 서비스 설계 · 시스템 설계</li><li>유저 플로우 · 정보 구조 · 페르소나 / 고객 여정 지도</li>
-      <li>Figma 프로토타입 · 비주얼 디렉션</li><li>React · Next.js 웹 개발, AI 활용 개발</li></ul></div>
-    </section>`;
-}
-
 // 캡처 파일이 아직 없으면 "넣을 자리" 표시로 바꾼다
 function markMissingShots() {
   body.querySelectorAll('img[data-placeholder]').forEach((img) => {
@@ -98,7 +82,6 @@ function show(html) {
 }
 
 export function openProject(project) { currentProject = project; show(projectHtml(project)); }
-export function openAbout() { currentProject = null; show(aboutHtml()); }
 
 function stepProject(direction) {
   const current = PROJECTS.indexOf(currentProject);

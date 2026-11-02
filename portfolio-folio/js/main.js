@@ -5,7 +5,7 @@ import { pointer, trackPointer, updateBooks } from './motion.js';
 import { gridMetrics, updateSpread } from './layout.js';
 import { view, setMode, scrollPx, shelfScrollPx, setContentHeight, isStageTarget, scrollToContact } from './view.js';
 import { rememberCameraBase, panCamera, fitShelfHeight, watchScrolled } from './page.js';
-import { openProject, openAbout, closePanel, isPanelOpen } from './panel.js';
+import { openProject, closePanel, isPanelOpen } from './panel.js';
 import { playIntro } from './intro.js';
 import { replayFromStart } from './blueprint-intro.js';
 
@@ -68,10 +68,9 @@ document.querySelector('.logo').addEventListener('click', (e) => {
   e.preventDefault();
   replayFromStart();
 });
-document.querySelectorAll('[data-open="contact"]').forEach((el) =>
-  el.addEventListener('click', (e) => { e.preventDefault(); closePanel(); scrollToContact(); }));
+// About: 맨 아래 소개 · 연락처 칸으로 내려간다
 document.querySelectorAll('[data-open="about"]').forEach((el) =>
-  el.addEventListener('click', (e) => { e.preventDefault(); openAbout(); }));
+  el.addEventListener('click', (e) => { e.preventDefault(); closePanel(); scrollToContact(); }));
 
 // Esc: 패널이 열려 있으면 패널만 닫고(panel.js), 아니면 책장으로 돌아간다
 addEventListener('keydown', (e) => {
