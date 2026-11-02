@@ -12,7 +12,9 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--fg); }
+html, body { background: var(--bg); color: var(--fg); }
+html { overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.25) transparent; }
+html.grid-mode { overflow: hidden; } /* 펼친 동안은 격자 영역만 스크롤 */
 body { font-family: var(--sans); -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
@@ -46,19 +48,19 @@ ul { list-style: none; }
 
 /* ---------- 큰 이름 ---------- */
 .wordmark {
-  position: fixed; z-index: 1; left: 0; right: 0; text-align: center;
+  position: absolute; z-index: 1; left: 0; right: 0; text-align: center;
   top: calc(46.5vh - var(--fs) * .8);
   font: 400 var(--fs)/1 var(--serif); letter-spacing: -.02em;
   pointer-events: none; user-select: none;
 }
 .keywords {
   /* 이름 위에 둔다 — g·y 꼬리와 겹치지 않게 */
-  position: fixed; z-index: 1; top: calc(46.5vh - var(--fs) * .8 - 2.4vh); left: 0; right: 0;
+  position: absolute; z-index: 1; top: calc(46.5vh - var(--fs) * .8 - 2.4vh); left: 0; right: 0;
   display: flex; justify-content: center; flex-wrap: wrap; gap: .6vw 2.1vw;
   font: 500 max(10px, .74vw) var(--sans); opacity: .9; pointer-events: none;
 }
 .hero-text {
-  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  position: absolute; top: 0; left: 0; right: 0; height: 100vh; z-index: 1; pointer-events: none;
   transition: opacity .5s var(--ease), transform .7s var(--ease);
 }
 .grid-mode .hero-text { opacity: 0; transform: translateY(-3vh); }
@@ -88,7 +90,24 @@ ul { list-style: none; }
 .grid-fade { position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; opacity: 0; transition: opacity .5s var(--ease); }
 .grid-fade-top { top: 0; height: 15vh; background: linear-gradient(#000 45%, transparent); }
 .grid-fade-bottom { bottom: 0; height: 13vh; background: linear-gradient(transparent, #000 75%); }
-.grid-mode .grid-fade { opacity: 1; }
+.grid-mode .grid-fade, .scrolled .grid-fade-top { opacity: 1; }
+
+/* ---------- 페이지 · 맨 아래 연락처 ---------- */
+.page { position: relative; }
+.contact {
+  position: relative; z-index: 3; padding: 14vh 0 18vh; margin: 0 23.4vw 0 23.3vw;
+  border-top: 1px solid rgba(255, 255, 255, .14);
+}
+.contact-eyebrow { font: 500 12px var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.contact-name { margin-top: 20px; font: 400 clamp(48px, 7vw, 120px)/1 var(--serif); letter-spacing: -.02em; }
+.contact-role { margin-top: 14px; color: var(--muted); font-size: 15px; }
+.contact-list { margin-top: 56px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px 24px; }
+.contact-list dt { font: 500 12px var(--sans); letter-spacing: .08em; color: var(--muted); }
+.contact-list dd { margin-top: 10px; display: grid; gap: 6px; font-size: 16px; }
+.contact-list a { width: fit-content; border-bottom: 1px solid rgba(255, 255, 255, .25); transition: border-color .2s; }
+.contact-list a:hover { border-color: #fff; }
+.contact-foot { margin-top: 72px; font-size: 12px; color: rgba(255, 255, 255, .4); }
+.grid-scroll .contact { margin-top: 0; }
 
 /* ---------- 3D 캔버스 ---------- */
 .stage { position: fixed; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; }
@@ -161,6 +180,7 @@ ul { list-style: none; }
   .wordmark { top: 18vh; }
   .keywords { top: 12vh; padding: 0 8vw; gap: 6px 14px; }
   .bottom-bar { left: 5vw; right: 5vw; bottom: 3vh; }
+  .contact { margin: 0 6vw; padding: 10vh 0 16vh; }
   .hint span { display: none; }
   .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; height: 82vh;
     transform: translateY(calc(100% + 16px)); }

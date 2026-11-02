@@ -3,7 +3,8 @@ import * as THREE from 'three';
 import { createRenderer, createScene, createCamera, fitCamera, createBooks } from './scene.js';
 import { pointer, trackPointer, updateBooks } from './motion.js';
 import { gridMetrics, updateSpread } from './layout.js';
-import { view, setMode, scrollPx, setContentHeight, onToggle, isStageTarget } from './view.js';
+import { view, setMode, scrollPx, shelfScrollPx, setContentHeight, onToggle, isStageTarget, scrollToContact } from './view.js';
+import { rememberCameraBase, panCamera, fitShelfHeight, watchScrolled } from './page.js';
 import { openProject, openAbout, closePanel, isPanelOpen } from './panel.js';
 import { playIntro } from './intro.js';
 
@@ -26,12 +27,15 @@ let metrics = null;
 
 function handleResize() {
   fitCamera(camera, renderer);
+  rememberCameraBase(camera);
+  fitShelfHeight(books, camera);
   metrics = gridMetrics(camera, projectCount);
   setContentHeight(metrics.contentPx);
 }
 handleResize();
 addEventListener('resize', handleResize);
 trackPointer();
+watchScrolled();
 
 // 누를 수 있는 책 찾기
 const raycaster = new THREE.Raycaster();
@@ -65,6 +69,8 @@ document.querySelector('[data-open="projects"]').addEventListener('click', (e) =
   e.preventDefault();
   toggleView('grid');
 });
+document.querySelectorAll('[data-open="contact"]').forEach((el) =>
+  el.addEventListener('click', (e) => { e.preventDefault(); closePanel(); scrollToContact(); }));
 document.querySelectorAll('[data-open="about"]').forEach((el) =>
   el.addEventListener('click', (e) => { e.preventDefault(); selectedIndex = null; openAbout(); }));
 
@@ -85,6 +91,7 @@ playIntro();
 renderer.setAnimationLoop(() => {
   const dt = clock.getDelta();
   const time = clock.elapsedTime;
+  panCamera(camera, shelfScrollPx());
   updateCursor();
   updateSpread(books, camera, metrics, view, scrollPx(), time, dt);
   updateBooks(books, camera, time, dt, { mode: view.mode, selectedIndex, hoverIndex });

@@ -31,10 +31,12 @@
     </nav>
     <div class="nav-right">
       <a class="nav-plain" href="#" data-open="about">소개</a>
-      <a class="pill" href="mailto:soondoree07@gmail.com">연락하기</a>
+      <a class="pill" href="#contact" data-open="contact">연락하기</a>
     </div>
   </header>
 
+  <!-- 책장 화면 페이지 — 스크롤하면 카메라도 같이 내려간다 (page.js) -->
+  <main class="page">
   <!-- 펼치기 화면에서는 이 묶음이 통째로 사라진다 -->
   <div class="hero-text">
     <h1 class="wordmark">Junghyeok</h1>
@@ -43,6 +45,21 @@
       <li>User Flow</li><li>Immersive Media</li><li>Prototyping</li><li>Web Dev</li>
     </ul>
   </div>
+  <div class="shelf-spacer"></div>
+
+  <footer class="contact" id="contact">
+    <p class="contact-eyebrow">Contact</p>
+    <h2 class="contact-name">Park Junghyeok</h2>
+    <p class="contact-role">박정혁 · 게임 · UX 기획자</p>
+    <dl class="contact-list">
+      <div><dt>Phone</dt><dd><a href="tel:01050032782">010-5003-2782</a></dd></div>
+      <div><dt>Email</dt><dd><a href="mailto:soondoree07@gmail.com">soondoree07@gmail.com</a><a href="mailto:soondoree07@naver.com">soondoree07@naver.com</a></dd></div>
+      <div><dt>GitHub</dt><dd><a href="https://github.com/soondoree07" target="_blank" rel="noopener">github.com/soondoree07</a></dd></div>
+      <div><dt>Website</dt><dd><a href="https://junghyeok.com" target="_blank" rel="noopener">junghyeok.com</a></dd></div>
+    </dl>
+    <p class="contact-foot">© 2026 Park Junghyeok</p>
+  </footer>
+  </main>
 
   <canvas class="stage" aria-label="프로젝트 책 11권이 놓인 3D 책장"></canvas>
   <!-- 펼치기 화면의 스크롤 영역 — 높이만 차지하고, 책은 3D 로 그린다 -->
@@ -51,7 +68,7 @@
   <div class="grid-fade grid-fade-bottom" aria-hidden="true"></div>
 
   <div class="bottom-bar">
-    <p class="hint">책을 눌러 프로젝트를 열어 보세요 <span>· 11 Projects</span></p>
+    <p class="hint">책을 눌러 프로젝트를 열어 보세요 <span>· 아래로 내리면 연락처</span></p>
     <button class="view-toggle" type="button" aria-pressed="false">11권 펼쳐 보기</button>
   </div>
 
