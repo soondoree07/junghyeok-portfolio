@@ -13,6 +13,14 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="detail.css">
   <link rel="stylesheet" href="blueprint.css">
+  <!-- 첫 접속(또는 ?intro)이면 그리기 전에 종이색 가림막을 켠다 — 3D 가 준비되는 동안 사이트가 비치지 않게 -->
+  <script>
+    try {
+      if (new URLSearchParams(location.search).has('intro') || sessionStorage.getItem('folio-blueprint-seen') !== '1') {
+        document.documentElement.classList.add('intro-pending');
+      }
+    } catch (e) { document.documentElement.classList.add('intro-pending'); }
+  </script>
   <script type="importmap">
     { "imports": {
       "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -21,6 +29,7 @@
   </script>
 </head>
 <body>
+  <div class="intro-cover" aria-hidden="true"></div>
   <header class="nav">
     <a class="logo" href="./" aria-label="박정혁 포트폴리오 처음으로">
       <span class="logo-text"><strong>Junghyeok</strong><small>game &amp; ux planner</small></span>
@@ -76,6 +85,7 @@
   </aside>
 
   <noscript><p class="noscript">이 페이지는 자바스크립트를 켜야 볼 수 있어요.</p></noscript>
+  <script type="module" src="js/intro-entry.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

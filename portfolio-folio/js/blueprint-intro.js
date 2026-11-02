@@ -1,6 +1,7 @@
 // 첫 접속 인트로 — 연필 스케치가 그려지고, 잉크가 안쪽에서 번지며 흰 선의 청사진으로 바뀐 뒤 사이트가 열린다.
 // 순서(프롬프트 Part 1 · 10 기준): 스케치 → 약 1.7초에 잉크 번짐(지나간 선은 흰 선으로 튕기듯 펴짐) → 치수 · 라벨 → 1.5초 멈춤 → 사이트
-// 한 세션에 한 번만 나오고, 누르거나 키를 치면 건너뛴다. 로고를 누르면 처음부터 다시 (replayFromStart).
+// 한 세션에 한 번만 나오고, 화면을 클릭하면 건너뛴다. 로고를 누르면 처음부터 다시 (replayFromStart).
+// 3D 를 기다리지 않게 intro-entry.js 가 가장 먼저 시작한다. 그 전까지는 index.html 의 종이색 가림막(.intro-cover)이 덮는다.
 import * as D from './blueprint-drawing.js';
 import { el, fitViewBox, buildDefs, buildSketch, buildInk } from './blueprint-svg.js';
 import { T, SKETCH, timers, later, drawStroke } from './blueprint-timing.js';
@@ -87,9 +88,6 @@ function buildOverlay() {
   overlay.className = 'blueprint';
   overlay.setAttribute('aria-hidden', 'true');
   const svg = el('svg', { preserveAspectRatio: 'xMidYMid meet' }, overlay);
-  const skip = document.createElement('button');
-  skip.className = 'blueprint-skip'; skip.type = 'button'; skip.textContent = '건너뛰기';
-  overlay.append(skip);
   document.body.append(overlay);
   return { overlay, svg };
 }
@@ -108,7 +106,7 @@ async function measureLabel(svg) {
 
 // 인트로를 보여 주고, 사라지기 시작할 때 끝난다(그때 사이트 등장을 시작하면 자연스럽게 이어진다)
 export async function playBlueprintIntro() {
-  if (hasSeen()) return;
+  if (hasSeen()) { document.documentElement.classList.remove('intro-pending'); return; }
   markSeen();
   history.replaceState(null, '', location.pathname); // ?intro 는 주소에 남기지 않는다
   document.documentElement.classList.add('intro-playing');
@@ -123,7 +121,6 @@ export async function playBlueprintIntro() {
   el('rect', { ...view, filter: 'url(#bp-grain)', 'pointer-events': 'none' }, svg); // 종이 결
   playFlood([...blobs, ink.tide], view);
   playStraighten(ink.segments, view);
-  later(T.flood + 300, () => overlay.classList.add('is-blue'));
   playSystem(ink.g);
   playLabel(ink.g, label.width);
 
@@ -132,15 +129,13 @@ export async function playBlueprintIntro() {
     const exit = () => {
       if (done) return; done = true;
       timers.forEach(clearTimeout);
-      removeEventListener('keydown', exit);
       overlay.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-2vh)' }],
         { duration: T.exitLength, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' })
         .finished.then(() => overlay.remove());
-      document.documentElement.classList.remove('intro-playing');
+      document.documentElement.classList.remove('intro-playing', 'intro-pending'); // 가림막도 함께 걷는다
       resolve();
     };
     overlay.addEventListener('click', exit);
-    addEventListener('keydown', exit);
     timers.push(setTimeout(exit, T.exit));
   });
 }

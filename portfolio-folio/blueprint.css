@@ -1,5 +1,10 @@
 /* 첫 접속 청사진 인트로 (blueprint-intro.js) — 스타일 카드: Part 1 · 10. Pencil to Blueprint */
-.intro-playing { overflow: hidden; }
+.intro-playing, .intro-pending { overflow: hidden; }
+/* 인트로가 시작되기 전 가림막 — 종이색. 인트로 화면(.blueprint)이 그 위를 덮고, 인트로가 끝날 때 함께 걷힌다 */
+.intro-cover { display: none; }
+.intro-pending .intro-cover {
+  display: block; position: fixed; inset: 0; z-index: 25; background: #ECECE6;
+}
 .blueprint {
   position: fixed; inset: 0; z-index: 30; background: #ECECE6; cursor: pointer;
 }
@@ -10,11 +15,3 @@
 .bp-measure {
   font: 500 44px "Barlow Semi Condensed", sans-serif; font-variant-numeric: tabular-nums; fill: #EEF4FB;
 }
-.blueprint-skip {
-  position: absolute; right: 28px; bottom: 26px; padding: 8px 4px; border: 0; background: none; cursor: pointer;
-  font: 500 13px "Barlow Semi Condensed", Inter, sans-serif; letter-spacing: .12em; color: rgba(37, 38, 43, .6);
-  transition: color .4s ease;
-}
-.blueprint.is-blue .blueprint-skip { color: rgba(238, 244, 251, .7); }
-.blueprint-skip:hover { color: #25262B; }
-.blueprint.is-blue .blueprint-skip:hover { color: #EEF4FB; }

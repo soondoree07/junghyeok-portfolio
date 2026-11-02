@@ -6,7 +6,7 @@
 책장 화면은 아래로 스크롤하면 책 밑동까지 보이고, 맨 아래에 연락처(이름 · 전화 · 이메일 · GitHub · 사이트)가 있습니다.
 (motionsites.ai 의 "Folio" 프롬프트 구조를 바탕으로, 표지 이미지는 쓰지 않고 캔버스로 직접 그립니다.)
 
-처음 접속하면(세션마다 한 번) 연필 스케치가 파란 청사진으로 바뀌는 인트로가 나온 뒤 사이트가 열립니다. 누르거나 키를 치면 건너뜁니다. 다시 보려면 로고를 누르거나 주소 뒤에 `?intro` 를 붙입니다. 윈도우 애니메이션 효과 끄기(움직임 줄이기)는 따르지 않습니다(사용자 결정).
+처음 접속하면(세션마다 한 번) 연필 스케치가 파란 청사진으로 바뀌는 인트로가 나온 뒤 사이트가 열립니다. 화면을 클릭하면 건너뜁니다. 다시 보려면 로고를 누르거나 주소 뒤에 `?intro` 를 붙입니다. 윈도우 애니메이션 효과 끄기(움직임 줄이기)는 따르지 않습니다(사용자 결정).
 스타일 출처: `~/animation_styles/애니메이션_스타일_카드.md` — Part 1 · 10. Pencil to Blueprint
 
 빌드 없는 정적 사이트입니다. **https://junghyeok.com 메인 화면** — Vercel 프로젝트 `junghyeok-home`(Root Directory = `portfolio-folio`), GitHub 에 push 하면 자동 배포. `vercel.json` 은 고친 뒤 예전 화면이 남지 않게 매번 새로 확인하게 하는 설정, `.vercelignore` 는 미리보기 서버를 배포에서 뺀다. Three.js r160 은 jsDelivr 의 import map 으로 불러옵니다.
@@ -25,13 +25,14 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `images/` | 프로젝트 캡처 (`images/README.md` 참고) |
 | `js/projects.js` | **프로젝트 내용** — 글을 고칠 때는 여기만 고치면 됩니다 |
 | `js/book-model.js` | 양장본 책 모양 — 앞 · 뒤 표지 판지(속지보다 살짝 큼) · 둥근 책등 · 안쪽으로 들어간 속지 |
+| `js/intro-entry.js` | 인트로 시작점 — 3D 를 기다리지 않고 가장 먼저 인트로를 시작(그 전엔 index.html 의 종이색 가림막) |
 | `js/blueprint-intro.js` | 첫 접속 청사진 인트로 본체 — 스케치 → 약 1.7초 잉크 번짐(흰 선이 튕기듯 펴짐) → 치수 · 라벨 → 1.5초 멈춤 → 사이트 |
 | `js/blueprint-timing.js` | 인트로 시간표와 공용 움직임 도구 |
 | `js/blueprint-annotations.js` | 인트로 치수(15 PROJECTS · 2025 – 2026) · 라벨(PARK JUNGHYEOK PORTFOLIO) |
 | `js/blueprint-svg.js` | 인트로 SVG 만들기 — 종이 · 격자 · 결, 잉크 마스크, 스케치 · 도면 층 |
 | `js/blueprint-drawing.js` | 인트로 그림 데이터 — 위에서 본 게임 컨트롤러(몸통 곡선 · 십자키 · 버튼 · 스틱), 치수 · 라벨 |
 | `js/blueprint-sketch.js` | 인트로 연필 스케치 — 그림 데이터를 손 선(겹침 · 넘침 · 흔들림)으로 |
-| `blueprint.css` | 인트로 화면 · 글꼴(Barlow Semi Condensed) · 건너뛰기 |
+| `blueprint.css` | 인트로 화면 · 글꼴(Barlow Semi Condensed) · 시작 전 가림막 |
 | `js/covers.js` | 표지 · 종이 단면을 캔버스로 그리기 (`MOTIFS` = 표지 도형) |
 | `js/scene.js` | 렌더러 · 조명 · 카메라 · 책 줄 배치 (`ROW_SPAN_X` · `ROW_SPAN_Z` = 책 줄 전체 길이, 권수로 나눠 간격 자동) |
 | `js/motion.js` | 책마다 목표 높이를 스프링으로 따라감 (K 13, C 6.9, 프레임당 4번) · 펼치기: 가리킨 책이 앞으로 |
