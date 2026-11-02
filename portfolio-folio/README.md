@@ -29,7 +29,8 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `js/blueprint-timing.js` | 인트로 시간표와 공용 움직임 도구 |
 | `js/blueprint-annotations.js` | 인트로 치수(15 PROJECTS · 2025 – 2026) · 라벨(PARK JUNGHYEOK PORTFOLIO) |
 | `js/blueprint-svg.js` | 인트로 SVG 만들기 — 종이 · 격자 · 결, 잉크 마스크, 스케치 · 도면 층 |
-| `js/blueprint-drawing.js` | 인트로 그림 데이터 — 책 정면 도면, 손 선 만들기, 치수 · 라벨 |
+| `js/blueprint-drawing.js` | 인트로 그림 데이터 — 위에서 본 게임 컨트롤러(몸통 곡선 · 십자키 · 버튼 · 스틱), 치수 · 라벨 |
+| `js/blueprint-sketch.js` | 인트로 연필 스케치 — 그림 데이터를 손 선(겹침 · 넘침 · 흔들림)으로 |
 | `blueprint.css` | 인트로 화면 · 글꼴(Barlow Semi Condensed) · 건너뛰기 |
 | `js/covers.js` | 표지 · 종이 단면을 캔버스로 그리기 (`MOTIFS` = 표지 도형) |
 | `js/scene.js` | 렌더러 · 조명 · 카메라 · 책 줄 배치 (`ROW_SPAN_X` · `ROW_SPAN_Z` = 책 줄 전체 길이, 권수로 나눠 간격 자동) |

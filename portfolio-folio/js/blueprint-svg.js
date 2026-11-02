@@ -1,6 +1,7 @@
 // 청사진 인트로의 SVG 만들기 — 종이 · 격자 · 결 필터, 잉크 번짐 마스크, 그래파이트 스케치 층, 흰 잉크 도면 층.
 // 시간표와 움직임은 blueprint-intro.js 가 맡는다.
 import * as D from './blueprint-drawing.js';
+import { sketchStrokes, curvePath } from './blueprint-sketch.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -54,7 +55,7 @@ function buildDefs(svg, view) {
 
 function buildSketch(svg) {
   const g = el('g', { mask: 'url(#bp-outside)', filter: 'url(#bp-tooth)', fill: 'none', stroke: D.COLORS.graphite, 'stroke-linecap': 'round' }, svg);
-  return D.sketchStrokes().map((s) => ({ ...s, node: el('path', { d: s.d, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1, 'stroke-width': 1.7, opacity: 0.85 * s.weight }, g) }));
+  return sketchStrokes().map((s) => ({ ...s, node: el('path', { d: s.d, pathLength: 1, 'stroke-dasharray': '1 2', 'stroke-dashoffset': 1, 'stroke-width': 1.7, opacity: 0.85 * s.weight }, g) }));
 }
 
 function buildInk(svg, view, edge) {
@@ -63,11 +64,13 @@ function buildInk(svg, view, edge) {
   el('rect', { ...view, filter: 'url(#bp-grain)', opacity: 0.6 }, g);
   const tide = el('path', { d: edge, fill: 'none', stroke: D.COLORS.tide, 'stroke-width': 22, 'vector-effect': 'non-scaling-stroke' }, g);
   const lines = el('g', { fill: 'none', stroke: D.COLORS.ink, 'stroke-width': 2.2, 'stroke-linecap': 'square' }, g);
-  D.INK_LINES.forEach((d) => el('path', { d }, lines));
-  // 휜 채로 나타났다 곧게 펴질 외곽선 — 처음 모양은 blueprint-intro.js 가 정한다
+  D.BODY_CURVES.forEach((curve) => el('path', { d: curvePath(curve) }, lines));
+  D.DPAD_CAPS.forEach(([x1, y1, x2, y2]) => el('path', { d: `M${x1} ${y1} L${x2} ${y2}` }, lines));
+  // 휜 채로 나타났다 곧게 펴질 곧은 선 — 처음 모양은 blueprint-intro.js 가 정한다
   const segments = D.OUTLINE_SEGMENTS.map((seg) => ({ seg, node: el('path', {}, lines) }));
-  el('circle', { cx: D.INK_CIRCLE.x, cy: D.INK_CIRCLE.y, r: D.INK_CIRCLE.r }, lines);
-  D.CENTER_LINES.forEach((d) => el('path', { d, 'stroke-width': 1.2, 'stroke-dasharray': '26 6 3 6' }, lines));
+  D.CIRCLES.forEach((c) => el('circle', { cx: c.x, cy: c.y, r: c.r }, lines));
+  // 보조축은 도면에서 일점쇄선 중심선이 된다
+  D.AXES.forEach(([x1, y1, x2, y2]) => el('path', { d: `M${x1} ${y1} L${x2} ${y2}`, 'stroke-width': 1.2, 'stroke-dasharray': '26 6 3 6' }, lines));
   return { g, lines, tide, segments };
 }
 

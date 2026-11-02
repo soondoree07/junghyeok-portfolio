@@ -37,10 +37,10 @@ export function playSystem(layer) {
   pop(el('path', { d: `M${D.EMBLEM.x - 12} ${D.EMBLEM.y} H${D.EMBLEM.x + 12} M${D.EMBLEM.x} ${D.EMBLEM.y - 12} V${D.EMBLEM.y + 12}`, 'stroke-width': 2 }, g), t0);
   D.DIMENSIONS.forEach((dim, i) => {
     const t = t0 + 120 + i * 160;
-    dim.extensions.forEach((d) => drawStroke(el('path', { d, pathLength: 1, 'stroke-dasharray': 1 }, g), t, 220));
+    dim.extensions.forEach((d) => drawStroke(el('path', { d, pathLength: 1, 'stroke-dasharray': '1 2' }, g), t, 220));
     const mid = { x: (dim.from.x + dim.to.x) / 2, y: (dim.from.y + dim.to.y) / 2 };
     [dim.from, dim.to].forEach((end) => {
-      drawStroke(el('path', { d: `M${mid.x} ${mid.y} L${end.x} ${end.y}`, pathLength: 1, 'stroke-dasharray': 1 }, g), t + 220, 320, 'cubic-bezier(.2,.8,.2,1)');
+      drawStroke(el('path', { d: `M${mid.x} ${mid.y} L${end.x} ${end.y}`, pathLength: 1, 'stroke-dasharray': '1 2' }, g), t + 220, 320, 'cubic-bezier(.2,.8,.2,1)');
       pop(arrow(g, end, mid), t + 520);
     });
     const text = el('text', { x: dim.text.x, y: dim.text.y, 'text-anchor': dim.text.anchor, class: 'bp-measure' }, layer);
@@ -52,7 +52,7 @@ export function playSystem(layer) {
 // 라벨 — 가는 선이 먼저 그어지고, 그 위로 이름이 올라온다
 export function playLabel(layer, labelWidth) {
   const { rule } = D.LABEL;
-  const line = el('path', { d: `M${rule.x1} ${rule.y} H${rule.x1 + labelWidth}`, stroke: D.COLORS.ink, 'stroke-width': 1.4, pathLength: 1, 'stroke-dasharray': 1 }, layer);
+  const line = el('path', { d: `M${rule.x1} ${rule.y} H${rule.x1 + labelWidth}`, stroke: D.COLORS.ink, 'stroke-width': 1.4, pathLength: 1, 'stroke-dasharray': '1 2' }, layer);
   drawStroke(line, T.label, 420, 'cubic-bezier(.2,.8,.2,1)');
   el('clipPath', { id: 'bp-label-clip' }, layer).append(el('rect', { x: rule.x1 - 10, y: rule.y - 140, width: labelWidth + 40, height: 138 }));
   // 잘라내는 영역은 바깥 묶음에 고정 — 글자에 직접 걸면 영역도 글자와 같이 움직여 선 아래에서 보인다
