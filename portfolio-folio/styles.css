@@ -37,6 +37,8 @@ ul { list-style: none; }
 .nav-links { display: flex; gap: 2.3vw; margin-left: 11.4vw; }
 .nav-links a, .nav-plain { opacity: .88; transition: opacity .2s; }
 .nav-links a:hover, .nav-plain:hover { opacity: 1; }
+/* 펼친 상태의 Projects — 밑줄로 지금 보기를 알린다 */
+.nav-links a[aria-pressed="true"] { opacity: 1; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
 .nav-right { margin-left: auto; display: flex; align-items: center; gap: 2.4vw; }
 .pill {
   background: #fff; color: #000; border-radius: .4vw; padding: .55vw 1vw;
@@ -64,26 +66,13 @@ ul { list-style: none; }
 }
 .grid-mode .hero-text { opacity: 0; transform: translateY(-3vh); }
 
-/* ---------- 아래 줄: 안내 + 펼치기 버튼 ---------- */
+/* ---------- 아래 줄: 안내 ---------- */
 .bottom-bar {
   position: fixed; z-index: 5; left: 4vw; right: 4vw; bottom: 4vh;
   display: flex; align-items: center; justify-content: space-between; gap: 16px; pointer-events: none;
 }
 .hint { font: 400 max(11px, .74vw) var(--sans); color: var(--muted); }
 .hint span { opacity: .6; }
-.view-toggle {
-  /* 사각형 4개 아이콘 토글 — 꺼짐: 테두리만 · 켜짐: 흰 바탕 */
-  pointer-events: auto; cursor: pointer; width: 46px; height: 46px; display: grid; place-items: center;
-  border: 1px solid rgba(255, 255, 255, .24); border-radius: 12px; color: var(--fg);
-  background: rgba(20, 19, 17, .55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  transition: background .25s var(--ease), color .25s var(--ease), border-color .25s, transform .1s;
-}
-.view-toggle svg rect { fill: none; stroke: currentColor; stroke-width: 1.5; transition: fill .25s var(--ease); }
-.view-toggle:hover { background: rgba(255, 255, 255, .14); }
-.view-toggle:active { transform: scale(.94); }
-.view-toggle[aria-pressed="true"] { background: #fff; color: #000; border-color: #fff; }
-.view-toggle[aria-pressed="true"] svg rect { fill: currentColor; }
-.view-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
 /* ---------- 펼치기 화면 ---------- */
 .grid-scroll {
@@ -114,14 +103,20 @@ ul { list-style: none; }
 .grid-scroll .contact { margin-top: 0; }
 
 /* ---------- 3D 캔버스 ---------- */
-.stage { position: fixed; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; }
+.stage {
+  position: fixed; inset: 0; z-index: 2; width: 100%; height: 100%; display: block;
+  transition: opacity .3s var(--ease); /* view.js SWITCH_SECONDS 와 맞춘다 */
+}
+.switching .stage { opacity: 0; }
 
 .noscript { position: fixed; bottom: 24px; left: 24px; z-index: 9; }
 
 /* ---------- 휴대폰 ---------- */
 @media (max-width: 760px) {
   .nav { left: 5vw; right: 5vw; top: 2.5vh; }
-  .nav-links, .nav-plain { display: none; }
+  .nav-plain { display: none; }
+  .nav-links { margin-left: auto; margin-right: 18px; } /* 휴대폰은 Projects 만 */
+  .nav-links a:not([data-open="projects"]) { display: none; }
   .pill { border-radius: 8px; padding: 8px 14px; }
   :root { --fs: 19vw; }
   .wordmark { top: 18vh; }

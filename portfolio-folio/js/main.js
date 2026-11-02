@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { createRenderer, createScene, createCamera, fitCamera, createBooks } from './scene.js';
 import { pointer, trackPointer, updateBooks } from './motion.js';
 import { gridMetrics, updateSpread } from './layout.js';
-import { view, setMode, scrollPx, shelfScrollPx, setContentHeight, onToggle, isStageTarget, scrollToContact } from './view.js';
+import { view, setMode, scrollPx, shelfScrollPx, setContentHeight, isStageTarget, scrollToContact } from './view.js';
 import { rememberCameraBase, panCamera, fitShelfHeight, watchScrolled } from './page.js';
 import { openProject, openAbout, closePanel, isPanelOpen } from './panel.js';
 import { playIntro } from './intro.js';
@@ -57,10 +57,16 @@ function toggleView(mode) {
   closePanel();
   setMode(mode ?? (view.mode === 'grid' ? 'shelf' : 'grid'), clock.elapsedTime);
 }
-onToggle(() => toggleView());
+// Projects: 누르면 펼치고, 펼친 상태에서 다시 누르면 책장으로
 document.querySelector('[data-open="projects"]').addEventListener('click', (e) => {
   e.preventDefault();
-  toggleView('grid');
+  toggleView();
+});
+// 로고: 펼친 상태라면 책장으로 돌아간다
+document.querySelector('.logo').addEventListener('click', (e) => {
+  if (view.mode !== 'grid') return;
+  e.preventDefault();
+  toggleView('shelf');
 });
 document.querySelectorAll('[data-open="contact"]').forEach((el) =>
   el.addEventListener('click', (e) => { e.preventDefault(); closePanel(); scrollToContact(); }));

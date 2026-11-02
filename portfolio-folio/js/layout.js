@@ -1,11 +1,17 @@
-// 펼치기 — 프로젝트 책을 카메라 정면의 격자(한 줄 4권, 휴대폰 2권)로 옮긴다.
-// 책마다 0(책장) ↔ 1(격자) 진행값을 스프링으로 움직이고, 두 자리 사이를 섞어서 놓는다.
+// 펼치기 — 화면(캔버스)이 먼저 검게 어두워져 책장을 지우고(view.js), 그 뒤 격자(한 줄 4권, 휴대폰 2권)에 책이 한 권씩 나타난다.
+// 돌아갈 때도 먼저 어두워진 뒤, 책장 책들이 첫 등장처럼 아래에서 한 권씩 솟아오른다.
 import * as THREE from 'three';
+import { HIDDEN_Y } from './scene.js';
+import { SWITCH_SECONDS } from './view.js';
 
 const DEPTH = 9;           // 격자가 놓이는 카메라 앞 거리
-const STIFFNESS = 130;     // 반응 약 0.55초
-const DAMPING = 22.8;      // 감쇠비 1 — 넘치지 않고 멈춘다
-const STAGGER = 0.035;     // 한 권씩 차례로 출발
+const FADE_OUT = 7;          // 사라지는 빠르기 (1/초) — 한꺼번에 빠르게
+const FADE_IN = 3.2;         // 나타나는 빠르기 (1/초) — 한 권씩 부드럽게
+const GRID_DELAY = 0.1;      // 화면이 어두워진 뒤 첫 책이 나타날 때까지 (초)
+const GRID_STAGGER = 0.08;   // 격자에서 다음 책이 나타나는 간격 (초)
+const SHELF_DELAY = 0.1;      // 화면이 어두워진 뒤 첫 책이 솟기 시작할 때까지 (초)
+const SHELF_STAGGER = 0.06;  // 책장으로 돌아올 때 뒤에서부터 한 권씩
+const APPEAR_RISE = 0.25;    // 나타날 때 아래에서 올라오는 거리 (책 높이 비율)
 const MAX_CONTENT_PX = 1100;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -27,6 +33,7 @@ export function gridMetrics(camera, bookCount) {
 }
 
 const gridPosition = new THREE.Vector3();
+const cameraUp = new THREE.Vector3();
 
 function placeOnGrid(number, metrics, scrollPx, camera) {
   const col = number % metrics.columns;
@@ -36,36 +43,67 @@ function placeOnGrid(number, metrics, scrollPx, camera) {
   return gridPosition.set(x, y, -DEPTH).applyMatrix4(camera.matrixWorld);
 }
 
-// 출발 차례가 된 책만 목표를 바꾼다 — 중간에 되돌려도 각자 지금 자리에서 돌아간다
-function updateTarget(book, view, time, projectCount) {
-  const order = view.mode === 'grid' ? book.number : projectCount - 1 - book.number;
-  if (time - view.changedAt > order * STAGGER) book.spread.target = view.mode === 'grid' ? 1 : 0;
+function fade(value, target, dt) {
+  if (reducedMotion) return target;
+  const rate = target > value ? FADE_IN : FADE_OUT;
+  return value + (target - value) * (1 - Math.exp(-rate * Math.min(dt, 0.05)));
 }
 
-function stepSpread(spread, dt) {
-  if (reducedMotion) { spread.t = spread.target; spread.v = 0; return; }
-  const h = Math.min(dt, 0.05) / 4;
-  for (let k = 0; k < 4; k++) {
-    spread.v += ((spread.target - spread.t) * STIFFNESS - spread.v * DAMPING) * h;
-    spread.t += spread.v * h;
-  }
+// 책 겉면을 투명하게 — 다 보일 때는 투명 처리를 꺼서 겹친 책이 깨끗하게 그려지게 한다
+function setOpacity(mesh, opacity) {
+  mesh.visible = opacity > 0.005;
+  const transparent = opacity < 0.995;
+  mesh.material.forEach((m) => {
+    if (m.transparent !== transparent) { m.transparent = transparent; m.needsUpdate = true; }
+    m.opacity = opacity;
+  });
+}
+
+let shownLayout = 'shelf'; // 지금 실제로 그려지고 있는 배치
+
+// 화면이 어두워진 동안(SWITCH_SECONDS)은 이전 배치를 그대로 두고, 그 뒤 새 배치로 바꾼다
+function currentLayout(view, time) {
+  if (time - view.changedAt >= SWITCH_SECONDS) return view.mode;
+  return view.mode === 'grid' ? 'shelf' : 'grid';
+}
+
+// 새 배치로 바뀌는 순간 — 격자는 전부 안 보이게, 책장은 전부 바닥으로 내려 두고 한 권씩 다시 솟게
+function onLayoutChange(books, layout, time) {
+  books.forEach((book) => {
+    book.spread.grid = 0;
+    if (layout !== 'shelf') return;
+    book.lift.y = HIDDEN_Y;
+    book.lift.vy = 0;
+    book.holdUntil = time + SHELF_DELAY + (books.length - 1 - book.number) * SHELF_STAGGER; // motion.js 가 이때까지 바닥에 둔다
+  });
+}
+
+function placeGridBook(book, metrics, scrollPx, camera, ready, dt) {
+  const { spread, group } = book;
+  spread.grid = fade(spread.grid, ready ? 1 : 0, dt);
+  // 격자 자리에서 아래로부터 살짝 올라오며 나타난다
+  const rise = (1 - spread.grid) * APPEAR_RISE * metrics.bookH;
+  group.position.copy(placeOnGrid(book.number, metrics, scrollPx, camera));
+  group.position.addScaledVector(cameraUp.set(0, 1, 0).applyQuaternion(camera.quaternion), -rise);
+  group.quaternion.copy(camera.quaternion);
+  group.scale.setScalar(metrics.scale);
+  setOpacity(book.mesh, spread.grid);
+}
+
+function placeShelfBook(book) {
+  const { group, shelf } = book;
+  group.position.copy(shelf.position);
+  group.quaternion.copy(shelf.quaternion);
+  group.scale.setScalar(1);
+  setOpacity(book.mesh, 1);
 }
 
 export function updateSpread(books, camera, metrics, view, scrollPx, time, dt) {
-  const projectBooks = books.filter((b) => b.project);
-  projectBooks.forEach((book) => {
-    updateTarget(book, view, time, projectBooks.length);
-    stepSpread(book.spread, dt);
-    const t = book.spread.t;
-    const { group, shelf } = book;
-    if (Math.abs(t) < 1e-4) {
-      group.position.copy(shelf.position);
-      group.quaternion.copy(shelf.quaternion);
-      group.scale.setScalar(1);
-      return;
-    }
-    group.position.lerpVectors(shelf.position, placeOnGrid(book.number, metrics, scrollPx, camera), t);
-    group.quaternion.slerpQuaternions(shelf.quaternion, camera.quaternion, t);
-    group.scale.setScalar(THREE.MathUtils.lerp(1, metrics.scale, t));
+  const layout = currentLayout(view, time);
+  if (layout !== shownLayout) { onLayoutChange(books, layout, time); shownLayout = layout; }
+  const gridStart = view.changedAt + SWITCH_SECONDS + GRID_DELAY;
+  books.forEach((book) => {
+    if (layout === 'grid') placeGridBook(book, metrics, scrollPx, camera, time > gridStart + book.number * GRID_STAGGER, dt);
+    else placeShelfBook(book);
   });
 }

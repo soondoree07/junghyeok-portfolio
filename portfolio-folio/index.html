@@ -26,7 +26,7 @@
       <span class="logo-text"><strong>Junghyeok</strong><small>game &amp; ux planner</small></span>
     </a>
     <nav class="nav-links" aria-label="주 메뉴">
-      <a href="#" data-open="projects">Projects</a>
+      <a href="#" data-open="projects" aria-pressed="false">Projects</a>
       <a href="#" data-open="about">About</a>
       <a href="https://github.com/soondoree07" target="_blank" rel="noopener">GitHub</a>
     </nav>
@@ -70,13 +70,6 @@
 
   <div class="bottom-bar">
     <p class="hint">책을 눌러 프로젝트를 열어 보세요 <span>· 아래로 내리면 연락처</span></p>
-    <!-- 사각형 4개 아이콘 토글 — 누르면 펼치기, 켜진 상태에서 다시 누르면 책장 -->
-    <button class="view-toggle" type="button" aria-pressed="false" aria-label="프로젝트 펼쳐 보기">
-      <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
-        <rect x="2" y="2" width="7" height="7" rx="1.6"/><rect x="11" y="2" width="7" height="7" rx="1.6"/>
-        <rect x="2" y="11" width="7" height="7" rx="1.6"/><rect x="11" y="11" width="7" height="7" rx="1.6"/>
-      </svg>
-    </button>
   </div>
 
   <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" aria-hidden="true">

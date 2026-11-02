@@ -75,7 +75,7 @@ export function updateBooks(books, camera, time, dt, state) {
     : shelfTargets(books, camera, time, dt);
   const h = Math.min(dt, 0.05) / SUBSTEPS;
   books.forEach((book, i) => {
-    const ready = introReady(book, books.length, time);
+    const ready = introReady(book, books.length, time) && time >= book.holdUntil;
     const targetY = ready ? targets[i].y : HIDDEN_Y;
     const targetZ = ready ? targets[i].z : 0;
     const s = book.lift;

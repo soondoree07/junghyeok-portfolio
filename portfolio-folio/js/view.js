@@ -1,12 +1,20 @@
-// 보기 전환 — 책장(shelf) ↔ 펼치기(grid). 버튼 글자, 화면 클래스, 스크롤 영역, 연락처 위치를 맡는다.
+// 보기 전환 — 책장(shelf) ↔ 펼치기(grid). Projects 메뉴 상태, 화면 클래스, 스크롤 영역, 연락처 위치를 맡는다.
 const scroller = document.querySelector('.grid-scroll');
 const spacer = scroller.querySelector('.grid-spacer');
 const page = document.querySelector('.page');
 const contact = document.querySelector('.contact');
-const toggle = document.querySelector('.view-toggle');
-const LABELS = { shelf: '프로젝트 펼쳐 보기', grid: '책장으로 돌아가기' }; // 아이콘 버튼의 읽어 주는 이름
+const projectsLink = document.querySelector('[data-open="projects"]');
 
 export const view = { mode: 'shelf', changedAt: -Infinity };
+export const SWITCH_SECONDS = 0.32; // 보기를 바꿀 때 화면이 검게 어두워져 있는 시간 — styles.css 의 .stage 전환과 맞춘다
+let switchTimer = 0;
+
+// 캔버스를 잠깐 어둡게 해서, 이전 배치가 반투명하게 겹쳐 보이지 않게 지운다
+function dimStage() {
+  document.documentElement.classList.add('switching');
+  clearTimeout(switchTimer);
+  switchTimer = setTimeout(() => document.documentElement.classList.remove('switching'), SWITCH_SECONDS * 1000);
+}
 let frozenGridScroll = 0;  // 책장으로 돌아가는 동안 격자 위치가 튀지 않게 마지막 격자 스크롤을 붙잡아 둔다
 let frozenShelfScroll = 0; // 펼친 동안 책장 화면 스크롤(카메라 위치)을 그대로 둔다
 
@@ -20,13 +28,13 @@ export function setMode(mode, time) {
   }
   view.mode = mode;
   view.changedAt = time;
+  dimStage();
   document.documentElement.classList.toggle('grid-mode', mode === 'grid');
   // 연락처는 지금 보이는 스크롤 영역 맨 아래로 옮긴다
   (mode === 'grid' ? scroller : page).append(contact);
   scroller.scrollTop = 0;
   if (mode === 'shelf') scrollTo({ top: frozenShelfScroll, behavior: 'instant' });
-  setToggleLabel(mode);
-  toggle.setAttribute('aria-pressed', String(mode === 'grid'));
+  projectsLink.setAttribute('aria-pressed', String(mode === 'grid'));
 }
 
 // 격자 스크롤(px)
@@ -41,16 +49,6 @@ export function shelfScrollPx() {
 
 export function setContentHeight(px) {
   spacer.style.height = `${Math.ceil(px)}px`;
-}
-
-function setToggleLabel(mode) {
-  toggle.setAttribute('aria-label', LABELS[mode]);
-  toggle.title = LABELS[mode];
-}
-
-export function onToggle(callback) {
-  setToggleLabel('shelf');
-  toggle.addEventListener('click', callback);
 }
 
 // "연락하기" — 지금 화면의 맨 아래 연락처로 부드럽게 내려간다

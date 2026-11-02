@@ -84,7 +84,8 @@ export function createBooks(scene, renderer) {
       index: i, mesh, group, project, number: i,
       lift: { y: HIDDEN_Y, vy: 0, z: 0, vz: 0 },
       shelf: { position: group.position.clone(), quaternion: group.quaternion.clone() }, // 책장 자리
-      spread: { t: 0, v: 0, target: 0 }, // 0 책장 ↔ 1 격자 (layout.js)
+      spread: { grid: 0 }, // 격자에서 보이는 정도 (layout.js)
+      holdUntil: 0, // 책장으로 돌아올 때 이 시각까지 바닥에 머문다 (layout.js → motion.js)
     };
   });
 }
