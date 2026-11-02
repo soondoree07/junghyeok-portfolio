@@ -21,7 +21,11 @@ const later = (ms, fn) => timers.push(setTimeout(fn, reducedMotion ? 0 : ms));
 const animate = (node, keyframes, options) => node.animate(keyframes, { fill: 'both', ...options, duration: reducedMotion ? 0 : options.duration });
 const drawStroke = (node, delay, duration, easing = HAND) => animate(node, [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { delay, duration, easing });
 
-function hasSeen() { try { return sessionStorage.getItem(SEEN_KEY) === '1'; } catch { return false; } }
+// 주소에 ?intro 를 붙이면 이미 봤어도 다시 보여 준다 (확인용)
+function hasSeen() {
+  if (new URLSearchParams(location.search).has('intro')) return false;
+  try { return sessionStorage.getItem(SEEN_KEY) === '1'; } catch { return false; }
+}
 function markSeen() { try { sessionStorage.setItem(SEEN_KEY, '1'); } catch { /* 저장이 막혀도 인트로는 동작 */ } }
 
 function playSketch(strokes) {
