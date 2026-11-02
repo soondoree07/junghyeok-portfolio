@@ -15,6 +15,16 @@ export const FLOOD_ORIGIN = { x: EMBLEM.x, y: EMBLEM.y };      // 잉크가 번�
 
 const right = BOOK.x + BOOK.w;
 
+// 책 외곽선 — 왼쪽 · 위 · 오른쪽 · 책등 경계 · 표지 제목 칸 위아래 (바닥은 땅선이 맡는다)
+export const OUTLINE_SEGMENTS = [
+  { x1: BOOK.x, y1: GROUND_Y, x2: BOOK.x, y2: BOOK.y },
+  { x1: BOOK.x, y1: BOOK.y, x2: right, y2: BOOK.y },
+  { x1: right, y1: BOOK.y, x2: right, y2: GROUND_Y },
+  { x1: BOOK.x + BOOK.hinge, y1: BOOK.y, x2: BOOK.x + BOOK.hinge, y2: GROUND_Y },
+  { x1: 705, y1: 320, x2: 935, y2: 320 },
+  { x1: 705, y1: 395, x2: 935, y2: 395 },
+];
+
 // 정해진 씨앗으로 만드는 난수 — 새로고침해도 같은 손 선이 나오게
 function seededRandom(seed) {
   let s = seed;
@@ -58,12 +68,7 @@ export function sketchStrokes() {
   add('construction', () => sketchLine(BOOK.x - 70, GROUND_Y, right + 130, GROUND_Y));
   add('construction', () => sketchLine(EMBLEM.x, BOOK.y - 40, EMBLEM.x, GROUND_Y + 25));
   add('construction', () => sketchLine(BOOK.x - 30, EMBLEM.y, right + 30, EMBLEM.y));
-  add('outline', () => sketchLine(BOOK.x, GROUND_Y, BOOK.x, BOOK.y));
-  add('outline', () => sketchLine(BOOK.x, BOOK.y, right, BOOK.y));
-  add('outline', () => sketchLine(right, BOOK.y, right, GROUND_Y));
-  add('outline', () => sketchLine(BOOK.x + BOOK.hinge, BOOK.y, BOOK.x + BOOK.hinge, GROUND_Y));
-  add('outline', () => sketchLine(705, 320, 935, 320));
-  add('outline', () => sketchLine(705, 395, 935, 395));
+  OUTLINE_SEGMENTS.forEach((s) => add('outline', () => sketchLine(s.x1, s.y1, s.x2, s.y2)));
   add('joint', () => sketchCircle(EMBLEM.x, EMBLEM.y, EMBLEM.r));
   add('joint', () => sketchCircle(EMBLEM.x, EMBLEM.y, EMBLEM.r + 22));
   for (let y = BOOK.y + 40; y < GROUND_Y - 10; y += 24) {
@@ -72,13 +77,8 @@ export function sketchStrokes() {
   return strokes;
 }
 
-// 흰 잉크 도면 — 곧은 선(번진 뒤 바로 보임)
-export const INK_LINES = [
-  `M${BOOK.x - 70} ${GROUND_Y} H${right + 130}`,
-  `M${BOOK.x} ${GROUND_Y} V${BOOK.y} H${right} V${GROUND_Y}`,
-  `M${BOOK.x + BOOK.hinge} ${BOOK.y} V${GROUND_Y}`,
-  'M705 320 H935 M705 395 H935',
-];
+// 흰 잉크 도면 — 땅선은 번진 곳에 바로 보이고, 외곽선(OUTLINE_SEGMENTS)은 휜 채로 나타났다가 튕기듯 곧게 펴진다
+export const INK_LINES = [`M${BOOK.x - 70} ${GROUND_Y} H${right + 130}`];
 export const INK_CIRCLE = EMBLEM;
 // 보조축은 도면에서 일점쇄선 중심선이 된다
 export const CENTER_LINES = [
@@ -100,4 +100,5 @@ export const DIMENSIONS = [
   },
 ];
 
-export const LABEL = { x: BOOK.x, y: 118, rule: { x1: BOOK.x, x2: BOOK.x + 560, y: 140 }, text: 'PARK JUNGHYEOK' };
+// 라벨 — 3~5단어(프롬프트 기준). 가는 선 길이는 글자 폭을 재서 맞춘다(blueprint-intro.js)
+export const LABEL = { x: BOOK.x, y: 118, rule: { x1: BOOK.x, y: 140 }, text: 'PARK JUNGHYEOK PORTFOLIO' };

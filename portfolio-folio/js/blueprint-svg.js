@@ -12,8 +12,8 @@ function el(name, attrs = {}, parent) {
 }
 
 // 화면 비율에 맞춰 그림 영역이 다 들어오게 viewBox 를 넓힌다
-function fitViewBox(svg) {
-  const box = D.CONTENT_BOX; const pad = 60;
+function fitViewBox(svg, box = D.CONTENT_BOX) {
+  const pad = 60;
   const aspect = innerWidth / innerHeight;
   let w = box.w + pad * 2; let h = box.h + pad * 2;
   if (w / h < aspect) w = h * aspect; else h = w / aspect;
@@ -64,9 +64,11 @@ function buildInk(svg, view, edge) {
   const tide = el('path', { d: edge, fill: 'none', stroke: D.COLORS.tide, 'stroke-width': 22, 'vector-effect': 'non-scaling-stroke' }, g);
   const lines = el('g', { fill: 'none', stroke: D.COLORS.ink, 'stroke-width': 2.2, 'stroke-linecap': 'square' }, g);
   D.INK_LINES.forEach((d) => el('path', { d }, lines));
+  // 휜 채로 나타났다 곧게 펴질 외곽선 — 처음 모양은 blueprint-intro.js 가 정한다
+  const segments = D.OUTLINE_SEGMENTS.map((seg) => ({ seg, node: el('path', {}, lines) }));
   el('circle', { cx: D.INK_CIRCLE.x, cy: D.INK_CIRCLE.y, r: D.INK_CIRCLE.r }, lines);
   D.CENTER_LINES.forEach((d) => el('path', { d, 'stroke-width': 1.2, 'stroke-dasharray': '26 6 3 6' }, lines));
-  return { g, lines, tide };
+  return { g, lines, tide, segments };
 }
 
 export { el, fitViewBox, buildDefs, buildSketch, buildInk };

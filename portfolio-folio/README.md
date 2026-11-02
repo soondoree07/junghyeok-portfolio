@@ -25,7 +25,9 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `images/` | 프로젝트 캡처 (`images/README.md` 참고) |
 | `js/projects.js` | **프로젝트 내용** — 글을 고칠 때는 여기만 고치면 됩니다 |
 | `js/book-model.js` | 양장본 책 모양 — 앞 · 뒤 표지 판지(속지보다 살짝 큼) · 둥근 책등 · 안쪽으로 들어간 속지 |
-| `js/blueprint-intro.js` | 첫 접속 청사진 인트로 시간표 — 스케치 → 잉크 번짐 → 치수 · 라벨 → 사이트 |
+| `js/blueprint-intro.js` | 첫 접속 청사진 인트로 본체 — 스케치 → 약 1.7초 잉크 번짐(흰 선이 튕기듯 펴짐) → 치수 · 라벨 → 1.5초 멈춤 → 사이트 |
+| `js/blueprint-timing.js` | 인트로 시간표와 공용 움직임 도구 |
+| `js/blueprint-annotations.js` | 인트로 치수(15 PROJECTS · 2025 – 2026) · 라벨(PARK JUNGHYEOK PORTFOLIO) |
 | `js/blueprint-svg.js` | 인트로 SVG 만들기 — 종이 · 격자 · 결, 잉크 마스크, 스케치 · 도면 층 |
 | `js/blueprint-drawing.js` | 인트로 그림 데이터 — 책 정면 도면, 손 선 만들기, 치수 · 라벨 |
 | `blueprint.css` | 인트로 화면 · 글꼴(Barlow Semi Condensed) · 건너뛰기 |
