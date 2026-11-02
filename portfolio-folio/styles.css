@@ -8,6 +8,7 @@
   --sans: Inter, "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --ease: cubic-bezier(.2, .8, .2, 1);
   --fs: min(30vh, 17.5vw); /* 큰 이름 글자 크기 */
+  --baseline: 41vh;         /* 큰 이름 글자 바닥선 — J 꼬리가 쉬고 있는 책에 가려지지 않는 높이 */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,13 +51,13 @@ ul { list-style: none; }
 /* ---------- 큰 이름 ---------- */
 .wordmark {
   position: absolute; z-index: 1; left: 0; right: 0; text-align: center;
-  top: calc(46.5vh - var(--fs) * .8);
+  top: calc(var(--baseline) - var(--fs) * .8);
   font: 400 var(--fs)/1 var(--serif); letter-spacing: -.02em;
   pointer-events: none; user-select: none;
 }
 .keywords {
   /* 이름 위에 둔다 — g·y 꼬리와 겹치지 않게 */
-  position: absolute; z-index: 1; top: calc(46.5vh - var(--fs) * .8 - 2.4vh); left: 0; right: 0;
+  position: absolute; z-index: 1; top: calc(var(--baseline) - var(--fs) * .8 - 2.4vh); left: 0; right: 0;
   display: flex; justify-content: center; flex-wrap: wrap; gap: .6vw 2.1vw;
   font: 500 max(10px, .74vw) var(--sans); opacity: .9; pointer-events: none;
 }
