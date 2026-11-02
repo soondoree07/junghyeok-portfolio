@@ -115,16 +115,6 @@ export function drawProjectCover(project, index, renderer) {
   return toTexture(canvas, renderer);
 }
 
-export function drawFillerCover(color, renderer) {
-  const [canvas, c] = newCanvas();
-  c.fillStyle = color; c.fillRect(0, 0, W, H);
-  // 천 장정 결
-  for (let y = 0; y < H; y += 3) { c.fillStyle = `rgba(0,0,0,${0.03 + Math.random() * 0.05})`; c.fillRect(0, y, W, 1); }
-  c.strokeStyle = 'rgba(255,255,255,.22)'; c.lineWidth = 2;
-  c.strokeRect(60, 60, W - 120, H - 120);
-  return toTexture(canvas, renderer);
-}
-
 // 책장 단면(종이 결) — horizontal: 앞마구리, vertical: 위아래
 export function drawPageTexture(horizontal) {
   const canvas = document.createElement('canvas');

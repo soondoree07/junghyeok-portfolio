@@ -3,12 +3,11 @@ import * as THREE from 'three';
 import { HIDDEN_Y } from './scene.js';
 import { waveLifts } from './wave.js';
 
-const STIFFNESS = 22;
-const DAMPING = 8.9;  // 감쇠비 약 0.95 — 느긋하게 올라와 튀지 않고 멈춘다
+const STIFFNESS = 13;
+const DAMPING = 6.9;  // 감쇠비 약 0.95 — 천천히 올라와 튀지 않고 멈춘다
 const SUBSTEPS = 4;
 const SELECTED_LIFT = 0.95;
 const GRID_HOVER_PUSH = 0.35; // 펼친 화면에서 가리킨 책이 앞으로 나오는 정도
-const GRID_FILLER_Y = -7;     // 펼친 화면에서 장식 책이 가라앉는 깊이 (화면 밖까지)
 const IDLE_AFTER = 4; // 초
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarsePointer = matchMedia('(pointer: coarse)').matches;
@@ -34,8 +33,8 @@ function toScreen(mesh, camera) {
 
 // 손을 안 움직이거나 터치 화면이면 가상 커서가 책 줄을 천천히 오간다
 function virtualCursor(books, camera, time) {
-  const back = toScreen(books[Math.min(16, books.length - 1)].mesh, camera);
-  const front = toScreen(books[2].mesh, camera);
+  const back = toScreen(books[books.length - 1].mesh, camera);
+  const front = toScreen(books[0].mesh, camera);
   const u = (Math.sin(time * 0.45) + 1) / 2;
   return { x: back.x + (front.x - back.x) * u, y: back.y + (front.y - back.y) * u };
 }
@@ -46,10 +45,10 @@ function activeCursor(books, camera, time) {
   return pointer.inside ? pointer : null;
 }
 
-// 펼친 화면: 프로젝트 책은 제자리, 장식 책은 아래로 가라앉는다
+// 펼친 화면: 책은 제자리, 가리킨 책만 앞으로
 function gridTargets(books, focusIndex) {
   return books.map((book) => ({
-    y: book.project ? 0 : GRID_FILLER_Y,
+    y: 0,
     z: book.index === focusIndex ? GRID_HOVER_PUSH : 0,
   }));
 }

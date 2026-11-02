@@ -138,9 +138,3 @@ export const PROJECTS = [
     insight: '내가 매일 쓰는 도구를 직접 만들면, 불편함이 곧 기획서가 돼요.',
   },
 ];
-
-// 책 줄을 채우는 장식용 책 (누를 수 없음) — 천 장정 색
-export const FILLER_COLORS = [
-  '#2c4f63', '#7f7263', '#c9b99a', '#3d2b24', '#5b6b4a', '#a33a2c', '#d8cfbd',
-  '#24304a', '#8a6a3f', '#4a4a52', '#b8a58a', '#1e3b33', '#6b1d2a', '#e4dccb', '#3a3f2c',
-];

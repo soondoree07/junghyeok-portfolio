@@ -5,8 +5,8 @@ import * as THREE from 'three';
 
 const PROFILE = [1, 0.66, 0.15, 0]; // 중심에서 0 · 1 · 2 · 3권 떨어진 책의 높이 비율
 const MAX_LIFT = 1.0;
-const CENTER_SPEED = 6;  // 파도 중심이 따라가는 최대 속도 (권/초)
-const CENTER_EASE = 4;   // 목표에 가까워질수록 천천히 멈추는 정도
+const CENTER_SPEED = 4;  // 파도 중심이 따라가는 최대 속도 (권/초)
+const CENTER_EASE = 3;   // 목표에 가까워질수록 천천히 멈추는 정도
 const BAND_ABOVE = 0.6;  // 책 위쪽으로 이만큼(책 높이 비율)까지는 그 책을 가리킨 것으로 본다
 
 const corner = new THREE.Vector3();
