@@ -7,6 +7,7 @@ import { view, setMode, scrollPx, shelfScrollPx, setContentHeight, isStageTarget
 import { rememberCameraBase, panCamera, fitShelfHeight, watchScrolled } from './page.js';
 import { openProject, openAbout, closePanel, isPanelOpen } from './panel.js';
 import { playIntro } from './intro.js';
+import { playBlueprintIntro } from './blueprint-intro.js';
 
 const canvas = document.querySelector('.stage');
 const renderer = createRenderer(canvas);
@@ -86,6 +87,8 @@ function updateCursor() {
   document.body.style.cursor = book ? 'pointer' : '';
 }
 
+// 첫 접속이면 청사진 인트로가 끝나 갈 때 사이트 등장을 시작한다
+await playBlueprintIntro();
 playIntro();
 renderer.setAnimationLoop(() => {
   const dt = clock.getDelta();

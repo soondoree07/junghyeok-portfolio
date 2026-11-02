@@ -6,6 +6,9 @@
 책장 화면은 아래로 스크롤하면 책 밑동까지 보이고, 맨 아래에 연락처(이름 · 전화 · 이메일 · GitHub · 사이트)가 있습니다.
 (motionsites.ai 의 "Folio" 프롬프트 구조를 바탕으로, 표지 이미지는 쓰지 않고 캔버스로 직접 그립니다.)
 
+처음 접속하면(세션마다 한 번) 연필 스케치가 파란 청사진으로 바뀌는 인트로가 나온 뒤 사이트가 열립니다. 누르거나 키를 치면 건너뜁니다.
+스타일 출처: `~/animation_styles/애니메이션_스타일_카드.md` — Part 1 · 10. Pencil to Blueprint
+
 빌드 없는 정적 사이트입니다. Three.js r160 은 jsDelivr 의 import map 으로 불러옵니다.
 
 ```
@@ -22,6 +25,10 @@ python3 -m http.server 4321   # 이 폴더에서 실행 → http://localhost:432
 | `images/` | 프로젝트 캡처 (`images/README.md` 참고) |
 | `js/projects.js` | **프로젝트 내용** — 글을 고칠 때는 여기만 고치면 됩니다 |
 | `js/book-model.js` | 양장본 책 모양 — 앞 · 뒤 표지 판지(속지보다 살짝 큼) · 둥근 책등 · 안쪽으로 들어간 속지 |
+| `js/blueprint-intro.js` | 첫 접속 청사진 인트로 시간표 — 스케치 → 잉크 번짐 → 치수 · 라벨 → 사이트 |
+| `js/blueprint-svg.js` | 인트로 SVG 만들기 — 종이 · 격자 · 결, 잉크 마스크, 스케치 · 도면 층 |
+| `js/blueprint-drawing.js` | 인트로 그림 데이터 — 책 정면 도면, 손 선 만들기, 치수 · 라벨 |
+| `blueprint.css` | 인트로 화면 · 글꼴(Barlow Semi Condensed) · 건너뛰기 |
 | `js/covers.js` | 표지 · 종이 단면을 캔버스로 그리기 (`MOTIFS` = 표지 도형) |
 | `js/scene.js` | 렌더러 · 조명 · 카메라 · 책 줄 배치 (`ROW_SPAN_X` · `ROW_SPAN_Z` = 책 줄 전체 길이, 권수로 나눠 간격 자동) |
 | `js/motion.js` | 책마다 목표 높이를 스프링으로 따라감 (K 13, C 6.9, 프레임당 4번) · 펼치기: 가리킨 책이 앞으로 |
