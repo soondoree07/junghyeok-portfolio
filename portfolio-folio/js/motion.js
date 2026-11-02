@@ -7,6 +7,8 @@ const DAMPING = 13; // 감쇠비 약 0.78 — 살짝만 튄다
 const SUBSTEPS = 4;
 const MAX_LIFT = 0.78;
 const SELECTED_LIFT = 0.95;
+const GRID_HOVER_PUSH = 0.35; // 펼친 화면에서 가리킨 책이 앞으로 나오는 정도
+const GRID_FILLER_Y = -7;     // 펼친 화면에서 장식 책이 가라앉는 깊이 (화면 밖까지)
 const IDLE_AFTER = 4; // 초
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarsePointer = matchMedia('(pointer: coarse)').matches;
@@ -44,6 +46,18 @@ function activeCursor(books, camera, time) {
   return pointer.inside ? pointer : null;
 }
 
+// 펼친 화면: 프로젝트 책은 제자리, 장식 책은 아래로 가라앉는다
+function gridTargets(books, focusIndex) {
+  return books.map((book) => ({
+    y: book.project ? 0 : GRID_FILLER_Y,
+    z: book.index === focusIndex ? GRID_HOVER_PUSH : 0,
+  }));
+}
+
+function shelfTargets(books, camera, time, selectedIndex) {
+  return waveTargets(books, camera, time, selectedIndex).map((lift) => ({ y: lift, z: lift * 0.35 }));
+}
+
 function waveTargets(books, camera, time, selectedIndex) {
   if (selectedIndex !== null) return books.map((b) => (b.index === selectedIndex ? SELECTED_LIFT : 0));
   const cursor = activeCursor(books, camera, time);
@@ -68,13 +82,16 @@ function stepSpring(state, key, velocityKey, target, h) {
   state[key] += state[velocityKey] * h;
 }
 
-export function updateBooks(books, camera, time, dt, selectedIndex) {
-  const targets = waveTargets(books, camera, time, selectedIndex);
+// state: { mode: 'shelf' | 'grid', selectedIndex, hoverIndex }
+export function updateBooks(books, camera, time, dt, state) {
+  const targets = state.mode === 'grid'
+    ? gridTargets(books, state.selectedIndex ?? state.hoverIndex)
+    : shelfTargets(books, camera, time, state.selectedIndex);
   const h = Math.min(dt, 0.05) / SUBSTEPS;
   books.forEach((book, i) => {
     const ready = introReady(book, books.length, time);
-    const targetY = ready ? targets[i] : HIDDEN_Y;
-    const targetZ = ready ? targets[i] * 0.35 : 0;
+    const targetY = ready ? targets[i].y : HIDDEN_Y;
+    const targetZ = ready ? targets[i].z : 0;
     const s = book.lift;
     if (reducedMotion && ready) { s.y = targetY; s.z = targetZ; s.vy = 0; }
     else for (let k = 0; k < SUBSTEPS; k++) {

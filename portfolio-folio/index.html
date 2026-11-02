@@ -25,7 +25,7 @@
       <span class="logo-text"><strong>Junghyeok</strong><small>game &amp; ux planner</small></span>
     </a>
     <nav class="nav-links" aria-label="주 메뉴">
-      <a href="#" data-open="first">Projects</a>
+      <a href="#" data-open="projects">Projects</a>
       <a href="#" data-open="about">About</a>
       <a href="https://github.com/soondoree07" target="_blank" rel="noopener">GitHub</a>
     </nav>
@@ -35,14 +35,25 @@
     </div>
   </header>
 
-  <h1 class="wordmark">Junghyeok</h1>
-  <ul class="keywords" aria-label="관심 분야">
-    <li>Game Design</li><li>System Design</li><li>UX Research</li><li>Service Planning</li>
-    <li>User Flow</li><li>Immersive Media</li><li>Prototyping</li><li>Web Dev</li>
-  </ul>
-  <p class="hint">책을 눌러 프로젝트를 열어 보세요 <span>· 11 Projects</span></p>
+  <!-- 펼치기 화면에서는 이 묶음이 통째로 사라진다 -->
+  <div class="hero-text">
+    <h1 class="wordmark">Junghyeok</h1>
+    <ul class="keywords" aria-label="관심 분야">
+      <li>Game Design</li><li>System Design</li><li>UX Research</li><li>Service Planning</li>
+      <li>User Flow</li><li>Immersive Media</li><li>Prototyping</li><li>Web Dev</li>
+    </ul>
+  </div>
 
   <canvas class="stage" aria-label="프로젝트 책 11권이 놓인 3D 책장"></canvas>
+  <!-- 펼치기 화면의 스크롤 영역 — 높이만 차지하고, 책은 3D 로 그린다 -->
+  <div class="grid-scroll"><div class="grid-spacer"></div></div>
+  <div class="grid-fade grid-fade-top" aria-hidden="true"></div>
+  <div class="grid-fade grid-fade-bottom" aria-hidden="true"></div>
+
+  <div class="bottom-bar">
+    <p class="hint">책을 눌러 프로젝트를 열어 보세요 <span>· 11 Projects</span></p>
+    <button class="view-toggle" type="button" aria-pressed="false">11권 펼쳐 보기</button>
+  </div>
 
   <div class="scrim"></div>
   <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" aria-hidden="true">

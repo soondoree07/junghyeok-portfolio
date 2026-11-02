@@ -22,5 +22,5 @@ export function playIntro() {
   reveal('.wordmark', '4vh', 150, 1400, 14);
   reveal('.nav', '-1.2vh', 700, 900);
   reveal('.keywords', '1.2vh', 850, 900);
-  reveal('.hint', '1.2vh', 1400, 900);
+  reveal('.bottom-bar', '1.2vh', 1400, 900);
 }

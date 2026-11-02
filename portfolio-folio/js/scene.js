@@ -42,6 +42,7 @@ export function fitCamera(camera, renderer) {
   camera.fov = w < h ? 40 : 19.5;
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+  camera.updateMatrixWorld();
   renderer.setSize(w, h, false);
 }
 
@@ -91,6 +92,11 @@ export function createBooks(scene, renderer) {
     scene.add(group);
     mesh.position.y = HIDDEN_Y;
     mesh.userData.bookIndex = i;
-    return { index: i, mesh, project, lift: { y: HIDDEN_Y, vy: 0, z: 0, vz: 0 } };
+    return {
+      index: i, mesh, group, project, number: slot.number ?? null,
+      lift: { y: HIDDEN_Y, vy: 0, z: 0, vz: 0 },
+      shelf: { position: group.position.clone(), quaternion: group.quaternion.clone() }, // 책장 자리
+      spread: { t: 0, v: 0, target: 0 }, // 0 책장 ↔ 1 격자 (layout.js)
+    };
   });
 }

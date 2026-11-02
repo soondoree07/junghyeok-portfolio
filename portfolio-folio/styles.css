@@ -57,11 +57,38 @@ ul { list-style: none; }
   display: flex; justify-content: center; flex-wrap: wrap; gap: .6vw 2.1vw;
   font: 500 max(10px, .74vw) var(--sans); opacity: .9; pointer-events: none;
 }
-.hint {
-  position: fixed; z-index: 3; left: 4vw; bottom: 4vh;
-  font: 400 max(11px, .74vw) var(--sans); color: var(--muted); pointer-events: none;
+.hero-text {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  transition: opacity .5s var(--ease), transform .7s var(--ease);
 }
+.grid-mode .hero-text { opacity: 0; transform: translateY(-3vh); }
+
+/* ---------- 아래 줄: 안내 + 펼치기 버튼 ---------- */
+.bottom-bar {
+  position: fixed; z-index: 5; left: 4vw; right: 4vw; bottom: 4vh;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; pointer-events: none;
+}
+.hint { font: 400 max(11px, .74vw) var(--sans); color: var(--muted); }
 .hint span { opacity: .6; }
+.view-toggle {
+  pointer-events: auto; cursor: pointer; border: 1px solid rgba(255, 255, 255, .22);
+  background: rgba(20, 19, 17, .55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  color: var(--fg); font: 500 max(12px, .8vw) var(--sans); border-radius: 999px; padding: .75em 1.4em;
+  transition: background .2s, transform .1s;
+}
+.view-toggle:hover { background: rgba(255, 255, 255, .14); }
+.view-toggle:active { transform: scale(.97); }
+
+/* ---------- 펼치기 화면 ---------- */
+.grid-scroll {
+  position: fixed; inset: 0; z-index: 3; overflow-y: auto; overscroll-behavior: contain;
+  display: none; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.25) transparent;
+}
+.grid-mode .grid-scroll { display: block; }
+.grid-fade { position: fixed; left: 0; right: 0; z-index: 4; pointer-events: none; opacity: 0; transition: opacity .5s var(--ease); }
+.grid-fade-top { top: 0; height: 15vh; background: linear-gradient(#000 45%, transparent); }
+.grid-fade-bottom { bottom: 0; height: 13vh; background: linear-gradient(transparent, #000 75%); }
+.grid-mode .grid-fade { opacity: 1; }
 
 /* ---------- 3D 캔버스 ---------- */
 .stage { position: fixed; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; }
@@ -133,13 +160,15 @@ ul { list-style: none; }
   :root { --fs: 19vw; }
   .wordmark { top: 18vh; }
   .keywords { top: 12vh; padding: 0 8vw; gap: 6px 14px; }
-  .hint { left: 5vw; bottom: 3vh; }
+  .bottom-bar { left: 5vw; right: 5vw; bottom: 3vh; }
+  .hint span { display: none; }
   .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; height: 82vh;
     transform: translateY(calc(100% + 16px)); }
   .panel-body { padding: 52px 24px 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-text, .grid-mode .hero-text { transform: none; }
   .panel, .panel-open .panel { transform: none; transition: opacity .2s ease, visibility 0s linear .2s; }
   .panel-open .panel { transition: opacity .2s ease, visibility 0s; }
 }
