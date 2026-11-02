@@ -42,7 +42,7 @@ const ndc = new THREE.Vector2();
 function projectBookAt(x, y) {
   ndc.set((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1);
   raycaster.setFromCamera(ndc, camera);
-  const hit = raycaster.intersectObjects(books.map((b) => b.mesh))[0];
+  const hit = raycaster.intersectObjects(books.map((b) => b.mesh), true)[0];
   const book = hit ? books[hit.object.userData.bookIndex] : null;
   return book?.project ? book : null;
 }

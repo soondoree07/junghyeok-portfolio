@@ -21,6 +21,7 @@ python3 -m http.server 4321   # 이 폴더에서 실행 → http://localhost:432
 | `detail.css` | 책을 누르면 열리는 전체 화면 상세 페이지 |
 | `images/` | 프로젝트 캡처 (`images/README.md` 참고) |
 | `js/projects.js` | **프로젝트 내용** — 글을 고칠 때는 여기만 고치면 됩니다 |
+| `js/book-model.js` | 양장본 책 모양 — 앞 · 뒤 표지 판지(속지보다 살짝 큼) · 둥근 책등 · 안쪽으로 들어간 속지 |
 | `js/covers.js` | 표지 · 종이 단면을 캔버스로 그리기 (`MOTIFS` = 표지 도형) |
 | `js/scene.js` | 렌더러 · 조명 · 카메라 · 책 줄 배치 (`ROW_SPAN_X` · `ROW_SPAN_Z` = 책 줄 전체 길이, 권수로 나눠 간격 자동) |
 | `js/motion.js` | 책마다 목표 높이를 스프링으로 따라감 (K 13, C 6.9, 프레임당 4번) · 펼치기: 가리킨 책이 앞으로 |

@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { PROJECTS } from './projects.js';
 import { drawProjectCover, drawPageTexture } from './covers.js';
+import { createBookModel } from './book-model.js';
 
 export const HIDDEN_Y = -3; // 등장 전 책 높이
 const BASE_Y = -1.42; // 책 줄 높이 — 이름 아래에 머물도록
@@ -51,27 +52,14 @@ export function fitCamera(camera, renderer) {
   renderer.setSize(w, h, false);
 }
 
-function bookMaterials(coverTexture, baseColor, pages) {
-  const spine = new THREE.Color(baseColor).multiplyScalar(0.62);
-  const page = (map) => new THREE.MeshStandardMaterial({ map, roughness: 0.9 });
-  return [
-    page(pages.horizontal),
-    new THREE.MeshPhysicalMaterial({ color: spine, roughness: 0.55, clearcoat: 0.3 }),
-    page(pages.vertical),
-    page(pages.vertical),
-    new THREE.MeshPhysicalMaterial({ map: coverTexture, roughness: 0.42, clearcoat: 0.55, clearcoatRoughness: 0.35 }),
-    new THREE.MeshPhysicalMaterial({ color: spine, roughness: 0.6 }),
-  ];
-}
-
 export function createBooks(scene, renderer) {
-  const geometry = new THREE.BoxGeometry(1, 1.5, 0.2);
   const pages = { horizontal: drawPageTexture(true), vertical: drawPageTexture(false) };
 
   // 앞에서부터 프로젝트 순서대로 한 권씩
   return PROJECTS.map((project, i) => {
     const cover = drawProjectCover(project, i, renderer);
-    const mesh = new THREE.Mesh(geometry, bookMaterials(cover, project.color, pages));
+    // mesh = 책 한 권(양장본 모양 Group). 올라가고 기우는 움직임은 이 안쪽 묶음에 준다 (motion.js)
+    const { book: mesh, materials } = createBookModel(cover, project.color, pages);
     const group = new THREE.Group();
     const slot = i + ROW_START;
     group.position.set(1.55 - slot * STEP_X, BASE_Y, 0.9 - slot * STEP_Z);
@@ -79,9 +67,9 @@ export function createBooks(scene, renderer) {
     group.add(mesh);
     scene.add(group);
     mesh.position.y = HIDDEN_Y;
-    mesh.userData.bookIndex = i;
+    mesh.traverse((part) => { part.userData.bookIndex = i; }); // 어느 부분을 눌러도 이 책
     return {
-      index: i, mesh, group, project, number: i,
+      index: i, mesh, materials, group, project, number: i,
       lift: { y: HIDDEN_Y, vy: 0, z: 0, vz: 0 },
       shelf: { position: group.position.clone(), quaternion: group.quaternion.clone() }, // 책장 자리
       spread: { grid: 0 }, // 격자에서 보이는 정도 (layout.js)

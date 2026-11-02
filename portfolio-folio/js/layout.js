@@ -50,10 +50,10 @@ function fade(value, target, dt) {
 }
 
 // 책 겉면을 투명하게 — 다 보일 때는 투명 처리를 꺼서 겹친 책이 깨끗하게 그려지게 한다
-function setOpacity(mesh, opacity) {
-  mesh.visible = opacity > 0.005;
+function setOpacity(book, opacity) {
+  book.mesh.visible = opacity > 0.005;
   const transparent = opacity < 0.995;
-  mesh.material.forEach((m) => {
+  book.materials.forEach((m) => {
     if (m.transparent !== transparent) { m.transparent = transparent; m.needsUpdate = true; }
     m.opacity = opacity;
   });
@@ -87,7 +87,7 @@ function placeGridBook(book, metrics, scrollPx, camera, ready, dt) {
   group.position.addScaledVector(cameraUp.set(0, 1, 0).applyQuaternion(camera.quaternion), -rise);
   group.quaternion.copy(camera.quaternion);
   group.scale.setScalar(metrics.scale);
-  setOpacity(book.mesh, spread.grid);
+  setOpacity(book, spread.grid);
 }
 
 function placeShelfBook(book) {
@@ -95,7 +95,7 @@ function placeShelfBook(book) {
   group.position.copy(shelf.position);
   group.quaternion.copy(shelf.quaternion);
   group.scale.setScalar(1);
-  setOpacity(book.mesh, 1);
+  setOpacity(book, 1);
 }
 
 export function updateSpread(books, camera, metrics, view, scrollPx, time, dt) {
