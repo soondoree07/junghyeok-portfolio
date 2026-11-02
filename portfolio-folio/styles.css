@@ -7,7 +7,6 @@
   --serif: "Libre Caslon Display", Georgia, serif;
   --sans: Inter, "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --ease: cubic-bezier(.2, .8, .2, 1);
-  --panel-w: min(520px, 92vw);
   --fs: min(30vh, 17.5vw); /* 큰 이름 글자 크기 */
 }
 
@@ -73,13 +72,18 @@ ul { list-style: none; }
 .hint { font: 400 max(11px, .74vw) var(--sans); color: var(--muted); }
 .hint span { opacity: .6; }
 .view-toggle {
-  pointer-events: auto; cursor: pointer; border: 1px solid rgba(255, 255, 255, .22);
+  /* 사각형 4개 아이콘 토글 — 꺼짐: 테두리만 · 켜짐: 흰 바탕 */
+  pointer-events: auto; cursor: pointer; width: 46px; height: 46px; display: grid; place-items: center;
+  border: 1px solid rgba(255, 255, 255, .24); border-radius: 12px; color: var(--fg);
   background: rgba(20, 19, 17, .55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  color: var(--fg); font: 500 max(12px, .8vw) var(--sans); border-radius: 999px; padding: .75em 1.4em;
-  transition: background .2s, transform .1s;
+  transition: background .25s var(--ease), color .25s var(--ease), border-color .25s, transform .1s;
 }
+.view-toggle svg rect { fill: none; stroke: currentColor; stroke-width: 1.5; transition: fill .25s var(--ease); }
 .view-toggle:hover { background: rgba(255, 255, 255, .14); }
-.view-toggle:active { transform: scale(.97); }
+.view-toggle:active { transform: scale(.94); }
+.view-toggle[aria-pressed="true"] { background: #fff; color: #000; border-color: #fff; }
+.view-toggle[aria-pressed="true"] svg rect { fill: currentColor; }
+.view-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
 /* ---------- 펼치기 화면 ---------- */
 .grid-scroll {
@@ -112,63 +116,6 @@ ul { list-style: none; }
 /* ---------- 3D 캔버스 ---------- */
 .stage { position: fixed; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; }
 
-/* ---------- 상세 패널 (오른쪽에서 나와 오른쪽으로 들어간다) ---------- */
-.scrim {
-  position: fixed; inset: 0; z-index: 6; background: rgba(0, 0, 0, .35);
-  opacity: 0; pointer-events: none; transition: opacity .35s var(--ease);
-}
-.panel {
-  position: fixed; z-index: 7; top: 12px; right: 12px; bottom: 12px; width: var(--panel-w);
-  background: rgba(18, 17, 15, .72); backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, .1); border-radius: 18px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
-  transform: translateX(calc(100% + 24px)); opacity: .4; visibility: hidden;
-  transition: transform .5s var(--ease), opacity .5s var(--ease), visibility 0s linear .5s;
-}
-.panel-open .scrim { opacity: 1; pointer-events: auto; }
-.panel-open .panel {
-  transform: none; opacity: 1; visibility: visible;
-  transition: transform .5s var(--ease), opacity .5s var(--ease), visibility 0s;
-}
-.panel-close {
-  position: absolute; top: 16px; right: 16px; z-index: 1; width: 40px; height: 40px;
-  display: grid; place-items: center; border: 0; border-radius: 50%;
-  background: rgba(255, 255, 255, .08); color: var(--fg); cursor: pointer;
-  transition: background .2s, transform .1s;
-}
-.panel-close:hover { background: rgba(255, 255, 255, .16); }
-.panel-close:active { transform: scale(.94); }
-.panel-body { height: 100%; overflow-y: auto; padding: 56px 40px 48px; overscroll-behavior: contain; }
-
-.panel-eyebrow {
-  display: flex; align-items: center; gap: 10px; font: 500 12px var(--sans);
-  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
-}
-.panel-eyebrow span { width: 12px; height: 16px; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
-.panel-title { font: 400 clamp(44px, 5vw, 64px)/1.02 var(--serif); letter-spacing: -.02em; margin-top: 18px; }
-.panel-sub { margin-top: 10px; color: var(--muted); font-size: 14px; }
-.panel-lead { margin-top: 28px; font-size: 18px; line-height: 1.65; letter-spacing: -.01em; word-break: keep-all; }
-.panel-text { margin-top: 16px; color: rgba(255,255,255,.78); font-size: 15px; line-height: 1.75; word-break: keep-all; }
-.panel-meta { margin-top: 28px; padding: 16px 0; border-block: 1px solid rgba(255,255,255,.1); display: grid; grid-template-columns: 56px 1fr; gap: 8px; font-size: 14px; }
-.panel-meta dt { color: var(--muted); }
-.panel-body h3 { margin-top: 32px; font: 500 12px var(--sans); letter-spacing: .08em; color: var(--muted); }
-.panel-body ul { margin-top: 12px; display: grid; gap: 10px; }
-.panel-body li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.65; word-break: keep-all; }
-.panel-body li::before { content: ""; position: absolute; left: 0; top: .72em; width: 6px; height: 1px; background: var(--muted); }
-.panel-body blockquote { margin-top: 12px; font: 400 22px/1.45 var(--serif); letter-spacing: -.01em; word-break: keep-all; font-family: var(--serif), "Pretendard Variable", serif; }
-.panel-link {
-  display: inline-flex; gap: 8px; margin-top: 36px; padding: 12px 18px; border-radius: 10px;
-  background: #fff; color: #000; font: 500 14px var(--sans); transition: transform .2s var(--ease);
-}
-.panel-link:hover { transform: translateY(-1px); }
-.panel-steps { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
-.panel-steps button {
-  border: 0; background: none; color: var(--muted); font: 500 13px var(--sans); cursor: pointer;
-  padding: 8px 0; transition: color .2s;
-}
-.panel-steps button:hover { color: var(--fg); }
-.panel-contact a { border-bottom: 1px solid rgba(255,255,255,.3); }
 .noscript { position: fixed; bottom: 24px; left: 24px; z-index: 9; }
 
 /* ---------- 휴대폰 ---------- */
@@ -182,16 +129,8 @@ ul { list-style: none; }
   .bottom-bar { left: 5vw; right: 5vw; bottom: 3vh; }
   .contact { margin: 0 6vw; padding: 10vh 0 16vh; }
   .hint span { display: none; }
-  .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; height: 82vh;
-    transform: translateY(calc(100% + 16px)); }
-  .panel-body { padding: 52px 24px 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-text, .grid-mode .hero-text { transform: none; }
-  .panel, .panel-open .panel { transform: none; transition: opacity .2s ease, visibility 0s linear .2s; }
-  .panel-open .panel { transition: opacity .2s ease, visibility 0s; }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .panel { background: #141311; backdrop-filter: none; -webkit-backdrop-filter: none; }
 }

@@ -8,8 +8,10 @@ export const HIDDEN_Y = -3; // 등장 전 책 높이
 const BASE_Y = -1.42; // 책 줄 높이 — 이름 아래에 머물도록
 // 책 줄 배치 — 맨 앞 책이 화면 오른쪽 아래에 걸리게 두 칸 뒤에서 시작하고, 11권이 화면 너비를 채우게 간격을 둔다
 const ROW_START = 2;
-const STEP_X = 0.62;
-const STEP_Z = 0.24;
+const ROW_SPAN_X = 6.8;   // 책 줄 전체 가로 길이 — 권수가 바뀌어도 화면 너비를 채운다
+const ROW_SPAN_Z = 2.64;
+const STEP_X = ROW_SPAN_X / PROJECTS.length;
+const STEP_Z = ROW_SPAN_Z / PROJECTS.length;
 
 export function createRenderer(canvas) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });

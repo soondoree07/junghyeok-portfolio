@@ -6,7 +6,6 @@ import { waveLifts } from './wave.js';
 const STIFFNESS = 13;
 const DAMPING = 6.9;  // 감쇠비 약 0.95 — 천천히 올라와 튀지 않고 멈춘다
 const SUBSTEPS = 4;
-const SELECTED_LIFT = 0.95;
 const GRID_HOVER_PUSH = 0.35; // 펼친 화면에서 가리킨 책이 앞으로 나오는 정도
 const IDLE_AFTER = 4; // 초
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -53,12 +52,9 @@ function gridTargets(books, focusIndex) {
   }));
 }
 
-// 책장: 위로만 올라온다 (앞으로 나오지 않는다). 패널이 열린 책은 그 책만 올라와 있다
-function shelfTargets(books, camera, time, dt, selectedIndex) {
-  const lifts = selectedIndex !== null
-    ? books.map((b) => (b.index === selectedIndex ? SELECTED_LIFT : 0))
-    : waveLifts(books, camera, activeCursor(books, camera, time), dt);
-  return lifts.map((lift) => ({ y: lift, z: 0 }));
+// 책장: 파도로 위로만 올라온다 (앞으로 나오지 않는다)
+function shelfTargets(books, camera, time, dt) {
+  return waveLifts(books, camera, activeCursor(books, camera, time), dt).map((lift) => ({ y: lift, z: 0 }));
 }
 
 // 뒤에서부터 한 권씩 올라온다
@@ -72,11 +68,11 @@ function stepSpring(state, key, velocityKey, target, h) {
   state[key] += state[velocityKey] * h;
 }
 
-// state: { mode: 'shelf' | 'grid', selectedIndex, hoverIndex }
+// state: { mode: 'shelf' | 'grid', hoverIndex }
 export function updateBooks(books, camera, time, dt, state) {
   const targets = state.mode === 'grid'
-    ? gridTargets(books, state.selectedIndex ?? state.hoverIndex)
-    : shelfTargets(books, camera, time, dt, state.selectedIndex);
+    ? gridTargets(books, state.hoverIndex)
+    : shelfTargets(books, camera, time, dt);
   const h = Math.min(dt, 0.05) / SUBSTEPS;
   books.forEach((book, i) => {
     const ready = introReady(book, books.length, time);

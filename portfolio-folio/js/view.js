@@ -4,7 +4,7 @@ const spacer = scroller.querySelector('.grid-spacer');
 const page = document.querySelector('.page');
 const contact = document.querySelector('.contact');
 const toggle = document.querySelector('.view-toggle');
-const LABELS = { shelf: '11권 펼쳐 보기', grid: '책장으로 돌아가기' };
+const LABELS = { shelf: '프로젝트 펼쳐 보기', grid: '책장으로 돌아가기' }; // 아이콘 버튼의 읽어 주는 이름
 
 export const view = { mode: 'shelf', changedAt: -Infinity };
 let frozenGridScroll = 0;  // 책장으로 돌아가는 동안 격자 위치가 튀지 않게 마지막 격자 스크롤을 붙잡아 둔다
@@ -25,7 +25,7 @@ export function setMode(mode, time) {
   (mode === 'grid' ? scroller : page).append(contact);
   scroller.scrollTop = 0;
   if (mode === 'shelf') scrollTo({ top: frozenShelfScroll, behavior: 'instant' });
-  toggle.textContent = LABELS[mode];
+  setToggleLabel(mode);
   toggle.setAttribute('aria-pressed', String(mode === 'grid'));
 }
 
@@ -43,8 +43,13 @@ export function setContentHeight(px) {
   spacer.style.height = `${Math.ceil(px)}px`;
 }
 
+function setToggleLabel(mode) {
+  toggle.setAttribute('aria-label', LABELS[mode]);
+  toggle.title = LABELS[mode];
+}
+
 export function onToggle(callback) {
-  toggle.textContent = LABELS.shelf;
+  setToggleLabel('shelf');
   toggle.addEventListener('click', callback);
 }
 

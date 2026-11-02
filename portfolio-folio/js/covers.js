@@ -66,6 +66,36 @@ const MOTIFS = {
     c.beginPath(); c.moveTo(214, 840); c.lineTo(214, 560); c.arc(W / 2, 560, 170, Math.PI, 0); c.lineTo(554, 840); c.fill();
     c.fillStyle = p.ink; disc(c, W / 2, 520, 34);
   },
+  pages(c, p) {
+    // 펼친 도록 두 쪽
+    c.fillStyle = 'rgba(255,255,255,.55)'; c.fillRect(164, 420, 210, 300); c.fillRect(394, 420, 210, 300);
+    c.fillStyle = p.accent; c.fillRect(190, 450, 158, 170); c.fillRect(420, 450, 158, 110);
+    c.fillStyle = p.ink; c.fillRect(420, 590, 120, 6); c.fillRect(420, 610, 90, 6);
+  },
+  tools(c, p) {
+    // 네 칸 모음 — 둥근 사각형 넷
+    c.strokeStyle = p.accent; c.lineWidth = 8;
+    [[214, 420], [414, 420], [214, 620], [414, 620]].forEach(([x, y], i) => {
+      c.beginPath(); c.roundRect(x, y, 160, 160, 34);
+      if (i === 3) { c.fillStyle = p.accent; c.fill(); } else c.stroke();
+    });
+  },
+  bubble(c, p) {
+    // 말풍선 안의 낙서
+    c.fillStyle = '#ffffff';
+    c.beginPath(); c.roundRect(170, 410, 430, 300, 60); c.fill();
+    c.beginPath(); c.moveTo(250, 700); c.lineTo(220, 790); c.lineTo(330, 705); c.fill();
+    c.strokeStyle = p.accent; c.lineWidth = 12; c.lineCap = 'round';
+    c.beginPath(); c.moveTo(240, 600); c.bezierCurveTo(300, 470, 380, 690, 450, 540); c.bezierCurveTo(480, 480, 530, 520, 530, 570); c.stroke();
+  },
+  gem(c, p) {
+    // 보스 보상 결정석
+    c.fillStyle = p.accent;
+    c.beginPath(); c.moveTo(W / 2, 400); c.lineTo(574, 560); c.lineTo(W / 2, 800); c.lineTo(194, 560); c.closePath(); c.fill();
+    c.strokeStyle = p.color; c.lineWidth = 5;
+    c.beginPath(); c.moveTo(194, 560); c.lineTo(574, 560); c.moveTo(W / 2, 400); c.lineTo(300, 560); c.lineTo(W / 2, 800);
+    c.moveTo(W / 2, 400); c.lineTo(468, 560); c.lineTo(W / 2, 800); c.stroke();
+  },
   terminal(c, p) {
     c.font = `500 30px ui-monospace, Menlo, monospace`; c.fillStyle = p.accent;
     ['$ claude', '> connected', '> tunnel ok', '> pm2 online', '_'].forEach((t, i) => c.fillText(t, 150, 450 + i * 64));

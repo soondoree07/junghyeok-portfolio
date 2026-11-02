@@ -21,7 +21,6 @@ await Promise.all([
 ]).catch(() => {});
 const books = createBooks(scene, renderer);
 const projectCount = books.filter((b) => b.project).length;
-let selectedIndex = null;
 let hoverIndex = null;
 let metrics = null;
 
@@ -48,16 +47,10 @@ function projectBookAt(x, y) {
   return book?.project ? book : null;
 }
 
-// 패널에서 프로젝트가 바뀌면 그 책을 올린다
-const panelCallbacks = {
-  onSelect: (project) => { selectedIndex = books.find((b) => b.project === project).index; },
-  onClose: () => { selectedIndex = null; },
-};
-
 addEventListener('click', (e) => {
   if (!isStageTarget(e.target)) return;
   const book = projectBookAt(e.clientX, e.clientY);
-  if (book) openProject(book.project, panelCallbacks);
+  if (book) openProject(book.project);
 });
 
 function toggleView(mode) {
@@ -72,7 +65,7 @@ document.querySelector('[data-open="projects"]').addEventListener('click', (e) =
 document.querySelectorAll('[data-open="contact"]').forEach((el) =>
   el.addEventListener('click', (e) => { e.preventDefault(); closePanel(); scrollToContact(); }));
 document.querySelectorAll('[data-open="about"]').forEach((el) =>
-  el.addEventListener('click', (e) => { e.preventDefault(); selectedIndex = null; openAbout(); }));
+  el.addEventListener('click', (e) => { e.preventDefault(); openAbout(); }));
 
 // Esc: 패널이 열려 있으면 패널만 닫고(panel.js), 아니면 책장으로 돌아간다
 addEventListener('keydown', (e) => {
@@ -94,6 +87,6 @@ renderer.setAnimationLoop(() => {
   panCamera(camera, shelfScrollPx());
   updateCursor();
   updateSpread(books, camera, metrics, view, scrollPx(), time, dt);
-  updateBooks(books, camera, time, dt, { mode: view.mode, selectedIndex, hoverIndex });
+  updateBooks(books, camera, time, dt, { mode: view.mode, hoverIndex });
   renderer.render(scene, camera);
 });
