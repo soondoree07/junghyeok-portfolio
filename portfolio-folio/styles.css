@@ -126,6 +126,3 @@ ul { list-style: none; }
   .hint span { display: none; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-text, .grid-mode .hero-text { transform: none; }
-}

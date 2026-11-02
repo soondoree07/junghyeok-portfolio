@@ -13,7 +13,7 @@ const SHELF_DELAY = 0.1;      // 화면이 어두워진 뒤 첫 책이 솟기 �
 const SHELF_STAGGER = 0.06;  // 책장으로 돌아올 때 뒤에서부터 한 권씩
 const APPEAR_RISE = 0.25;    // 나타날 때 아래에서 올라오는 거리 (책 높이 비율)
 const MAX_CONTENT_PX = 1100;
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// 윈도우 '애니메이션 효과 끄기'(움직임 줄이기)는 따르지 않는다 — 사용자 결정(2026-11-02, 모아툴과 같음)
 
 // 화면 크기에 맞춘 격자 치수 (월드 단위) + 스크롤 높이(px)
 export function gridMetrics(camera, bookCount) {
@@ -44,7 +44,6 @@ function placeOnGrid(number, metrics, scrollPx, camera) {
 }
 
 function fade(value, target, dt) {
-  if (reducedMotion) return target;
   const rate = target > value ? FADE_IN : FADE_OUT;
   return value + (target - value) * (1 - Math.exp(-rate * Math.min(dt, 0.05)));
 }

@@ -8,7 +8,7 @@ const DAMPING = 6.9;  // 감쇠비 약 0.95 — 천천히 올라와 튀지 않�
 const SUBSTEPS = 4;
 const GRID_HOVER_PUSH = 0.35; // 펼친 화면에서 가리킨 책이 앞으로 나오는 정도
 const IDLE_AFTER = 4; // 초
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// 윈도우 '애니메이션 효과 끄기'(움직임 줄이기)는 따르지 않는다 — 사용자 결정(2026-11-02, 모아툴과 같음)
 const coarsePointer = matchMedia('(pointer: coarse)').matches;
 
 export const pointer = { x: 0, y: 0, inside: false, lastMove: -Infinity };
@@ -40,7 +40,7 @@ function virtualCursor(books, camera, time) {
 
 function activeCursor(books, camera, time) {
   const idle = time - pointer.lastMove > IDLE_AFTER;
-  if (coarsePointer || (idle && !reducedMotion)) return virtualCursor(books, camera, time);
+  if (coarsePointer || idle) return virtualCursor(books, camera, time);
   return pointer.inside ? pointer : null;
 }
 
@@ -59,7 +59,6 @@ function shelfTargets(books, camera, time, dt) {
 
 // 뒤에서부터 한 권씩 올라온다
 function introReady(book, count, time) {
-  if (reducedMotion) return true;
   return time > 0.25 + (count - book.index) * 0.035;
 }
 
@@ -79,8 +78,7 @@ export function updateBooks(books, camera, time, dt, state) {
     const targetY = ready ? targets[i].y : HIDDEN_Y;
     const targetZ = ready ? targets[i].z : 0;
     const s = book.lift;
-    if (reducedMotion && ready) { s.y = targetY; s.z = targetZ; s.vy = 0; }
-    else for (let k = 0; k < SUBSTEPS; k++) {
+    for (let k = 0; k < SUBSTEPS; k++) {
       stepSpring(s, 'y', 'vy', targetY, h);
       stepSpring(s, 'z', 'vz', targetZ, h);
     }

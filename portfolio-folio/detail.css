@@ -71,6 +71,3 @@
   .detail-notes { grid-template-columns: 1fr; gap: 40px; margin-top: 64px; }
   .detail-shots { margin-top: 48px; gap: 40px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .panel, .panel-open .panel { transform: none; }
-}

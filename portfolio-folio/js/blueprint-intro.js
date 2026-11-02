@@ -1,13 +1,13 @@
 // 첫 접속 인트로 — 연필 스케치가 그려지고, 잉크가 안쪽에서 번지며 흰 선의 청사진으로 바뀐 뒤 사이트가 열린다.
 // 순서: 스케치(약 1.8초) → 0.3초 멈춤 → 잉크 번짐 → 치수 · 라벨 → 1.5초 멈춤 → 사라지며 사이트 시작
-// 한 세션에 한 번만 나오고, 누르거나 키를 치면 건너뛴다.
+// 한 세션에 한 번만 나오고, 누르거나 키를 치면 건너뛴다. 로고를 누르면 처음부터 다시 (replayFromStart).
 import * as D from './blueprint-drawing.js';
 import { el, fitViewBox, buildDefs, buildSketch, buildInk } from './blueprint-svg.js';
 
 const SEEN_KEY = 'folio-blueprint-seen';
 const HAND = 'cubic-bezier(.45,0,.25,1)'; // 손처럼 천천히 시작해 천천히 멈춤
 const POP = 'cubic-bezier(.3,1.6,.5,1)';  // 작게 튀어나옴
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// 윈도우 '애니메이션 효과 끄기'(움직임 줄이기)는 따르지 않는다 — 사용자 결정(2026-11-02, 모아툴과 같음)
 
 // 시간표 (ms)
 const T = { outline: 380, joint: 1050, hatch: 1300, flood: 2130, floodLength: 1100, system: 2950, label: 3500, exit: 5600, exitLength: 650 };
@@ -17,8 +17,8 @@ const SKETCH = { // 단계별 시작 · 한 획 길이 · 다음 획 간격
 };
 
 const timers = [];
-const later = (ms, fn) => timers.push(setTimeout(fn, reducedMotion ? 0 : ms));
-const animate = (node, keyframes, options) => node.animate(keyframes, { fill: 'both', ...options, duration: reducedMotion ? 0 : options.duration });
+const later = (ms, fn) => timers.push(setTimeout(fn, ms));
+const animate = (node, keyframes, options) => node.animate(keyframes, { fill: 'both', ...options });
 const drawStroke = (node, delay, duration, easing = HAND) => animate(node, [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { delay, duration, easing });
 
 // 주소에 ?intro 를 붙이면 이미 봤어도 다시 보여 준다 (확인용)
@@ -26,6 +26,12 @@ function hasSeen() {
   if (new URLSearchParams(location.search).has('intro')) return false;
   try { return sessionStorage.getItem(SEEN_KEY) === '1'; } catch { return false; }
 }
+// 로고 — 탭에 처음 들어온 것처럼 인트로부터 다시 시작한다
+export function replayFromStart() {
+  try { sessionStorage.removeItem(SEEN_KEY); } catch { /* 저장이 막혀 있으면 주소로 강제 */ }
+  location.href = `${location.pathname}?intro`;
+}
+
 function markSeen() { try { sessionStorage.setItem(SEEN_KEY, '1'); } catch { /* 저장이 막혀도 인트로는 동작 */ } }
 
 function playSketch(strokes) {
@@ -47,7 +53,7 @@ function playFlood(targets, view) {
   later(T.flood, () => {
     const start = performance.now();
     const frame = (now) => {
-      const p = reducedMotion ? 1 : Math.min(1, (now - start) / T.floodLength);
+      const p = Math.min(1, (now - start) / T.floodLength);
       set(maxR * (1 - (1 - p) ** 4));
       if (p < 1) requestAnimationFrame(frame);
     };
@@ -74,7 +80,7 @@ function tickNumber(node, dim, delay) {
   later(delay, () => {
     const start = performance.now();
     const frame = (now) => {
-      const p = reducedMotion ? 1 : Math.min(1, (now - start) / 650);
+      const p = Math.min(1, (now - start) / 650);
       show(Math.round(from + (count - from) * (1 - (1 - p) ** 3)));
       if (p < 1) requestAnimationFrame(frame);
     };
@@ -131,6 +137,7 @@ function buildOverlay() {
 export function playBlueprintIntro() {
   if (hasSeen()) return Promise.resolve();
   markSeen();
+  history.replaceState(null, '', location.pathname); // ?intro 는 주소에 남기지 않는다
   document.documentElement.classList.add('intro-playing');
   const { overlay, svg } = buildOverlay();
   const view = fitViewBox(svg);
@@ -159,6 +166,6 @@ export function playBlueprintIntro() {
     };
     overlay.addEventListener('click', exit);
     addEventListener('keydown', exit);
-    timers.push(setTimeout(exit, reducedMotion ? 1200 : T.exit)); // 움직임 줄이기면 완성된 도면만 잠깐
+    timers.push(setTimeout(exit, T.exit));
   });
 }

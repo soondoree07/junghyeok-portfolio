@@ -53,7 +53,7 @@ export function setContentHeight(px) {
 
 // "연락하기" — 지금 화면의 맨 아래 연락처로 부드럽게 내려간다
 export function scrollToContact() {
-  contact.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  contact.scrollIntoView({ behavior: 'smooth' });
 }
 
 // 3D 책을 누를 수 있는 곳 — 캔버스(책장) 또는 스크롤 영역(펼치기)

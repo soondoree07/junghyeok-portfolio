@@ -7,7 +7,7 @@ import { view, setMode, scrollPx, shelfScrollPx, setContentHeight, isStageTarget
 import { rememberCameraBase, panCamera, fitShelfHeight, watchScrolled } from './page.js';
 import { openProject, openAbout, closePanel, isPanelOpen } from './panel.js';
 import { playIntro } from './intro.js';
-import { playBlueprintIntro } from './blueprint-intro.js';
+import { playBlueprintIntro, replayFromStart } from './blueprint-intro.js';
 
 const canvas = document.querySelector('.stage');
 const renderer = createRenderer(canvas);
@@ -63,11 +63,10 @@ document.querySelector('[data-open="projects"]').addEventListener('click', (e) =
   e.preventDefault();
   toggleView();
 });
-// 로고: 펼친 상태라면 책장으로 돌아간다
+// 로고: 탭에 처음 들어온 것처럼 청사진 인트로부터 다시 시작
 document.querySelector('.logo').addEventListener('click', (e) => {
-  if (view.mode !== 'grid') return;
   e.preventDefault();
-  toggleView('shelf');
+  replayFromStart();
 });
 document.querySelectorAll('[data-open="contact"]').forEach((el) =>
   el.addEventListener('click', (e) => { e.preventDefault(); closePanel(); scrollToContact(); }));
