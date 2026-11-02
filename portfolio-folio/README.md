@@ -9,7 +9,7 @@
 처음 접속하면(세션마다 한 번) 연필 스케치가 파란 청사진으로 바뀌는 인트로가 나온 뒤 사이트가 열립니다. 누르거나 키를 치면 건너뜁니다. 다시 보려면 로고를 누르거나 주소 뒤에 `?intro` 를 붙입니다. 윈도우 애니메이션 효과 끄기(움직임 줄이기)는 따르지 않습니다(사용자 결정).
 스타일 출처: `~/animation_styles/애니메이션_스타일_카드.md` — Part 1 · 10. Pencil to Blueprint
 
-빌드 없는 정적 사이트입니다. Three.js r160 은 jsDelivr 의 import map 으로 불러옵니다.
+빌드 없는 정적 사이트입니다. **https://junghyeok.com 메인 화면** — Vercel 프로젝트 `junghyeok-home`(Root Directory = `portfolio-folio`), GitHub 에 push 하면 자동 배포. `vercel.json` 은 고친 뒤 예전 화면이 남지 않게 매번 새로 확인하게 하는 설정, `.vercelignore` 는 미리보기 서버를 배포에서 뺀다. Three.js r160 은 jsDelivr 의 import map 으로 불러옵니다.
 
 ```
 python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브라우저가 예전 파일을 저장하지 않게 함)
