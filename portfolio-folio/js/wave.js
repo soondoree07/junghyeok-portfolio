@@ -46,21 +46,32 @@ function profileAt(distance) {
   return THREE.MathUtils.lerp(PROFILE[lower], PROFILE[lower + 1], distance - lower);
 }
 
-const wave = { center: 0, active: false };
+// 파도 세기(0~1) — 들어올 때 서서히 커지고 나갈 때 서서히 잦아든다. 높이가 한 번에 바뀌지 않게 한다
+const FADE_IN = 1.8;   // 클수록 빨리 커진다 (1/초)
+const FADE_OUT = 1.4;  // 클수록 빨리 잦아든다 (1/초)
+const wave = { center: 0, strength: 0 };
 
 // 파도 중심을 목표 책 쪽으로 옮긴다 — 멀면 최대 속도로, 가까우면 천천히
+// 파도가 거의 잦아든 뒤 다시 들어오면, 보이지 않는 동안 중심만 그 자리로 옮겨 둔다
 function moveCenter(target, dt) {
-  if (!wave.active) { wave.center = target; wave.active = true; return; }
+  if (wave.strength < 0.02) { wave.center = target; return; }
   const diff = target - wave.center;
   const eased = diff * (1 - Math.exp(-CENTER_EASE * dt));
   const limit = CENTER_SPEED * dt;
   wave.center += THREE.MathUtils.clamp(eased, -limit, limit);
 }
 
+function fadeStrength(goal, dt) {
+  const rate = goal > wave.strength ? FADE_IN : FADE_OUT;
+  wave.strength += (goal - wave.strength) * (1 - Math.exp(-rate * dt));
+}
+
 // 책마다 올라갈 높이 (월드 단위)
+// 마우스가 책 구간을 벗어나도 파도는 마지막 자리에서 서서히 잦아든다
 export function waveLifts(books, camera, cursor, dt) {
+  const step = Math.min(dt, 0.05);
   const target = bookUnderCursor(books, camera, cursor);
-  if (target === null) { wave.active = false; return books.map(() => 0); }
-  moveCenter(target, Math.min(dt, 0.05));
-  return books.map((_, i) => MAX_LIFT * profileAt(Math.abs(i - wave.center)));
+  if (target !== null) moveCenter(target, step);
+  fadeStrength(target === null ? 0 : 1, step);
+  return books.map((_, i) => MAX_LIFT * wave.strength * profileAt(Math.abs(i - wave.center)));
 }
