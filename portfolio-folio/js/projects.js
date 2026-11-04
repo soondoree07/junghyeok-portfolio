@@ -34,6 +34,11 @@ export const PROJECTS = [
     role: '요구 분석 · 정보 구조 · 데이터 스키마 · 구현 · 운영 가이드',
     points: ['data.json 하나로 작가 정보와 작품 정보를 관리하는 무빌드 구조', '작품 실제 크기(cm)를 화면 비례로 바꾸는 레이아웃', '키보드로 넘기는 라이트박스, 닫으면 보던 위치로 복귀'],
     insight: '클라이언트가 혼자서도 고칠 수 있게 만드는 것까지가 기획이었어요.',
+    shots: [
+      { file: '1.png', caption: '첫 화면 — 작가 이름과 대표작 한 점만 두었어요' },
+      { file: '2.png', caption: '연도별 작품 — 실제 크기(cm) 비율대로 작품 크기가 달라져요' },
+      { file: '3.png', caption: '라이트박스 — 키보드 화살표로 넘기고, 닫으면 보던 자리로 돌아가요' },
+    ],
     link: 'https://jbae.art',
   },
   {
@@ -43,6 +48,11 @@ export const PROJECTS = [
     role: '상품 기획 · 가격 설계 · 템플릿 개발 · 판매 운영 (1인)',
     points: ['기본 · 도록 · 프리미엄 3단계 상품과 작품 수 · 수정 횟수 · 작업 기간 설계', '크몽 심사 기준(금칙어 · 외부 링크 · 수량 표기)에 맞춰 상세 페이지를 고쳐 승인', '고객 응대 문구와 운영 가이드를 문서로 정리'],
     insight: '만든 것을 상품으로 팔려면, 기능보다 "무엇을 얼마에 어디까지 해 주는지"를 먼저 정해야 했어요.',
+    shots: [
+      { file: '1.png', caption: '크몽 서비스 페이지 — 기본 · 도록 · 프리미엄 3단계 상품' },
+      { file: '2.png', caption: '판매용 데모 사이트 — 고객 작품만 바꿔 넣으면 되는 틀이에요' },
+      { file: '3.png', caption: '고를 수 있는 분위기 견본 5종' },
+    ],
     link: 'https://kmong.com/gig/848243',
   },
   {
@@ -52,6 +62,11 @@ export const PROJECTS = [
     role: '기획 · 디자인 · 개발 · 검색 등록 · 운영 (1인)',
     points: ['하루 만에 툴 20종 초안을 만들고 다크 네온 · 라이트 테마로 다듬기', '툴마다 주소 · 검색 문구 · 사용법 · 자주 묻는 질문을 붙여 구글 · 네이버 색인', '애드센스 거절 이유("가치가 낮은 콘텐츠")를 분석해 툴별 해설 20편을 더하고 재검토 요청'],
     insight: '툴을 만드는 것보다, 검색에 걸리고 다시 찾아오게 만드는 운영이 더 어려웠어요.',
+    shots: [
+      { file: '1.png', caption: '첫 화면 — 툴 20종을 카드로 모았어요' },
+      { file: '2.png', caption: '룰렛 — 자주 쓰는 목록을 한 번에 채우는 버튼' },
+      { file: '3.png', caption: '핀볼 뽑기 — 공이 먼저 떨어지는 순서로 정해요' },
+    ],
     link: 'https://moatoolbox.com',
   },
   {
@@ -61,6 +76,9 @@ export const PROJECTS = [
     role: '기획 · 디자인 · 개발 · 출시 (Flutter · Firebase)',
     points: ['그림 그리기 · 그림 메시지 · 친구 · 신고 기능', '비공개 테스트(12명 · 14일) 조건을 채워 플레이 스토어 정식 출시', '신고가 들어오면 운영자에게 바로 알림, 앱 위변조 방지(App Check) 적용'],
     insight: '출시는 개발의 끝이 아니라, 심사 · 테스트 · 보안이라는 또 다른 기획의 시작이었어요.',
+    shots: [
+      { file: '1.png', caption: '대화 목록 · 그림 대화방 · 따라 그리기 · 내 코드 (플레이 스토어 화면)' },
+    ],
   },
   {
     id: 'mapleboss', title: 'Boss Party', sub: '메이플 보스 기록', year: '2026 · 운영 중',
@@ -69,6 +87,11 @@ export const PROJECTS = [
     role: '기획 · 디자인 · 개발 · 운영 (1인)',
     points: ['유저 → 캐릭터 → 기록 구조로 데이터 모델을 다시 설계해 전면 개편', '넥슨 오픈 API 스케줄러 연동 — 처치한 보스를 지난주 파티 기준으로 자동 기록', '보스별 드랍표를 자료와 전부 대조해 보상 데이터를 정리하고 파티원별 수익 계산'],
     insight: '게임 보상 구조를 데이터로 옮겨 보니, 보스 하나에도 분배 · 독식 · 주간 · 일간 규칙이 얽혀 있었어요.',
+    shots: [
+      { file: '1.png', caption: '기록 화면 — 이번 주 수익 순위와 이달 전리품' },
+      { file: '2.png', caption: '과거 기록 — 달마다 누가 얼마를 벌었는지' },
+      { file: '3.png', caption: '유저 관리 — 유저 → 캐릭터 구조와 넥슨 스케줄러 연결' },
+    ],
   },
   {
     id: 'pokenova', title: 'pokenova', sub: 'Dex & Quiz Platform', year: '2026',
@@ -77,6 +100,11 @@ export const PROJECTS = [
     role: '기획 · 개발 · 데이터 관리 (1인)',
     points: ['퀴즈 5종, 오늘의 포켓몬 뽑기, 도감 3종', '포켓몬 1,285종 · learnset 11,542개 항목을 직접 관리', '퀴즈 → 리더보드 → 재방문 루프 설계 (Firebase · GA4)'],
     insight: '메타 데이터 구조와 유저 행동 루프를 직접 짠 경험이 게임 시스템 기획과 바로 이어져요.',
+    shots: [
+      { file: '1.png', caption: '포켓몬 도감 — 세대 · 타입 · 폼으로 거르기' },
+      { file: '2.png', caption: '기술 도감 — 784개 기술을 타입 · 분류로 찾기' },
+      { file: '3.png', caption: '아이템 도감 — 534개 도구를 종류별로 거르기' },
+    ],
     link: 'https://pokenova.pochams.com',
   },
   {
@@ -86,6 +114,11 @@ export const PROJECTS = [
     role: '시스템 설계 · 풀스택 개발 · DB 스키마 설계',
     points: ['pokenova(데이터·UI) ↔ pochams(API·커뮤니티) 서비스 분리 구조', '유저 계정 · 좋아요 · 팀 빌딩 · 샘플 공유', 'Next.js · NextAuth · Neon PostgreSQL · Vercel'],
     insight: '두 서비스가 같은 데이터를 나눠 쓰도록 경계를 정하는 일이 제일 중요했어요.',
+    shots: [
+      { file: '1.png', caption: '도감 — 포켓몬 챔피언스 출전 포켓몬과 능력치' },
+      { file: '2.png', caption: '상세 — 특성과 배우는 기술을 한 창에서' },
+      { file: '3.png', caption: '결정력 계산기 — 공격 · 수비 쪽을 나란히 놓고 비교' },
+    ],
     link: 'https://pochams.com',
   },
   {
