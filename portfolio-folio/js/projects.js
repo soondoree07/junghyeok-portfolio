@@ -94,11 +94,11 @@ export const PROJECTS = [
     ],
   },
   {
-    id: 'pokenova', title: 'pokenova', sub: 'Dex & Quiz Platform', year: '2026',
+    id: 'pokenova', title: 'pokenova', sub: 'Pokédex Platform', year: '2026',
     color: '#c8312b', ink: '#fff7ec', accent: '#141414', motif: 'orbit',
-    oneLine: '포켓몬 챔피언스 데이터를 중심으로 한 도감 + 퀴즈 플랫폼이에요. 1인 기획·개발·데이터 관리.',
+    oneLine: '포켓몬 챔피언스 데이터를 중심으로 한 도감 플랫폼이에요. 1인 기획·개발·데이터 관리.',
     role: '기획 · 개발 · 데이터 관리 (1인)',
-    points: ['퀴즈 5종, 오늘의 포켓몬 뽑기, 도감 3종', '포켓몬 1,285종 · learnset 11,542개 항목을 직접 관리', '퀴즈 → 리더보드 → 재방문 루프 설계 (Firebase · GA4)'],
+    points: ['포켓몬 · 기술 · 아이템 도감 3종 (기술 784개 · 아이템 534개)', '포켓몬 1,285종 · learnset 11,542개 항목을 직접 관리', '배틀팀 짜기(메인 6 · 벤치 6)와 오류 신고 기능 (Firebase · GA4)'],
     insight: '메타 데이터 구조와 유저 행동 루프를 직접 짠 경험이 게임 시스템 기획과 바로 이어져요.',
     shots: [
       { file: '1.png', caption: '포켓몬 도감 — 세대 · 타입 · 폼으로 거르기' },
