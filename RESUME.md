@@ -1,3 +1,44 @@
+# 진행 상황 (2026-11-04 KST 저녁 기준 — 포트폴리오 캡처)
+
+## 한 줄
+**portfolio-folio 상세 화면에 운영 중인 사이트 7개 캡처를 넣었고(push 완료), 피그마 7개와 대시보드 캡처는 대기 폴더에 모아 두기만 했다.** 사용자 지시: 아직 적용하지 말 것. 다음 = 사용자가 대기 캡처 확인 → 없는 것 추가 → 적용.
+
+## 오늘 완료한 것
+- 사이트 7개 캡처 + 설명(`shots`) 적용: J.Bae · 크몽 템플릿(서비스 페이지 · 고흐 데모 · 무드 견본) · 모아툴 · 두토(스토어 화면 4장 묶음 1장) · 메이플 보스(닉네임 · 수익 노출은 사용자 OK) · pokenova(포켓몬 · 기술 · 아이템 도감) · pochams — 커밋 96e4f2b
+- pokenova 소개에서 퀴즈 · 오늘의 포켓몬 문구 삭제(퀴즈는 사용자가 사이트에서 막음), 부제 `Pokédex Platform` — 커밋 fe32299
+- 대기 폴더 `~/portfolio-captures-staging/` (레포 밖, 아직 미적용):
+  - `zellopang` 수정본 6 폰 화면 8장 → 묶음 3장(가입 흐름 · 홈+미션 · 쿠폰+출금)
+  - `donidwaeji` 보드: 전체 · IA 2종 · 참여 미션 · 출석 룰렛 · 럭키 박스 흐름도
+  - `ohouse` 디자인 파일 발표 8장 / `ohouse2` 슬라이드 18장 전부 + 미리보기
+  - `encore` 앱 화면 · 공연 카드 (Margin 프레임은 검은 화면이라 뺌)
+  - `lopa` 구역 단위 5장 / `hopetail` 웹 화면 5장
+  - `dashboard` 의존성 그래프 · 첫 화면(히스토리 흐리게 가림) · 터미널(테스트 세션)
+
+## 아직 못 얻은 것 / 결정 대기
+- **Smart Highway**: 피그마 링크 없음 — 15개 중 유일하게 캡처 0
+- **NURIKOREA**(관광데이터 공모전): 자료 위치 모름, 포트폴리오에 책도 없음 → 새 프로젝트로 추가 필요
+- **캡스톤 게임 4개** (`C:\Users\박정혁\Desktop\기타\4-1\캡스톤`): 게임마다 기여 비율을 사용자가 알려 주기로 함, 그 전엔 손대지 않음
+- 아쉬운 것: 오늘의집 프로토타입 슬라이드(15~17) 폰 자리가 비어 있음 · LOPA 는 구역째라 빨간 테두리 보임(폰만 다시 찍기 가능) · 대시보드 터미널 화면이 약함
+- 피그마 링크(다시 찍을 때): hopetail `jNf3T3X1YEX69vrjUuuJ8i`(KOR 페이지 306:5147) · LOPA `tn8hmTSz2oeWTUVKOz2y7a` · 돈이돼지 보드 `8h9or6MSOdCsNIbbMZJpp6` · 오늘의집 `8cnXbgBnASHUZbWqxttnqu` · 오늘의집 슬라이드 `l0QYKZm3cP7gysKklHK4X3`(메타데이터 안 됨 → 0:1 원본 크기로 찍어 2160px 간격으로 자름) · ENCORE `DMDABBglbKRGg2IDTklBdz` · 젤로팡 `9FCDH1LcZIADIGW6Xus3JC` 수정본 6 = 646:1642
+- 피그마 파일은 사용자가 열어 둘 필요 없음(링크만 있으면 됨)
+
+## 다음 액션
+1. 사용자가 `~/portfolio-captures-staging/` 확인 → 고를 것 · 다시 찍을 것 정하기
+2. Smart Highway 피그마 링크 · NURIKOREA 자료 받아 캡처
+3. 캡스톤 게임 4개 — 비율 받은 뒤 프로젝트 추가
+4. 확정되면 `images/<id>/` 로 옮기고 `shots` 설명 적기 → push
+5. (이전 항목) CONTACT 제목 · About 메뉴 · 공부 사이트 링크 · 파비콘 결정
+
+## 캡처 방법 메모
+- 사이트: Playwright `~/.npm/_npx/705bc6b22212b352/node_modules/playwright`(1.63, 받아 둔 크로미움 1243 과 맞음)
+- 메이플 보스: localStorage `maple-site-unlocked=1` + `maple-scheduler-sync-at=지금` 넣고 `/api/scheduler-sync` 차단 → 실제 DB 자동 가져오기 안 돎
+- 대시보드: 토큰 생성은 권한 검사에 막힘 → 사용자가 `! node <스크래치패드>/make-dash-token.cjs` 실행(1시간 토큰), 끝나면 토큰 삭제 · `zz-` 테스트 세션 종료
+
+## 이미 끝난 것
+- push 된 커밋: 96e4f2b · fe32299 (devlog b81a95d · b41c844)
+
+---
+
 # 진행 상황 (2026-11-04 KST 기준)
 
 ## 한 줄
