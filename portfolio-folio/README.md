@@ -23,6 +23,7 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `styles.css` | 레이아웃, 메뉴, 연락처, 휴대폰(≤760px), 움직임 줄이기 설정 |
 | `detail.css` | 책을 누르면 열리는 전체 화면 상세 페이지 |
 | `images/` | 프로젝트 캡처 (`images/README.md` 참고) |
+| `favicon.png` · `apple-touch-icon.png` | 사이트 아이콘 — 검정 바탕에 큰 이름과 같은 세리프 J (32px · 180px) |
 | `js/projects-work.js` | **프로젝트 내용 (회사 · 공모전 · 개인)** — 책장 앞쪽. 글 · 캡처 설명은 여기서 고칩니다 |
 | `js/projects-school.js` | **프로젝트 내용 (학교)** — 책장 뒤쪽. 여기 있는 책은 표지에 SCHOOL, 상세에 '학교 프로젝트' 표시가 붙습니다 |
 | `js/projects.js` | 두 파일을 합쳐 `PROJECTS` 로 내보냄 (개인 → 학교 순) |
