@@ -26,6 +26,10 @@
   letter-spacing: .1em; color: var(--muted);
 }
 .detail-eyebrow span { width: 12px; height: 16px; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.detail-tag {
+  margin-left: 6px; padding: 3px 9px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
+  font-style: normal; letter-spacing: .02em; color: rgba(255,255,255,.78);
+}
 .detail-title { margin-top: 22px; font: 400 clamp(56px, 8vw, 120px)/1 var(--serif); letter-spacing: -.025em; }
 .detail-sub { margin-top: 14px; color: var(--muted); font-size: 15px; }
 .detail-lead { margin-top: 40px; max-width: 34em; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; letter-spacing: -.01em; word-break: keep-all; }

@@ -148,6 +148,7 @@ export function drawProjectCover(project, index, renderer) {
   c.font = `500 24px ${SANS}`; c.letterSpacing = '6px';
   c.fillText(String(index + 1).padStart(2, '0'), 70, 110);
   c.textAlign = 'right'; c.fillText(project.year.split(' ')[0], W - 70, 110);
+  if (project.school) { c.globalAlpha = 0.6; c.font = `500 18px ${SANS}`; c.fillText('SCHOOL', W - 70, 146); c.globalAlpha = 1; c.font = `500 24px ${SANS}`; }
   c.textAlign = 'left';
 
   c.fillRect(70, 136, 60, 3);

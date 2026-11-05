@@ -43,7 +43,7 @@ function projectHtml(project) {
   const points = project.points.map((p) => `<li>${escapeHtml(p)}</li>`).join('');
   return `
     <header class="detail-head">
-      <p class="detail-eyebrow"><span style="background:${project.color}"></span>${number} / ${PROJECTS.length}</p>
+      <p class="detail-eyebrow"><span style="background:${project.color}"></span>${number} / ${PROJECTS.length}${project.school ? '<em class="detail-tag">학교 프로젝트</em>' : ''}</p>
       <h2 id="panel-title" class="detail-title">${escapeHtml(project.title)}</h2>
       <p class="detail-sub">${escapeHtml(project.sub)}</p>
       <p class="detail-lead">${escapeHtml(project.oneLine)}</p>

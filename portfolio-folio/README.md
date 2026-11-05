@@ -23,7 +23,9 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `styles.css` | 레이아웃, 메뉴, 연락처, 휴대폰(≤760px), 움직임 줄이기 설정 |
 | `detail.css` | 책을 누르면 열리는 전체 화면 상세 페이지 |
 | `images/` | 프로젝트 캡처 (`images/README.md` 참고) |
-| `js/projects.js` | **프로젝트 내용** — 글을 고칠 때는 여기만 고치면 됩니다 |
+| `js/projects-work.js` | **프로젝트 내용 (회사 · 공모전 · 개인)** — 책장 앞쪽. 글 · 캡처 설명은 여기서 고칩니다 |
+| `js/projects-school.js` | **프로젝트 내용 (학교)** — 책장 뒤쪽. 여기 있는 책은 표지에 SCHOOL, 상세에 '학교 프로젝트' 표시가 붙습니다 |
+| `js/projects.js` | 두 파일을 합쳐 `PROJECTS` 로 내보냄 (개인 → 학교 순) |
 | `js/book-model.js` | 양장본 책 모양 — 앞 · 뒤 표지 판지(속지보다 살짝 큼) · 둥근 책등 · 안쪽으로 들어간 속지 |
 | `js/intro-entry.js` | 인트로 시작점 — 3D 를 기다리지 않고 가장 먼저 인트로를 시작(그 전엔 index.html 의 종이색 가림막) |
 | `js/blueprint-intro.js` | 첫 접속 청사진 인트로 본체 — 스케치 → 약 1.7초 잉크 번짐(흰 선이 튕기듯 펴짐) → 치수 · 라벨 → 1.5초 멈춤 → 사이트 |
@@ -45,5 +47,5 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `js/main.js` | 시작점 — 위 모듈을 묶고 클릭 · 매 프레임 갱신 |
 
 ## 프로젝트 추가 · 순서 바꾸기
-`js/projects.js` 의 `PROJECTS` 배열 순서가 책 순서(앞 → 뒤)입니다.
+`js/projects-work.js` → `js/projects-school.js` 의 배열 순서가 책 순서(앞 → 뒤)입니다.
 책은 프로젝트 수만큼만 놓입니다(표지 없는 장식 책 없음). 권수가 바뀌어도 책 간격은 자동으로 맞춰집니다.
