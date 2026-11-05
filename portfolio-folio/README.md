@@ -26,6 +26,7 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `js/projects-work.js` | **프로젝트 내용 (회사 · 공모전 · 개인)** — 책장 앞쪽. 글 · 캡처 설명은 여기서 고칩니다 |
 | `js/projects-school.js` | **프로젝트 내용 (학교)** — 책장 뒤쪽. 여기 있는 책은 표지에 SCHOOL, 상세에 '학교 프로젝트' 표시가 붙습니다 |
 | `js/projects.js` | 두 파일을 합쳐 `PROJECTS` 로 내보냄 (개인 → 학교 순) |
+| `js/project-retros.js` | **돌아보기 글** — 프로젝트 id 별 아쉬운 점 · 배운 점 · 다음엔. 없으면 상세 화면에 한 줄 요약(insight)만 나옴 |
 | `js/book-model.js` | 양장본 책 모양 — 앞 · 뒤 표지 판지(속지보다 살짝 큼) · 둥근 책등 · 안쪽으로 들어간 속지 |
 | `js/intro-entry.js` | 인트로 시작점 — 3D 를 기다리지 않고 가장 먼저 인트로를 시작(그 전엔 index.html 의 종이색 가림막) |
 | `js/blueprint-intro.js` | 첫 접속 청사진 인트로 본체 — 스케치 → 약 1.7초 잉크 번짐(흰 선이 튕기듯 펴짐) → 치수 · 라벨 → 1.5초 멈춤 → 사이트 |

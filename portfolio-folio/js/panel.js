@@ -1,7 +1,9 @@
 // 상세 화면 — 책을 누르면 화면 전체를 덮는 프로젝트 페이지가 올라온다.
 import { PROJECTS } from './projects.js';
+import { RETROS } from './project-retros.js';
 
 const SHOT_COUNT = 3; // 프로젝트마다 기본 캡처 자리 수 (shots 를 따로 적으면 그 수만큼)
+const RETRO_LABELS = [['miss', '아쉬운 점'], ['learned', '배운 점'], ['next', '다음엔']];
 
 const panel = document.querySelector('.panel');
 const body = panel.querySelector('.panel-body');
@@ -38,6 +40,14 @@ function metaHtml(project) {
     </dl>`;
 }
 
+// 돌아보기 — project-retros.js 에 글이 있는 프로젝트만 아쉬운 점 · 배운 점 · 다음엔을 붙인다
+function retroHtml(project) {
+  const retro = RETROS[project.id];
+  if (!retro) return '';
+  const items = RETRO_LABELS.map(([key, label]) => `<div><dt>${label}</dt><dd>${escapeHtml(retro[key])}</dd></div>`).join('');
+  return `<dl class="detail-retro">${items}</dl>`;
+}
+
 function projectHtml(project) {
   const number = String(PROJECTS.indexOf(project) + 1).padStart(2, '0');
   const points = project.points.map((p) => `<li>${escapeHtml(p)}</li>`).join('');
@@ -52,7 +62,7 @@ function projectHtml(project) {
     <section class="detail-shots" aria-label="작업 화면">${shotsOf(project).map((s) => shotHtml(project, s)).join('')}</section>
     <section class="detail-notes">
       <div><h3>한 일</h3><ul>${points}</ul></div>
-      <div><h3>배운 것</h3><blockquote>${escapeHtml(project.insight)}</blockquote></div>
+      <div><h3>돌아보기</h3><blockquote>${escapeHtml(project.insight)}</blockquote>${retroHtml(project)}</div>
     </section>
     <nav class="detail-steps" aria-label="다른 프로젝트">
       <button type="button" data-step="-1">← 이전 프로젝트</button>

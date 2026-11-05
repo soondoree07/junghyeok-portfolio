@@ -60,6 +60,10 @@
 .detail-notes li { position: relative; padding-left: 16px; font-size: 16px; line-height: 1.65; word-break: keep-all; }
 .detail-notes li::before { content: ""; position: absolute; left: 0; top: .78em; width: 6px; height: 1px; background: var(--muted); }
 .detail-notes blockquote { margin-top: 16px; font: 400 26px/1.45 var(--serif); font-family: var(--serif), "Pretendard Variable", serif; letter-spacing: -.01em; word-break: keep-all; }
+.detail-retro { margin-top: 36px; display: grid; gap: 26px; }
+.detail-retro > div { padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); }
+.detail-retro dt { font: 500 12px var(--sans); letter-spacing: .06em; color: var(--muted); }
+.detail-retro dd { margin-top: 10px; font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.86); word-break: keep-all; }
 
 .detail-steps { display: flex; justify-content: space-between; margin-top: 96px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); }
 .detail-steps button {
