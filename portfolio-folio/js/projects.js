@@ -161,4 +161,20 @@ export const PROJECTS = [
     points: ['입양 탐색 → 결정 → 소통 흐름 설계', '한국어 · 영어 두 언어 지원 — 해외 입양까지 고려', 'AI 를 전혀 쓰지 않고 직접 기획 · 디자인한 사이트'],
     insight: '신뢰는 정보의 양보다 정보가 놓인 순서에서 생겨요.',
   },
+  {
+    id: 'nurikorea', title: 'NuriKorea', sub: 'Korea Travel Planner · 관광데이터 공모전', year: '2026 · 본선 진출',
+    color: '#2f5bea', ink: '#ffffff', accent: '#9fe8c8', motif: 'pin',
+    oneLine: '외국인 여행자가 한국 여행을 계획부터 도착 후까지 한 앱에서 준비하는 여행 플래너예요.',
+    role: '기획 25% · 디자인 80%',
+    points: ['관광데이터 공모전 예선 통과 · 본선 진출', '여행 단계(계획 중 · 예약 완료 · 한국 도착)에 따라 홈 화면 우선순위가 바뀌는 구조', '4개 언어 지원, 도착 후 첫 60분 가이드'],
+    insight: '여행 준비를 체크리스트와 진행률로 쪼개니, 게임 퀘스트처럼 끝까지 따라가게 됐어요.',
+  },
+  {
+    id: 'capstone', title: 'One App, Endless Play', sub: 'Capstone · 4 Mobile Games', year: '2025 – 2026',
+    color: '#6b4cf6', ink: '#ffffff', accent: '#ffd84a', motif: 'play',
+    oneLine: '장르가 다른 모바일 게임 네 개를 한 앱 안에서 자유롭게 오가며 즐기게 묶은 캡스톤 프로젝트예요.',
+    role: 'Tap Blast 기획 30% · 디자인 100% / Slime Dash 3D 디자인 50% / Chrono Cat 기획 50% · 디자인 100%',
+    points: ['러닝 액션 · 물리 퍼즐 · 탑다운 아케이드 · 웨이브 슈팅, 네 장르를 한 진입점으로 연결', '"Play. Switch. Repeat." — 가볍게 시작하고, 바꿔서 즐기고, 다시 돌아오는 구조', 'Unity 6 · Android, 5인 팀 HyHyper'],
+    insight: '장르가 달라도 "짧게 시작해서 다시 돌아오게" 만드는 루프는 같았어요.',
+  },
 ];

@@ -70,7 +70,7 @@ export const DIMENSIONS = [
   {
     id: 'width', extensions: [`M${LEFT} ${TOP + 100} V${TOP - 62}`, `M${RIGHT} ${TOP + 100} V${TOP - 62}`],
     from: { x: LEFT, y: TOP - 48 }, to: { x: RIGHT, y: TOP - 48 },
-    text: { x: CENTER.x, y: TOP - 62, anchor: 'middle', count: 15, suffix: ' PROJECTS' },
+    text: { x: CENTER.x, y: TOP - 62, anchor: 'middle', count: 17, suffix: ' PROJECTS' },
   },
   {
     id: 'height', extensions: [`M${1010} ${TOP} H${RIGHT + 82}`, `M${1060} ${GRIP_BOTTOM} H${RIGHT + 82}`],

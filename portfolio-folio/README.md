@@ -28,7 +28,7 @@ python3 dev-server.py   # 이 폴더에서 실행 → http://localhost:4321 (브
 | `js/intro-entry.js` | 인트로 시작점 — 3D 를 기다리지 않고 가장 먼저 인트로를 시작(그 전엔 index.html 의 종이색 가림막) |
 | `js/blueprint-intro.js` | 첫 접속 청사진 인트로 본체 — 스케치 → 약 1.7초 잉크 번짐(흰 선이 튕기듯 펴짐) → 치수 · 라벨 → 1.5초 멈춤 → 사이트 |
 | `js/blueprint-timing.js` | 인트로 시간표와 공용 움직임 도구 |
-| `js/blueprint-annotations.js` | 인트로 치수(15 PROJECTS · 2025 – 2026) · 라벨(PARK JUNGHYEOK PORTFOLIO) |
+| `js/blueprint-annotations.js` | 인트로 치수(17 PROJECTS · 2025 – 2026) · 라벨(PARK JUNGHYEOK PORTFOLIO) |
 | `js/blueprint-svg.js` | 인트로 SVG 만들기 — 종이 · 격자 · 결, 잉크 마스크, 스케치 · 도면 층 |
 | `js/blueprint-drawing.js` | 인트로 그림 데이터 — 위에서 본 게임 컨트롤러(몸통 곡선 · 십자키 · 버튼 · 스틱), 치수 · 라벨 |
 | `js/blueprint-sketch.js` | 인트로 연필 스케치 — 그림 데이터를 손 선(겹침 · 넘침 · 흔들림)으로 |

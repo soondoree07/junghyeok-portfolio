@@ -96,6 +96,21 @@ const MOTIFS = {
     c.beginPath(); c.moveTo(194, 560); c.lineTo(574, 560); c.moveTo(W / 2, 400); c.lineTo(300, 560); c.lineTo(W / 2, 800);
     c.moveTo(W / 2, 400); c.lineTo(468, 560); c.lineTo(W / 2, 800); c.stroke();
   },
+  pin(c, p) {
+    // 지도 핀 — 위는 둥글고 아래는 뾰족, 가운데 구멍
+    c.fillStyle = p.accent;
+    c.beginPath(); c.arc(W / 2, 520, 150, Math.PI * 0.82, Math.PI * 0.18); c.lineTo(W / 2, 820); c.closePath(); c.fill();
+    c.fillStyle = p.color; disc(c, W / 2, 520, 58);
+  },
+  play(c, p) {
+    // 재생 삼각형을 감싸는 돌아오는 화살표 — Play. Switch. Repeat.
+    c.strokeStyle = p.accent; c.lineWidth = 16; c.lineCap = 'round';
+    c.beginPath(); c.arc(W / 2, 590, 210, -Math.PI * 0.35, Math.PI * 1.45); c.stroke();
+    c.fillStyle = p.accent;
+    c.beginPath(); c.moveTo(500, 370); c.lineTo(560, 430); c.lineTo(470, 450); c.fill();
+    c.fillStyle = p.ink;
+    c.beginPath(); c.moveTo(330, 490); c.lineTo(480, 590); c.lineTo(330, 690); c.closePath(); c.fill();
+  },
   terminal(c, p) {
     c.font = `500 30px ui-monospace, Menlo, monospace`; c.fillStyle = p.accent;
     ['$ claude', '> connected', '> tunnel ok', '> pm2 online', '_'].forEach((t, i) => c.fillText(t, 150, 450 + i * 64));
