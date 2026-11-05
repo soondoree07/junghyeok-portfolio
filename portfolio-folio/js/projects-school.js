@@ -38,6 +38,7 @@ export const SCHOOL_PROJECTS = [
     insight: '점이 아니라 선을 추천하면, 사용자의 하루 전체를 설계하게 돼요.',
     shots: [
       { file: '1.png', caption: '메인 지도 · 그룹 경로 · 마이 패스 — 점이 아니라 선으로 추천해요' },
+      { file: '2.png', caption: '시작 화면 · 프리미엄 — 광고 제거 · AI 경로 추천 · 해외 이용을 묶은 구독' },
     ],
   },
   {
