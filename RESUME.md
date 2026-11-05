@@ -1,41 +1,31 @@
-# 진행 상황 (2026-11-04 KST 저녁 기준 — 포트폴리오 캡처)
+# 진행 상황 (2026-11-05 KST 기준 — 포트폴리오 캡처 · 돌아보기 완료)
 
 ## 한 줄
-**portfolio-folio 상세 화면에 운영 중인 사이트 7개 캡처를 넣었고(push 완료), 피그마 7개와 대시보드 캡처는 대기 폴더에 모아 두기만 했다.** 사용자 지시: 아직 적용하지 말 것. 다음 = 사용자가 대기 캡처 확인 → 없는 것 추가 → 적용.
+**junghyeok.com 3D 책장 포트폴리오가 17권 · 캡처 · 돌아보기까지 다 들어갔다.** 남은 건 시간이 지나야 할 수 있는 갱신 3개뿐.
 
-## 오늘 완료한 것
-- 사이트 7개 캡처 + 설명(`shots`) 적용: J.Bae · 크몽 템플릿(서비스 페이지 · 고흐 데모 · 무드 견본) · 모아툴 · 두토(스토어 화면 4장 묶음 1장) · 메이플 보스(닉네임 · 수익 노출은 사용자 OK) · pokenova(포켓몬 · 기술 · 아이템 도감) · pochams — 커밋 96e4f2b
-- pokenova 소개에서 퀴즈 · 오늘의 포켓몬 문구 삭제(퀴즈는 사용자가 사이트에서 막음), 부제 `Pokédex Platform` — 커밋 fe32299
-- 대기 폴더 `~/portfolio-captures-staging/` (레포 밖, 아직 미적용):
-  - `zellopang` 수정본 6 폰 화면 8장 → 묶음 3장(가입 흐름 · 홈+미션 · 쿠폰+출금)
-  - `donidwaeji` 보드: 전체 · IA 2종 · 참여 미션 · 출석 룰렛 · 럭키 박스 흐름도
-  - `ohouse` 디자인 파일 발표 8장 / `ohouse2` 슬라이드 18장 전부 + 미리보기
-  - `encore` 앱 화면 · 공연 카드 (Margin 프레임은 검은 화면이라 뺌)
-  - `lopa` 구역 단위 5장 / `hopetail` 웹 화면 5장
-  - `dashboard` 의존성 그래프 · 첫 화면(히스토리 흐리게 가림) · 터미널(테스트 세션)
+## 오늘 완료한 것 (전부 push)
+- 책 2권 추가: **NuriKorea**(관광데이터 공모전 본선 진출, 기획 25% · 디자인 80%) · **One App, Endless Play**(캡스톤 게임 4종 중 Tap Blast · Slime Dash 3D · Chrono Cat, Sword Rush 는 미참여라 제외) → 17권, 인트로 17 PROJECTS
+- 남은 프로젝트 캡처 전부 적용 — 추천 캡처를 **16:10(2560x1600) 검정 바탕 틀**로 다시 짜서 사이트엔 1800x1125(700KB 넘으면 jpg). 가로로 긴 건 화면 나누기 · 3장 고르기, 세로로 긴 건 나란히 · 윗부분만
+- 대시보드는 새 모노 미니멀 UI 로 다시 찍음(첫 화면 기록은 흐리게) · LOPA 프리미엄 화면 오타 Preimium 2곳 그라데이션 위에 다시 써서 넣음
+- **학교 프로젝트를 책장 뒤로** + 표지 SCHOOL · 상세 '학교 프로젝트' 표시. 데이터를 `js/projects-work.js`(회사 · 공모전 · 개인) / `js/projects-school.js`(학교)로 나눔
+- 상세 '배운 것' → **돌아보기(아쉬운 점 · 배운 점 · 다음엔)** 16개 — 사용자 답변으로 작성, `js/project-retros.js`. 크몽은 의뢰 전이라 한 줄 요약만
+- 소개 · 요약 · 돌아보기 82칸을 humanize-korean **정밀 모드**로 다듬어 38칸 적용 · 모아툴 돌아보기에 방문 · 검색 통계(하루 평균 페이지뷰 약 2.4배 — 사용자 메모의 '4배'는 기간이 달라 바로잡음)
+- 사이트 아이콘 = 큰 이름과 같은 세리프 **J**(검정 바탕, `favicon.png` 32 · `apple-touch-icon.png` 180)
 
-## 아직 못 얻은 것 / 결정 대기
-- **Smart Highway**: 피그마 링크 없음 — 15개 중 유일하게 캡처 0
-- **NURIKOREA**(관광데이터 공모전): 자료 위치 모름, 포트폴리오에 책도 없음 → 새 프로젝트로 추가 필요
-- **캡스톤 게임 4개** (`C:\Users\박정혁\Desktop\기타\4-1\캡스톤`): 게임마다 기여 비율을 사용자가 알려 주기로 함, 그 전엔 손대지 않음
-- 아쉬운 것: 오늘의집 프로토타입 슬라이드(15~17) 폰 자리가 비어 있음 · LOPA 는 구역째라 빨간 테두리 보임(폰만 다시 찍기 가능) · 대시보드 터미널 화면이 약함
-- 피그마 링크(다시 찍을 때): hopetail `jNf3T3X1YEX69vrjUuuJ8i`(KOR 페이지 306:5147) · LOPA `tn8hmTSz2oeWTUVKOz2y7a` · 돈이돼지 보드 `8h9or6MSOdCsNIbbMZJpp6` · 오늘의집 `8cnXbgBnASHUZbWqxttnqu` · 오늘의집 슬라이드 `l0QYKZm3cP7gysKklHK4X3`(메타데이터 안 됨 → 0:1 원본 크기로 찍어 2160px 간격으로 자름) · ENCORE `DMDABBglbKRGg2IDTklBdz` · 젤로팡 `9FCDH1LcZIADIGW6Xus3JC` 수정본 6 = 646:1642
-- 피그마 파일은 사용자가 열어 둘 필요 없음(링크만 있으면 됨)
+## 결정 대기 / 나중에 할 것
+1. **모아툴 (11/20~26 뒤)**: 검색 제목 고친 효과 확인 → 돌아보기 "다음엔" 첫 문장을 결과로 바꾸기
+2. **NuriKorea**: 공모전 결과 나오면 year '2026 · 본선 진출' · 포인트 문구 고치기 (운영 측 공지 꼬여 발표 여부 불명)
+3. **크몽**: 첫 의뢰 뒤 돌아보기 쓰기
+4. (옛 항목) CONTACT 제목 · About 메뉴 · 공부 사이트 링크 결정
 
-## 다음 액션
-1. 사용자가 `~/portfolio-captures-staging/` 확인 → 고를 것 · 다시 찍을 것 정하기
-2. Smart Highway 피그마 링크 · NURIKOREA 자료 받아 캡처
-3. 캡스톤 게임 4개 — 비율 받은 뒤 프로젝트 추가
-4. 확정되면 `images/<id>/` 로 옮기고 `shots` 설명 적기 → push
-5. (이전 항목) CONTACT 제목 · About 메뉴 · 공부 사이트 링크 · 파비콘 결정
+## 메모
+- 대기 폴더 `~/portfolio-captures-staging/<id>/추천캡쳐 · 캡쳐` + `추천목록.txt`. 솔직한 돌아보기 원문은 `~/portfolio-captures-staging/돌아보기_초안.md`(레포 밖 — 팀원 이야기 원문이라 올리지 않음)
+- 공개 글은 humanize-korean 으로 다듬고 전/후 표 보여 준 뒤 적용(카드 여러 개면 정밀 모드, 6천 자면 --chunk 금지)
+- 캡처 방법: Playwright `~/.npm/_npx/705bc6b22212b352/node_modules/playwright`. 대시보드 로그인 = 스크래치패드에 `make-dash-token.cjs`(claude-dashboard `.env.local` 로 next-auth encode, 1시간) → `__Secure-next-auth.session-token` 쿠키. 터미널 화면은 deviceScaleFactor 1 로 찍어야 글자가 안 깨짐. 끝나면 토큰 · `zz-` 세션 삭제
+- 로컬 미리보기: `portfolio-folio/` 에서 `python3 dev-server.py` → localhost:4321, sessionStorage `folio-blueprint-seen=1` 이면 인트로 건너뜀
 
-## 캡처 방법 메모
-- 사이트: Playwright `~/.npm/_npx/705bc6b22212b352/node_modules/playwright`(1.63, 받아 둔 크로미움 1243 과 맞음)
-- 메이플 보스: localStorage `maple-site-unlocked=1` + `maple-scheduler-sync-at=지금` 넣고 `/api/scheduler-sync` 차단 → 실제 DB 자동 가져오기 안 돎
-- 대시보드: 토큰 생성은 권한 검사에 막힘 → 사용자가 `! node <스크래치패드>/make-dash-token.cjs` 실행(1시간 토큰), 끝나면 토큰 삭제 · `zz-` 테스트 세션 종료
-
-## 이미 끝난 것
-- push 된 커밋: 96e4f2b · fe32299 (devlog b81a95d · b41c844)
+## push 된 커밋
+48e8e25 · e596918 · 08e4373 · c582330 · 5b489dc · d8e2d5b · 9b09c64 · 3b94afe (devlog 59e52d3 · ef4ea90 · 135309a · 48a7147 · 5c127bf · 8856cda · 150276c)
 
 ---
 
