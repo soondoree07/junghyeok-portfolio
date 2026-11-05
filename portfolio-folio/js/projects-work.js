@@ -49,6 +49,11 @@ export const WORK_PROJECTS = [
     role: '기획 · 개발 · 인프라 구성 (1인)',
     points: ['Next.js · xterm.js · WebSocket · node-pty', 'WSL · Cloudflare Tunnel · PM2', '여러 프로젝트를 탭으로 오가며 작업 기록을 남기는 구조'],
     insight: '내가 매일 쓰는 도구를 직접 만들면, 불편함이 곧 기획서가 돼요.',
+    shots: [
+      { file: '1.png', caption: '첫 화면 — 켜 둔 tmux 세션과 지난 대화 기록 (기록 내용은 흐리게 가렸어요)' },
+      { file: '2.png', caption: '터미널 — 밖에서도 집 PC 셸을 브라우저로 그대로 이어서 써요' },
+      { file: '3.png', caption: '의존성 그래프 — 프로젝트 19개의 파일 연결을 한눈에' },
+    ],
   },
   {
     id: 'jbae', title: 'J.Bae', sub: 'Artist Portfolio · Client', year: '2026',
