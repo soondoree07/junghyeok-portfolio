@@ -15,11 +15,11 @@ created: 2026-11-18
 = junghyeok-portfolio 에 하네스(검증 환경)를 붙여서, 이후 작업이 `verify-task` 8가지로 검사되게 한다. 사이트 동작은 바꾸지 않는다.
 
 ## 완료 기준
-- [ ] `harness.json` · 프로젝트 `CLAUDE.md`(기존 내용 합침) · `ARCHITECTURE.md` · `docs/exec-plans/tech-debt-tracker.md` 가 있다
-- [ ] `verify-task` 8가지가 모두 통과한다
-- [ ] Vitest 단위 테스트가 공부 사이트 순수 계산(날짜 · 채점 · 기록 검사)과 책장 데이터(id · 캡처 파일)를 잡는다
-- [ ] Playwright E2E 가 책장(junghyeok.com)과 공부 사이트의 주요 화면을 PC · 390px 로 열고 콘솔 오류 · 가로 스크롤이 없음을 본다. 바깥 주소는 막고, 구글 로그인 · Upstash 에 닿지 않는다
-- [ ] 100줄 넘는 파일 기준선 · 첫 검사 결과를 tech-debt-tracker 에 적는다
+- [x] `harness.json` · 프로젝트 `CLAUDE.md`(기존 내용 합침) · `ARCHITECTURE.md` · `docs/exec-plans/tech-debt-tracker.md` 가 있다
+- [x] `verify-task` 8가지가 모두 통과한다
+- [x] Vitest 단위 테스트가 공부 사이트 순수 계산(날짜 · 채점 · 기록 검사)과 책장 데이터(id · 캡처 파일)를 잡는다
+- [x] Playwright E2E 가 책장(junghyeok.com)과 공부 사이트의 주요 화면을 PC · 390px 로 열고 콘솔 오류 · 가로 스크롤이 없음을 본다. 바깥 주소는 막고, 구글 로그인 · Upstash 에 닿지 않는다
+- [x] 100줄 넘는 파일 기준선 · 첫 검사 결과를 tech-debt-tracker 에 적는다
 
 ## 접근법
 - 저장소 하나에 앱이 여럿이라 harness.json 하나로 다 덮지 못한다. 배포 중인 두 앱을 중심으로 묶는다
@@ -49,5 +49,9 @@ created: 2026-11-18
 - 2026-11-18 · 합치기 레벨 L3 예상(배포 중인 프로젝트 · 의존성 추가) → 정혁님 확인 뒤 합침
 
 ## 오류 기록
+- 2026-11-18 · 작업 중 세션이 끊김 → worktree 상태(커밋 전 파일 전부 남아 있음)를 확인하고 그 자리부터 이어감. 검사 실패는 없었다
 
 ## 검증 결과
+- 첫 전체 검사(하네스 붙이기 전): 린트 통과 · 빌드 통과 · 비밀값 0 · git 기록 속 키 0 · .env 커밋 기록 0 · 레이어 위반 0 · 100줄 넘는 파일 36개
+- verify-task 1회차 통과 (커밋 0f385e3): 단위 20개 · E2E 22개(책장 4 · 공부 사이트 18) · 화면 캡처 6페이지 x PC · 폰
+- 리포트: `logs/1118-harness-p006/verify-report.md`
