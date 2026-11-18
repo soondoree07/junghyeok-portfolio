@@ -4,7 +4,7 @@ project: P006
 type: 설정
 branch: claude/1118-harness-p006
 port: 4105
-status: 진행 중
+status: 완료
 created: 2026-11-18
 ---
 
