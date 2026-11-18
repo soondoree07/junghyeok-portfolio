@@ -9,3 +9,8 @@ dist-ssr
 *.tsbuildinfo
 *:Zone.Identifier
 .vercel
+
+# 하네스 검증 로그
+logs/
+test-results/
+playwright-report/

@@ -1,0 +1,15 @@
+{
+  "stack": "vite-react",
+  "test": "npx vitest run",
+  "test_quick": "npx vitest run --changed",
+  "lint": "npm --prefix portfolio-editorial run lint",
+  "build": "npm --prefix portfolio-editorial run build",
+  "dev": "npm --prefix portfolio-editorial run dev -- --port {port} --strictPort",
+  "pages": ["/", "/#/work", "/#/roadmap", "/#/study", "/#/study/log", "/#/study/lesson/excel/1"],
+  "dark": false,
+  "layers": [["types", "types.ts"], ["helpers", "data", "data.ts"], ["study"], ["hooks"], ["components"], ["App", "App.tsx", "main.tsx"]],
+  "src": "portfolio-editorial/src",
+  "deploy": "vercel",
+  "e2e": "npm run e2e",
+  "auth": "로그인 필요 페이지는 캡처 못 함. 공부 사이트 기록 편집은 구글 로그인(배포판 api/)이 있어야 해서 화면 검사 · E2E 는 로그인 없이 보는 화면만 본다. 로컬 dev 는 api/ 가 없어 '로컬 개발 모드'(브라우저 저장)로 뜨고, E2E 는 /api/ 요청을 끊어 Upstash · 구글에 닿지 않는다"
+}
